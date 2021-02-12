@@ -110,16 +110,19 @@
 
 .social-media-wrap {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 90%;
   max-width: 1000px;
-  margin: 40px auto 0 auto;
+  flex-direction: column;
+  margin: 30px auto 0px auto;
+  flex-flow: column-reverse;
 }
 
 .social-icons {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 35px;
   align-items: center;
   width: 240px;
 }
