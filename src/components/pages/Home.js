@@ -1,14 +1,13 @@
 import React from 'react'
 import '../../App.css'
-import Cards from '../Cards';
-import Footer from '../Footer';
-import HomeSection from '../HomeSection.js'
+import VideoSection from '../videosection/VideoSection.js'
+import YearSection from '../yearsSection/YearSection';
 
 function Home() {
     return (
         <>
-            <HomeSection></HomeSection>
-            <Cards></Cards>
+            <VideoSection></VideoSection>
+            <YearSection></YearSection>
         </>
     )
 }

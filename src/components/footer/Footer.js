@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.css';
-import { Button } from './Button';
 import { Link } from 'react-router-dom';
+import { Button } from '../buttons/Button';
 
 function Footer() {
   return (

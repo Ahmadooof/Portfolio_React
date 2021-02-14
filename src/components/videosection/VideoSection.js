@@ -1,7 +1,5 @@
 import React from 'react'
-import { Button } from './Button'
-import './HomeSection.css'
-import '../App.css'
+import './VideoSection.css'
 
 function HeroSection() {
     return (
