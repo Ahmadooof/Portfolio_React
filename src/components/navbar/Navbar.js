@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import './Navbar.css'
 
 function Navbar() {
-
     const [click, setClick] = useState(false);
     const [, setButton] = useState(true);
 
@@ -21,7 +20,6 @@ function Navbar() {
             showButton()
         }, []
     )
-
     window.addEventListener('resize', showButton)
 
     return (

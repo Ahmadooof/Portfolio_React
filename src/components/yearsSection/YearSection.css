@@ -9,7 +9,6 @@
 
 .year-container {
   display: flex;
-  height: 100vh;
 }
 
 .menu-container {
@@ -21,7 +20,6 @@
   color: #000000;
   padding: 3rem 3rem 3rem 3rem;
   margin: 2rem 3rem;
-  overflow: auto;
 }
 
 .mainMenu {
@@ -31,20 +29,20 @@
   overflow: hidden;
   position: sticky;
   top: 27vh;
-  height: 21vh;
+  height: 27vh;
 }
 .item {
   border-top: 1px solid #ef584a;
   overflow: hidden;
 }
-.btn {
+.btn-side-nav {
   display: block;
   padding: 15px 20px;
   background-color: #ff6f61;
   color: #fff;
   position: relative;
 }
-.btn:before {
+.btn-side-nav:before {
   content: "";
   position: absolute;
   width: 0;
@@ -56,7 +54,7 @@
   bottom: -10px;
   z-index: 9;
 }
-.btn i {
+.btn-side-nav i {
   margin-right: 10px;
 }
 .subMenu {
@@ -158,3 +156,7 @@
   }
 }
 
+.year-header {
+  padding-top: 4em;
+  /* margin-top: 80px; */
+}
