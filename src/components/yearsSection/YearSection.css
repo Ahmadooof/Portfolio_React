@@ -1,10 +1,13 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "lato";
   list-style: none;
   text-decoration: none;
   box-sizing: border-box;
+}
+
+p {
+  text-align: left;
 }
 
 .year-container {
@@ -21,6 +24,9 @@
   padding: 3rem 3rem 3rem 3rem;
   margin: 2rem 3rem;
   font-size: small;
+  font-family: 'Indie Flower', cursive;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 1px;
 }
 
 .mainMenu {
@@ -143,11 +149,26 @@
   max-height: 10em;
 }
 
-.year-header::after {
+/* .year-header::after {
   content: " ";
   display: block;
   border-bottom: 1px solid #ececec;
-  padding-top: 44px;
+  padding-top: 165px;
+  margin-bottom: 40px;
+} */
+
+.year-header-after {
+  content: " ";
+  display: block;
+  border-bottom: 1px solid #ececec;
+  padding-top: 10vw;
+  margin-bottom: 10vw;
+}
+
+.year-header-before {
+  content: " ";
+  display: block;
+  padding-top: 80px;
   margin-bottom: 40px;
 }
 
@@ -159,6 +180,15 @@
 }
 
 .year-header {
-  padding-top: 4em;
-  /* margin-top: 80px; */
+    /* padding: 1rem; */
+    /* margin-top: 80px; */
+    background-color: #3e626ecc;
+    color: white;
+    /* margin: 0; */
+    /* text-decoration: none; */
+    font-size: medium;
+    font-family: cursive;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 1rem;
 }
