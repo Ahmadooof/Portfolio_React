@@ -20,16 +20,17 @@
   color: #000000;
   padding: 3rem 3rem 3rem 3rem;
   margin: 2rem 3rem;
+  font-size: small;
 }
 
 .mainMenu {
-  width: 250px;
+  width: 165px;
   display: block;
   border-radius: 10px;
   overflow: hidden;
   position: sticky;
   top: 27vh;
-  height: 27vh;
+  font-size: large;
 }
 .item {
   border-top: 1px solid #ef584a;
@@ -41,6 +42,7 @@
   background-color: #ff6f61;
   color: #fff;
   position: relative;
+  text-align: center;
 }
 .btn-side-nav:before {
   content: "";

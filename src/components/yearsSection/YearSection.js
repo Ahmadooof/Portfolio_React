@@ -31,22 +31,22 @@ function YearSection() {
                             <a href="#content-2021" class="btn-side-nav"><i class="fas fa-user-circle"></i>2021</a>
                         </li>
                         <li class="item">
-                            <a href="#content-2020" class="btn-side-nav"><i class="fas fa-address-card"></i>2020</a>
+                            <a href="#content-2020" class="btn-side-nav"><i class="fas fa-graduation-cap"></i>2020</a>
                         </li>
                         <li class="item">
                             <a href="#content-2019" class="btn-side-nav"><i class="fas fa-info"></i>2019</a>
                         </li>
                         <li class="item">
-                            <a href="#content-2018" class="btn-side-nav"><i class="fas fa-sign-out-alt"></i>2018</a>
+                            <a href="#content-2018" class="btn-side-nav"><i class="fas fa-book-open"></i>2018</a>
                         </li>
                         <li class="item">
                             <a href="#content-2017" class="btn-side-nav"><i class="fas fa-sign-out-alt"></i>2017</a>
                         </li>
                         <li class="item">
-                            <a href="#content-2016" class="btn-side-nav"><i class="fas fa-sign-out-alt"></i>2016</a>
+                            <a href="#content-2016" class="btn-side-nav"><i class="fas fa-book-open"></i>2016</a>
                         </li>
                         <li class="item">
-                            <a href="#content-2015" class="btn-side-nav"><i class="fas fa-sign-out-alt"></i>2015</a>
+                            <a href="#content-2015" class="btn-side-nav"><i class="fas fa-plane-departure"></i>2015</a>
                         </li>
                     </ui>
                 </div>
