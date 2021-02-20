@@ -5,21 +5,20 @@ function YearSection() {
 
     // this code to generate random color on hover 
 
-    // const generateRandomColor = (event) => {
-    //     if (event.target.nodeName === 'I')
-    //         return
-    //     var red = Math.floor(Math.random() * 256);
-    //     var blue = Math.floor(Math.random() * 256);
-    //     var green = Math.floor(Math.random() * 256);
-    //     event.target.style.animation = 'scrollTop 0.5s alternate';
-    //     event.target.style.backgroundColor = "rgb(" + red + "," + green + "," + blue + ")";
-    // }
+    const generateRandomColor = (event) => {
+        const anchorTag = event.target.style
+        if (event.target.nodeName === 'I')
+            return
+        anchorTag.animation = 'scrollTop 0.5s alternate';
+        anchorTag.backgroundColor = "#3e626ecc";
+        anchorTag.color = "white";
+    }
 
     return (
         <>
             <div className="year-container">
                 <div className="menu-container">
-                    <ui className="mainMenu glow-on-hover">
+                    <ui className="mainMenu glow-on-hover" onClick={generateRandomColor}>
                         <li>
                             <a href="#content-2021">
                                 <i class="fas fa-notes-medical"></i>

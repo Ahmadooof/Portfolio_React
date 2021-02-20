@@ -10,12 +10,17 @@ p {
   text-align: left;
 }
 
+.fa,
+.fas,
+.fab {
+  margin-right: 19px;
+  font-weight: 500;
+}
 .year-container {
   display: flex;
 }
 
 .mainMenu {
-  padding: 1rem;
   position: sticky;
   top: 27vh;
   cursor: pointer;
@@ -25,6 +30,7 @@ p {
 
 .mainMenu li {
   background-color: white;
+  border-radius: 10px;
 }
 
 .mainMenu a {
