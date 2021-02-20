@@ -1,52 +1,48 @@
-import React, { useRef } from 'react'
-import './YearSection.css'
+import React from 'react'
+import './YearSection.scss'
 
 function YearSection() {
 
-    // const gotoCommentSection = () =>
-    //     window.scrollTo({
-    //         top: commentSection.current.offsetTop,
-    //         behavior: "smooth"
-    //     });
+    // this code to generate random color on hover 
+
+    // const generateRandomColor = (event) => {
+    //     if (event.target.nodeName === 'I')
+    //         return
+    //     var red = Math.floor(Math.random() * 256);
+    //     var blue = Math.floor(Math.random() * 256);
+    //     var green = Math.floor(Math.random() * 256);
+    //     event.target.style.animation = 'scrollTop 0.5s alternate';
+    //     event.target.style.backgroundColor = "rgb(" + red + "," + green + "," + blue + ")";
+    // }
 
     return (
         <>
-            {/* <div className='section'>
-                <div className='section-container'>
-                    <ul>
-                        <li ref={commentSection} onClick={gotoCommentSection}>
-                            <h1 className='year-heading'> 2020 </h1>
-                        </li>
-                        <li ref={commentSection} onClick={gotoCommentSection}>
-                            <h1> 2020</h1>
-                        </li>
-                        <li ref={commentSection} onClick={gotoCommentSection}>2019</li>
-                    </ul>
-                </div>
-            </div> */}
             <div className="year-container">
-                <div class="menu-container">
-                    <ui class="mainMenu">
-                        <li class="item">
-                            <a href="#content-2021" class="btn-side-nav"><i class="fas fa-notes-medical"></i>2021</a>
+                <div className="menu-container">
+                    <ui className="mainMenu glow-on-hover">
+                        <li>
+                            <a href="#content-2021">
+                                <i class="fas fa-notes-medical"></i>
+                            2021
+                            </a>
                         </li>
-                        <li class="item">
-                            <a href="#content-2020" class="btn-side-nav"><i class="fas fa-graduation-cap"></i>2020</a>
+                        <li>
+                            <a href="#content-2020"><i class="fas fa-graduation-cap"></i>2020</a>
                         </li>
-                        <li class="item">
-                            <a href="#content-2019" class="btn-side-nav"><i class="fas fa-book-open"></i>2019</a>
+                        <li>
+                            <a href="#content-2019"><i class="fas fa-book-open"></i>2019</a>
                         </li>
-                        <li class="item">
-                            <a href="#content-2018" class="btn-side-nav"><i class="fas fa-book-open"></i>2018</a>
+                        <li>
+                            <a href="#content-2018"><i class="fas fa-book-open"></i>2018</a>
                         </li>
-                        <li class="item">
-                            <a href="#content-2017" class="btn-side-nav"><i class="fab fa-js"></i>2017</a>
+                        <li>
+                            <a href="#content-2017"><i class="fab fa-js"></i>2017</a>
                         </li>
-                        <li class="item">
-                            <a href="#content-2016" class="btn-side-nav"><i class="fas fa-search"></i>2016</a>
+                        <li>
+                            <a href="#content-2016"><i class="fas fa-search"></i>2016</a>
                         </li>
-                        <li class="item">
-                            <a href="#content-2015" class="btn-side-nav"><i class="fas fa-plane-departure"></i>2015</a>
+                        <li>
+                            <a href="#content-2015"><i class="fas fa-plane-departure"></i>2015</a>
                         </li>
                     </ui>
                 </div>
