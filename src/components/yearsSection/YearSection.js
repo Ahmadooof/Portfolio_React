@@ -3,46 +3,40 @@ import './YearSection.scss'
 
 function YearSection() {
 
-    // this code to generate random color on hover 
-
-    const generateRandomColor = (event) => {
-        const anchorTag = event.target.style
-        if (event.target.nodeName === 'I')
+    // This method focus on click side nav button to change style
+    // Becuase of onFocus not working proberly, that's why I made that stupid method.
+    const focusOnClick = (e) => {
+        if (e.target.className === "mainMenu-onFocus")
             return
-        anchorTag.animation = 'scrollTop 0.5s alternate';
-        anchorTag.backgroundColor = "#3e626ecc";
-        anchorTag.color = "white";
+
+        // this row to convert children nodes to Array so we can use it within "foreach"
+        NodeList.prototype.forEach = Array.prototype.forEach
+
+        const UI = e.target.parentElement;
+        var UIChildren = UI.childNodes;
+        UIChildren.forEach((child) => {
+            if (child.className === "mainMenu-onFocus")
+                child.className = ""
+        });
+        e.target.className += "mainMenu-onFocus"
     }
 
     return (
         <>
             <div className="year-container">
                 <div className="menu-container">
-                    <ui className="mainMenu glow-on-hover" onClick={generateRandomColor}>
-                        <li>
-                            <a href="#content-2021">
-                                <i class="fas fa-notes-medical"></i>
+
+                    <ui className="mainMenu glow-on-hover" >
+                        <a href="#content-2021" onClick={focusOnClick}>
+                            <i class="fas fa-notes-medical"></i>
                             2021
                             </a>
-                        </li>
-                        <li>
-                            <a href="#content-2020"><i class="fas fa-graduation-cap"></i>2020</a>
-                        </li>
-                        <li>
-                            <a href="#content-2019"><i class="fas fa-book-open"></i>2019</a>
-                        </li>
-                        <li>
-                            <a href="#content-2018"><i class="fas fa-book-open"></i>2018</a>
-                        </li>
-                        <li>
-                            <a href="#content-2017"><i class="fab fa-js"></i>2017</a>
-                        </li>
-                        <li>
-                            <a href="#content-2016"><i class="fas fa-search"></i>2016</a>
-                        </li>
-                        <li>
-                            <a href="#content-2015"><i class="fas fa-plane-departure"></i>2015</a>
-                        </li>
+                        <a href="#content-2020" onClick={focusOnClick}><i class="fas fa-graduation-cap"></i>2020</a>
+                        <a href="#content-2019" onClick={focusOnClick}><i class="fas fa-book-open"></i>2019</a>
+                        <a href="#content-2018" onClick={focusOnClick}><i class="fas fa-book-open"></i>2018</a>
+                        <a href="#content-2017" onClick={focusOnClick}><i class="fab fa-js"></i>2017</a>
+                        <a href="#content-2016" onClick={focusOnClick}><i class="fas fa-search"></i>2016</a>
+                        <a href="#content-2015" onClick={focusOnClick}><i class="fas fa-plane-departure"></i>2015</a>
                     </ui>
                 </div>
                 <div className="content-container" id='content-2021'>

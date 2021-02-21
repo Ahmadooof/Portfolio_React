@@ -10,9 +10,9 @@ p {
   text-align: left;
 }
 
-.fa,
-.fas,
-.fab {
+a .fa,
+a .fas,
+a .fab {
   margin-right: 19px;
   font-weight: 500;
 }
@@ -41,6 +41,13 @@ p {
   align-content: center;
   align-items: center;
   justify-content: center;
+}
+
+.mainMenu-onFocus {
+  color: white !important;
+  background: #3e626ecc !important;
+  animation: scrollTop 0.5s alternate;
+  border-radius: 10px 10px 10px 10px;
 }
 
 .menu-container {
