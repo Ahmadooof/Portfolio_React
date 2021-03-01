@@ -113,7 +113,6 @@ function YearSection() {
                         </p>
                     </h1>
                     <div className="year-header-before"></div>
-
                 </div>
             </div>
         </>

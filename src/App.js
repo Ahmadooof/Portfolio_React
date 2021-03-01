@@ -8,11 +8,13 @@ import photos from './components/pages/photos';
 import Projects from './components/pages/Projects';
 import Footer from './components/footer/Footer';
 import ScrollToTop from './components/Scroll/ScrollToTop';
+import ScrollIndecatior from './components/Scroll/ScrollIndecatior';
 
 function App() {
   return (
     <>
       <ScrollToTop></ScrollToTop>
+      <ScrollIndecatior></ScrollIndecatior>
       <Router>
         <Navbar />
         <Switch>
