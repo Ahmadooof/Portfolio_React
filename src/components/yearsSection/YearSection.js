@@ -1,12 +1,19 @@
-import React from 'react'
+import { render } from '@testing-library/react'
+import React, { useRef } from 'react'
 import './YearSection.scss'
 
 function YearSection() {
 
+    const animationRef = useRef(null)
+
+    const functionEvents = (e) => {
+        focusOnClick(e)
+        paragraphAnimation(e)
+    }
+
     // This method focus on click side nav button to change style
     // Becuase of onFocus not working proberly, that's why I made that stupid method.
     const focusOnClick = (e) => {
-        console.log(e.target.parentElement.parentElement)
         if (e.target.className === "mainMenu-onFocus" || e.target.parentElement.className === "mainMenu-onFocus")
             return
 
@@ -29,32 +36,42 @@ function YearSection() {
             e.target.className += "mainMenu-onFocus"
     }
 
+    const paragraphAnimation = (e) => {
+        var children = animationRef.current.childNodes
+        children.forEach(child => {
+            if (child.className === "year-header onClickAnimate")
+                child.className = "year-header"
+            if (child.className === "year-header" && child.innerText.indexOf(e.target.innerText) === 0) {
+                child.className += " onClickAnimate"
+            }
+        });
+    }
     return (
         <>
             <div className="year-container">
                 <div className="menu-container">
                     <ui className="mainMenu glow-on-hover" >
-                        <a href="#content-2021" onClick={focusOnClick}>
+                        <a href="#content-2021" onClick={functionEvents}>
                             <i class="fas fa-notes-medical"></i>
                             2021
                             </a>
-                        <a href="#content-2020" onClick={focusOnClick}><i class="fas fa-graduation-cap"></i>2020</a>
-                        <a href="#content-2019" onClick={focusOnClick}><i class="fas fa-book-open"></i>2019</a>
-                        <a href="#content-2018" onClick={focusOnClick}><i class="fas fa-book-open"></i>2018</a>
-                        <a href="#content-2017" onClick={focusOnClick}><i class="fab fa-js"></i>2017</a>
-                        <a href="#content-2016" onClick={focusOnClick}><i class="fas fa-search"></i>2016</a>
-                        <a href="#content-2015" onClick={focusOnClick}><i class="fas fa-plane-departure"></i>2015</a>
+                        <a href="#content-2020" onClick={functionEvents}><i class="fas fa-graduation-cap"></i>2020</a>
+                        <a href="#content-2019" onClick={functionEvents}><i class="fas fa-book-open"></i>2019</a>
+                        <a href="#content-2018" onClick={functionEvents}><i class="fas fa-book-open"></i>2018</a>
+                        <a href="#content-2017" onClick={functionEvents}><i class="fab fa-js"></i>2017</a>
+                        <a href="#content-2016" onClick={functionEvents}><i class="fas fa-search"></i>2016</a>
+                        <a href="#content-2015" onClick={functionEvents}><i class="fas fa-plane-departure"></i>2015</a>
                     </ui>
                 </div>
-                <div className="content-container" id='content-2021'>
+                <div className="content-container" id='content-2021' ref={animationRef}>
                     <div className="year-header-before"></div>
-                    <h1 className='year-header' >
+                    <h1 className="year-header">
                         2021
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.</p>
                     </h1>
                     <div className="year-header-after" id='content-2020'></div>
 
-                    <h1 className='year-header'>
+                    <h1 className='year-header' >
                         2020
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, excepturi? Vitae, laboriosam! Voluptas quaerat deleniti ab iure possimus esse, ipsum hic nulla, placeat impedit, velit cupiditate quae laboriosam a vero?
