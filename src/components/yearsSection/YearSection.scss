@@ -130,6 +130,28 @@ a .fab {
   padding: 1rem;
 }
 
+.onClickAnimate {
+  animation-name: stretch;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in;
+  animation-delay: 0;
+  /* animation-direction: alternate; */
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  // animation-play-state: unset;
+}
+
+@keyframes stretch {
+  0% {
+    // transform: scale(1.2);
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+  100% {
+    background-color: #3e626ecc;
+  }
+}
+
 .glow-on-hover:before {
   content: "";
   background: linear-gradient(
@@ -161,10 +183,6 @@ a .fab {
 .glow-on-hover:active {
   color: #000;
 }
-
-// .glow-on-hover:active:after {
-//   background: transparent;
-// }
 
 .glow-on-hover:hover:before {
   opacity: 1;
