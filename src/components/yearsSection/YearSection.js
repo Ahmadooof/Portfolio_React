@@ -5,35 +5,29 @@ import './YearSection.scss'
 function YearSection() {
 
     const animationRef = useRef(null)
+    const onFocusRef = useRef(null)
 
     const functionEvents = (e) => {
         focusOnClick(e)
         paragraphAnimation(e)
     }
 
+    // this row to convert children nodes to Array so we can use it within "foreach"
+    // NodeList.prototype.forEach = Array.prototype.forEach
+
     // This method focus on click side nav button to change style
     // Becuase of onFocus not working proberly, that's why I made that stupid method.
+
     const focusOnClick = (e) => {
-        if (e.target.className === "mainMenu-onFocus" || e.target.parentElement.className === "mainMenu-onFocus")
+        if (e.target.className === "mainMenu-onFocus")
             return
 
-        // this row to convert children nodes to Array so we can use it within "foreach"
-        NodeList.prototype.forEach = Array.prototype.forEach
-        var UI
-        if (e.target.parentElement.tagName === "UI")
-            UI = e.target.parentElement
-        else
-            UI = e.target.parentElement.parentElement
-
-        var anchorTags = UI.childNodes
+        var anchorTags = onFocusRef.current.childNodes
         anchorTags.forEach((child) => {
             if (child.className === "mainMenu-onFocus")
                 child.className = ""
         });
-        if (e.target.parentElement.tagName === "A")
-            e.target.parentElement.className += "mainMenu-onFocus"
-        else
-            e.target.className += "mainMenu-onFocus"
+        e.target.className += "mainMenu-onFocus"
     }
 
     const paragraphAnimation = (e) => {
@@ -50,7 +44,7 @@ function YearSection() {
         <>
             <div className="year-container">
                 <div className="menu-container">
-                    <ui className="mainMenu glow-on-hover" >
+                    <ui className="mainMenu glow-on-hover" ref={onFocusRef}>
                         <a href="#content-2021" onClick={functionEvents}>
                             <i class="fas fa-notes-medical"></i>
                             2021

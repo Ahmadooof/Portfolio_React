@@ -15,6 +15,7 @@ a .fas,
 a .fab {
   margin-right: 19px;
   font-weight: 500;
+  pointer-events: none;
 }
 .year-container {
   display: flex;
@@ -143,9 +144,8 @@ a .fab {
 
 @keyframes stretch {
   0% {
-    // transform: scale(1.2);
     border-radius: 50%;
-    opacity: 0.5;
+    background-color: #32464c;
   }
   100% {
     background-color: #3e626ecc;
