@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --opacityHeader: 0;
+}
+
 p {
   text-align: left;
 }
@@ -19,14 +23,17 @@ p {
   // animation-delay: calc(var(--scroll) * -1s);
 }
 
-// @keyframes show {
-//   23% {
-//     opacity: 1;
-//   }
-//   100% {
-//     opacity: 1;
-//   }
-// }
+.fadeOnScroll {
+  animation: opacityOnScroll forwards;
+  animation-duration: 1.7s;
+  animation-iteration-count: 1;
+}
+
+@keyframes opacityOnScroll {
+  100% {
+    opacity: 1;
+  }
+}
 
 a .fa,
 a .fas,
@@ -146,21 +153,18 @@ a .fab {
 }
 
 .year-header {
-  /* padding: 1rem; */
-  /* margin-top: 80px; */
   background-color: #3e626ecc;
   color: white;
-  /* margin: 0; */
-  /* text-decoration: none; */
   font-size: medium;
   font-family: cursive;
   font-weight: bold;
   border-radius: 10px;
   padding: 1rem;
+  opacity: var(--opacityHeader) !important;
 }
 
-.onClickAnimate {
-  animation-name: stretch;
+.onClickChangeColor {
+  animation-name: changeColor;
   animation-duration: 1.5s;
   animation-timing-function: ease-in;
   animation-delay: 0;
@@ -170,13 +174,15 @@ a .fab {
   // animation-play-state: unset;
 }
 
-@keyframes stretch {
+@keyframes changeColor {
   0% {
     // border-radius: 50%;
     background-color: #192327cc;
+    opacity: 1;
   }
   100% {
     background-color: #3e626ecc;
+    opacity: 1;
   }
 }
 

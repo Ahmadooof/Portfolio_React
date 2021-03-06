@@ -3,19 +3,30 @@ import { useWindowScroll } from 'react-use'
 import './YearSection.scss'
 
 function YearSection() {
-
     const animationRef = useRef(null)
     const onFocusRef = useRef(null)
     const [visible, setVisiblity] = useState("");
-
     const functionEvents = (e) => {
         focusOnClick(e)
         paragraphAnimation(e)
     }
+    var pageButtom = Math.trunc(window.pageYOffset + window.innerHeight)
+    var { y: Y_Offset } = useWindowScroll()
+    const fadeOnScroll = () => {
+        const anchorTags = animationRef.current.childNodes
+        anchorTags.forEach((child) => {
+            if (child.classList.contains("year-header"))
+                if (pageButtom > child.offsetTop) {
+                    child.classList.add("fadeOnScroll")
+                    setInterval(() => {
+                        child.style.setProperty('--opacityHeader', "1")
+                    }, 1700);
+                }
+        })
+    }
 
-    const { y: Y_Offset } = useWindowScroll();
     useEffect(() => {
-
+        fadeOnScroll()
         if (Y_Offset > 630) {
             setVisiblity("goFromLeft")
         }
@@ -45,10 +56,11 @@ function YearSection() {
     const paragraphAnimation = (e) => {
         var children = animationRef.current.childNodes
         children.forEach(child => {
-            if (child.className === "year-header onClickAnimate")
-                child.className = "year-header"
-            if (child.className === "year-header" && child.innerText.indexOf(e.target.innerText) === 0) {
-                child.className += " onClickAnimate"
+            if (child.classList.contains("onClickChangeColor"))
+                child.classList.remove("onClickChangeColor")
+
+            if (child.classList.contains("year-header") && child.innerText.indexOf(e.target.innerText) === 0) {
+                child.classList.add("onClickChangeColor")
             }
         });
     }
