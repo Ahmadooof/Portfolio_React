@@ -1,7 +1,7 @@
 video {
   object-fit: fill;
   width: 100%;
-  height: 60%;
+  height: 70%;
   position: absolute;
   z-index: -1;
   /* src: url('/public/videos/video1.mp4'); */
@@ -9,7 +9,7 @@ video {
 
 .hero-container {
   /* background: url('images/image-home.jpg') center center/cover no-repeat; */
-  height: 60vh;
+  height: 70vh;
   width: 100%;
   display: flex;
   flex-direction: column;

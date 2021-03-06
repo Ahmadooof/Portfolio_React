@@ -1,16 +1,28 @@
-import { render } from '@testing-library/react'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useWindowScroll } from 'react-use'
 import './YearSection.scss'
 
 function YearSection() {
 
     const animationRef = useRef(null)
     const onFocusRef = useRef(null)
+    const [visible, setVisiblity] = useState("");
 
     const functionEvents = (e) => {
         focusOnClick(e)
         paragraphAnimation(e)
     }
+
+    const { y: Y_Offset } = useWindowScroll();
+    useEffect(() => {
+
+        if (Y_Offset > 630) {
+            setVisiblity("goFromLeft")
+        }
+        else
+            setVisiblity("")
+
+    }, [Y_Offset]);
 
     // this row to convert children nodes to Array so we can use it within "foreach"
     // NodeList.prototype.forEach = Array.prototype.forEach
@@ -44,18 +56,18 @@ function YearSection() {
         <>
             <div className="year-container">
                 <div className="menu-container">
-                    <ui className="mainMenu glow-on-hover" ref={onFocusRef}>
+                    <ul className={`mainMenu glow-on-hover ${visible}`} ref={onFocusRef}>
                         <a href="#content-2021" onClick={functionEvents}>
-                            <i class="fas fa-notes-medical"></i>
+                            <i className="fas fa-notes-medical"></i>
                             2021
                             </a>
-                        <a href="#content-2020" onClick={functionEvents}><i class="fas fa-graduation-cap"></i>2020</a>
-                        <a href="#content-2019" onClick={functionEvents}><i class="fas fa-book-open"></i>2019</a>
-                        <a href="#content-2018" onClick={functionEvents}><i class="fas fa-book-open"></i>2018</a>
-                        <a href="#content-2017" onClick={functionEvents}><i class="fab fa-js"></i>2017</a>
-                        <a href="#content-2016" onClick={functionEvents}><i class="fas fa-search"></i>2016</a>
-                        <a href="#content-2015" onClick={functionEvents}><i class="fas fa-plane-departure"></i>2015</a>
-                    </ui>
+                        <a href="#content-2020" onClick={functionEvents}><i className="fas fa-graduation-cap"></i>2020</a>
+                        <a href="#content-2019" onClick={functionEvents}><i className="fas fa-book-open"></i>2019</a>
+                        <a href="#content-2018" onClick={functionEvents}><i className="fas fa-book-open"></i>2018</a>
+                        <a href="#content-2017" onClick={functionEvents}><i className="fab fa-js"></i>2017</a>
+                        <a href="#content-2016" onClick={functionEvents}><i className="fas fa-search"></i>2016</a>
+                        <a href="#content-2015" onClick={functionEvents}><i className="fas fa-plane-departure"></i>2015</a>
+                    </ul>
                 </div>
                 <div className="content-container" id='content-2021' ref={animationRef}>
                     <div className="year-header-before"></div>

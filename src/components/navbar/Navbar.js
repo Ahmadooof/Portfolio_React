@@ -28,7 +28,7 @@ function Navbar() {
                 <div className="navbar-container">
                     <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
                         AHMAD
-                        <i class="far fa-smile"></i>
+                        <i className="far fa-smile"></i>
                     </Link>
                     <div className="menu-icon" onClick={handleClick}>
                         <i className={click ? 'fas fa-times' : 'fas fa-bars'} />

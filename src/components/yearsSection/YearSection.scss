@@ -10,6 +10,24 @@ p {
   text-align: left;
 }
 
+.year-container {
+  display: flex;
+  opacity: 1;
+  // animation: show linear;
+  // animation-duration: 1s;
+  // animation-play-state: paused;
+  // animation-delay: calc(var(--scroll) * -1s);
+}
+
+// @keyframes show {
+//   23% {
+//     opacity: 1;
+//   }
+//   100% {
+//     opacity: 1;
+//   }
+// }
+
 a .fa,
 a .fas,
 a .fab {
@@ -17,16 +35,26 @@ a .fab {
   font-weight: 500;
   pointer-events: none;
 }
-.year-container {
-  display: flex;
-}
 
 .mainMenu {
-  position: sticky;
+  position: fixed;
   top: 27vh;
   cursor: pointer;
   width: 12rem;
+  left: -12rem;
   border-radius: 10px;
+  // margin-left: -10rem;
+}
+
+.goFromLeft {
+  animation: goFromLeft 0.7s both cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+@keyframes goFromLeft {
+  100% {
+    left: 4rem;
+    // transform: translate(100px, 0px);
+  }
 }
 
 .mainMenu li {
@@ -52,7 +80,7 @@ a .fab {
 }
 
 .menu-container {
-  padding: 4rem;
+  padding: 10rem;
   display: flex;
   flex-direction: column;
   background-color: #dcdcdc5c;
@@ -144,8 +172,8 @@ a .fab {
 
 @keyframes stretch {
   0% {
-    border-radius: 50%;
-    background-color: #32464c;
+    // border-radius: 50%;
+    background-color: #192327cc;
   }
   100% {
     background-color: #3e626ecc;
