@@ -17,23 +17,30 @@ p {
 .year-container {
   display: flex;
   opacity: 1;
-  // animation: show linear;
-  // animation-duration: 1s;
-  // animation-play-state: paused;
-  // animation-delay: calc(var(--scroll) * -1s);
 }
 
 .fadeOnScroll {
-  animation: opacityOnScroll forwards;
-  animation-duration: 1.7s;
-  animation-iteration-count: 1;
+  // -webkit-animation: fadeOnScroll-webkit both 1.7s 1;
+  // -moz-animation: fadeOnScroll-moz both 1.7s 1;
+  animation: fadeOnScroll both 1.7s 1;
 }
-
-@keyframes opacityOnScroll {
+@keyframes fadeOnScroll {
   100% {
     opacity: 1;
   }
 }
+
+// @-moz-keyframes fadeOnScroll-moz {
+//   100% {
+//     -moz-opacity: 1;
+//   }
+// }
+
+// @-webkit-keyframes fadeOnScroll-webkit {
+//   100% {
+//     opacity: 1;
+//   }
+// }
 
 a .fa,
 a .fas,
@@ -50,7 +57,6 @@ a .fab {
   width: 12rem;
   left: -12rem;
   border-radius: 10px;
-  // margin-left: -10rem;
 }
 
 .goFromLeft {
@@ -60,7 +66,6 @@ a .fab {
 @keyframes goFromLeft {
   100% {
     left: 4rem;
-    // transform: translate(100px, 0px);
   }
 }
 
@@ -81,9 +86,21 @@ a .fab {
 
 .mainMenu-onFocus {
   color: white !important;
-  background: #3e626ecc !important;
-  animation: scrollTop 0.5s alternate;
+  background: #3e626ecc;
+  animation: menuOnFocus;
+  animation-timing-function: ease;
+  animation-duration: .7s;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
   border-radius: 10px 10px 10px 10px;
+}
+@keyframes menuOnFocus {
+  0% {
+    background-color: rgb(153, 47, 47);
+  }
+  100% {
+    background-color: 3e626ecc;
+  }
 }
 
 .menu-container {
@@ -104,7 +121,6 @@ a .fab {
 }
 
 .item {
-  // border-top: 1px solid #ef584a;
   overflow: hidden;
 }
 .btn-side-nav {
@@ -128,14 +144,6 @@ a .fab {
   bottom: -10px;
   z-index: 9;
 }
-
-/* .year-header::after {
-  content: " ";
-  display: block;
-  border-bottom: 1px solid #ececec;
-  padding-top: 165px;
-  margin-bottom: 40px;
-} */
 
 .year-header-after {
   content: " ";

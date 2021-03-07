@@ -7,16 +7,25 @@ function YearSection() {
     const onFocusRef = useRef(null)
     const [visible, setVisiblity] = useState("");
     const functionEvents = (e) => {
-        focusOnClick(e)
+        // focusOnClick(e)
         paragraphAnimation(e)
     }
+    // window.pageYOffset = Y corrdinates on scroll
+    // window.innerHeight = Y corrdinates of the screen
+    //
     var pageButtom = Math.trunc(window.pageYOffset + window.innerHeight)
-    var { y: Y_Offset } = useWindowScroll()
-    const fadeOnScroll = () => {
-        const anchorTags = animationRef.current.childNodes
-        anchorTags.forEach((child) => {
+    var { y: pageUp } = useWindowScroll()
+
+    const fadeOnScroll = (headerTags) => {
+        headerTags.forEach((child) => {
+            if (child.classList.contains("year-header-after") | child.classList.contains("year-header-before") && pageUp + 50 > child.offsetTop)
+                focusMenuOnScroll(child.id)
+            if (child.classList.contains("fadeOnScroll"))
+                return
             if (child.classList.contains("year-header"))
                 if (pageButtom > child.offsetTop) {
+                    // console.log(child.id)
+
                     child.classList.add("fadeOnScroll")
                     setInterval(() => {
                         child.style.setProperty('--opacityHeader', "1")
@@ -25,15 +34,30 @@ function YearSection() {
         })
     }
 
+    const focusMenuOnScroll = (headerId) => {
+        var anchorTags = onFocusRef.current.childNodes
+        console.log()
+        anchorTags.forEach((child) => {
+            if (child.classList.contains("mainMenu-onFocus"))
+                child.classList.remove("mainMenu-onFocus")
+            if (headerId.split(' ')[0].includes((child.innerText))) {
+                child.classList.add("mainMenu-onFocus")
+            }
+
+        })
+    }
+
     useEffect(() => {
-        fadeOnScroll()
-        if (Y_Offset > 630) {
+        const headerTags = animationRef.current.childNodes
+        fadeOnScroll(headerTags)
+        if (pageUp > 630) {
             setVisiblity("goFromLeft")
         }
         else
             setVisiblity("")
 
-    }, [Y_Offset]);
+
+    }, [pageUp]);
 
     // this row to convert children nodes to Array so we can use it within "foreach"
     // NodeList.prototype.forEach = Array.prototype.forEach
@@ -41,17 +65,17 @@ function YearSection() {
     // This method focus on click side nav button to change style
     // Becuase of onFocus not working proberly, that's why I made that stupid method.
 
-    const focusOnClick = (e) => {
-        if (e.target.className === "mainMenu-onFocus")
-            return
+    // const focusOnClick = (e) => {
+    //     if (e.target.className === "mainMenu-onFocus")
+    //         return
 
-        var anchorTags = onFocusRef.current.childNodes
-        anchorTags.forEach((child) => {
-            if (child.className === "mainMenu-onFocus")
-                child.className = ""
-        });
-        e.target.className += "mainMenu-onFocus"
-    }
+    //     var anchorTags = onFocusRef.current.childNodes
+    //     anchorTags.forEach((child) => {
+    //         if (child.classList.contains("mainMenu-onFocus"))
+    //             child.classList.remove("mainMenu-onFocus")
+    //     });
+    //     e.target.className += "mainMenu-onFocus"
+    // }
 
     const paragraphAnimation = (e) => {
         var children = animationRef.current.childNodes
@@ -81,8 +105,8 @@ function YearSection() {
                         <a href="#content-2015" onClick={functionEvents}><i className="fas fa-plane-departure"></i>2015</a>
                     </ul>
                 </div>
-                <div className="content-container" id='content-2021' ref={animationRef}>
-                    <div className="year-header-before"></div>
+                <div className="content-container" ref={animationRef}>
+                    <div className="year-header-before" id='content-2021'></div>
                     <h1 className="year-header">
                         2021
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.</p>
@@ -91,7 +115,7 @@ function YearSection() {
 
                     <h1 className='year-header' >
                         2020
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.
+                        <p>Lorem ipsum 2019 dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, excepturi? Vitae, laboriosam! Voluptas quaerat deleniti ab iure possimus esse, ipsum hic nulla, placeat impedit, velit cupiditate quae laboriosam a vero?
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda a totam tempora hic doloribus recusandae! Officia assumenda nulla dolorum minima nostrum, deserunt, in culpa ad quas nobis, dolore exercitationem quibusdam?
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex delectus excepturi harum totam quaerat modi officiis officia omnis similique impedit animi, tempora sunt minima eius qui corrupti nihil debitis vitae!
@@ -153,5 +177,6 @@ function YearSection() {
         </>
     )
 }
+
 
 export default YearSection
