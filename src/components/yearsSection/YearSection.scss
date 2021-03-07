@@ -64,6 +64,9 @@ a .fab {
 }
 
 @keyframes goFromLeft {
+  0% {
+    left: -12rem;
+  }
   100% {
     left: 4rem;
   }
@@ -89,14 +92,14 @@ a .fab {
   background: #3e626ecc;
   animation: menuOnFocus;
   animation-timing-function: ease;
-  animation-duration: .7s;
+  animation-duration: 1s;
   animation-iteration-count: 1;
   animation-fill-mode: both;
   border-radius: 10px 10px 10px 10px;
 }
 @keyframes menuOnFocus {
   0% {
-    background-color: rgb(153, 47, 47);
+    background-color: #192327cc;
   }
   100% {
     background-color: 3e626ecc;

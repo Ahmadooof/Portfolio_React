@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import './VideoSection.css'
 
 function HeroSection() {
+    // function getRandomColor() {
+    //     var letters = '0123456789ABCDEF';
+    //     var color = '#';
+    //     for (var i = 0; i < 6; i++) {
+    //         color += letters[Math.floor(Math.random() * 16)];
+    //     }
+    //     return color;
+    // }
+    // // const headerRef = useRef(null)
+    // // useEffect(() => {
+
+    // // }, [])
+    // // setInterval(() => {
+    // //     headerRef.current.style.setProperty('--colorGenerated', getRandomColor())
+    // // }, 6000);
     return (
         <div className="hero-container">
             <video src='/videos/video2.mp4' autoPlay loop muted>

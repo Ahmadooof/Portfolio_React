@@ -1,9 +1,9 @@
 .progress {
   height: 4px;
   width: 0%;
-  background-color: rgb(184, 53, 53);
   position: fixed;
-  top: 4.1rem;
+  background-color: rgb(41, 221, 212);
+  top: 4rem;
   left: 0;
   animation: progress linear;
   animation-duration: 1s;
@@ -15,8 +15,11 @@
 }
 
 @keyframes progress {
+  50%{
+    background-color: rgb(251, 255, 24);
+  }
   to {
-    background-color: rgb(184, 53, 53);
+    background-color: rgb(28, 184, 80);
     width: 100%;
   }
 }

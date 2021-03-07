@@ -1,3 +1,5 @@
+/* color: var(--colorGenerated); */
+
 video {
   object-fit: fill;
   width: 100%;
@@ -24,9 +26,30 @@ video {
   color: white;
   font-size: 100px;
   margin-top: 300px;
-  background: rgba(31, 29, 29, 0.8);
-  /* border: 1px solid #fff;
-    border-radius: 10px; */
+  background: linear-gradient(
+    359deg,
+    rgb(13 12 12 / 30%) 25%,
+    rgb(62 98 110 / 60%) 100%
+  );
+  animation: saturateWelcomce 5s both ease infinite;
+  backdrop-filter: saturate(160%) blur(8px);
+  border-radius: 10px;
+}
+
+@keyframes saturateWelcomce {
+  0% {
+    color: rgb(0, 0, 0);
+    transform: scale(1, 1);
+  }
+  50% {
+    color: white;
+    transform: scale(1.05, 1.05);
+  }
+
+  100% {
+    color: rgb(0, 0, 0);
+    transform: scale(1, 1);
+  }
 }
 
 .hero-container > p {
