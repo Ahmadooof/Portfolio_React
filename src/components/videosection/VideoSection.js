@@ -19,7 +19,7 @@ function HeroSection() {
     // // }, 6000);
     return (
         <div className="hero-container">
-            <video src='/videos/video2.mp4' autoPlay loop muted>
+            <video className="home-video" src='/videos/video2.mp4' autoPlay loop muted>
 
             </video>
             <h1>Welcome EveryOne</h1>

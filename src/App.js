@@ -9,6 +9,7 @@ import Projects from './components/pages/Projects';
 import Footer from './components/footer/Footer';
 import ScrollToTop from './components/Scroll/ScrollToTop';
 import ScrollIndecatior from './components/Scroll/ScrollIndecatior';
+import Music from './components/Music/Music';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/about' component={About} />
           <Route path='/projects' component={Projects} />
           <Route path='/photos' component={photos} />
+          <Route path='/Music-by-reading-face' component={Music} />
         </Switch>
         <Footer></Footer>
       </Router>

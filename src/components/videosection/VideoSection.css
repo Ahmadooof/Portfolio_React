@@ -1,6 +1,6 @@
 /* color: var(--colorGenerated); */
 
-video {
+.home-video {
   object-fit: fill;
   width: 100%;
   height: 70%;
@@ -28,8 +28,8 @@ video {
   margin-top: 300px;
   background: linear-gradient(
     359deg,
-    rgb(13 12 12 / 30%) 25%,
-    rgb(62 98 110 / 60%) 100%
+    rgb(190 192 202 / 30%) 25%,
+    rgb(206 212 213 / 48%) 100%
   );
   animation: saturateWelcomce 5s both ease infinite;
   backdrop-filter: saturate(160%) blur(8px);
@@ -38,7 +38,7 @@ video {
 
 @keyframes saturateWelcomce {
   0% {
-    color: rgb(0, 0, 0);
+    color: #232b2b;
     transform: scale(1, 1);
   }
   50% {
@@ -47,7 +47,7 @@ video {
   }
 
   100% {
-    color: rgb(0, 0, 0);
+    color: #232b2b;
     transform: scale(1, 1);
   }
 }

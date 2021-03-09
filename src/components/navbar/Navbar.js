@@ -55,6 +55,11 @@ function Navbar() {
                                 Photos
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/music-by-reading-face" className='nav-links' onClick={closeMobileMenu}>
+                                Music
+                            </Link>
+                        </li>
                     </ul>
                     <div className="btn--nav">
                         {/* {button && <Button buttonStyle="btn--outline">Click here</Button>} */}
