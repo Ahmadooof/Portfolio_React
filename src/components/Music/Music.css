@@ -122,7 +122,6 @@
 }
 
 .video-container {
-  border: solid;
   /* width: 30rem;
   height: 30rem; */
   padding: 1rem;
@@ -130,11 +129,21 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  max-width: 35rem;
+  max-height: 25rem;
 }
 
 .videoCanvas {
-  width: 30rem;
-  height: 30rem;
+  width: 50rem;
+  /* width: 10rem;
+  height: 10rem; */
+}
+
+.music-camera {
+  width: 36rem;
+  /* width: 40rem;
+  height: 30rem; */
 }
 
 .button {
@@ -161,11 +170,6 @@
   box-shadow: 7px 7px 15px 6px rgba(55, 55, 55, 0.2), -7px -7px 15px #ddd,
     inset 8rem 0 4px #3e626ecc, inset 0 0 0 transparent;
   border-color: #3e626ecc;
-}
-
-.music-camera {
-  width: 100%;
-  height: 100%;
 }
 
 /* .container {
