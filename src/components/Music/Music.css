@@ -96,6 +96,7 @@
   background-color: #ffffff;
   color: black;
   display: flex;
+  flex-direction: row;
 }
 
 .music-left-s-2 {
@@ -106,44 +107,128 @@
 
 .project-description {
   border-radius: 15px;
-  background: #3e626ecc;
+  background: #537c89;
   box-shadow: 0px 50px 60px rgb(0 0 0 / 10%);
   padding: 3rem;
   color: white;
 }
 
 .music-right-s-2 {
-  padding: 1rem;
+  margin-top: 25vh;
+  padding: 2rem;
   flex: 1 1 65%;
   align-items: center;
-  justify-content: center;
   display: flex;
   flex-direction: column;
 }
 
-.video-container {
-  /* width: 30rem;
-  height: 30rem; */
-  padding: 1rem;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
+.flip-card {
+  background-color: transparent;
+  perspective: 1000px;
+  /* padding: 1rem; */
   overflow: hidden;
-  max-width: 35rem;
-  max-height: 25rem;
+  width: 33rem;
+  height: 27rem;
+  border-radius: 15px;
+  box-shadow: 0px 50px 60px rgb(0 0 0 / 10%);
 }
 
-.videoCanvas {
-  width: 50rem;
+.flip-card-onclick {
+  /* transform: rotateY(180deg); */
+}
+
+.flip-card-inner-onClick {
+  transform: rotateY(180deg);
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* .flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+} */
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  width: 33rem;
+  height: 27rem;
+}
+
+.flip-card-front {
+}
+
+.flip-card-back {
+  background: #537c89;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.result-detections {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 30px;
+  color: #fff;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+.tbl-header {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.tbl-content {
+  overflow-x: auto;
+  margin-top: 0px;
+}
+th {
+  padding: 20px 15px;
+  font-weight: 500;
+  font-size: 2rem;
+  color: #fff;
+  text-transform: uppercase;
+}
+td {
+  padding: 15px;
+  vertical-align: middle;
+  font-weight: 300;
+  font-size: 1.3rem;
+  color: #fff;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+}
+
+.noiseCanvas {
+  width: 33rem;
+  height: 27rem;
+  /* width: 40rem;
+  height: 40rem; */
   /* width: 10rem;
   height: 10rem; */
 }
 
-.music-camera {
-  width: 36rem;
-  /* width: 40rem;
-  height: 30rem; */
+.buttons-container {
+  display: flex;
+  width: 33rem;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .button {
@@ -152,24 +237,57 @@
 }
 
 .button-circle-right {
+  outline: none;
+  /* text-decoration: none; */
   padding: 2.3rem 0.3rem;
   margin-top: 5rem;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  border: 3px solid rgb(230, 230, 230);
-  color: rgba(100, 100, 100, 0.75);
+  color: white;
   border-radius: 50%;
-  background: #cfcfcf;
+  background: #537c89;
   box-shadow: 7px 7px 15px #d9d9d9, -7px -7px 15px #ffffff,
     inset 0 0 0 transparent, inset 0 0 0 transparent;
-  transition: 0.3s ease-in-out;
+  font-size: medium;
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+  border-color: transparent;
+  height: 9rem;
+  width: 9rem;
 }
 
 .button-circle-right:hover {
-  transform: scale(1.03);
   color: white;
   box-shadow: 7px 7px 15px 6px rgba(55, 55, 55, 0.2), -7px -7px 15px #ddd,
-    inset 8rem 0 4px #3e626ecc, inset 0 0 0 transparent;
+    inset 9rem 0 4px #3e626ecc, inset 0 0 0 transparent;
   border-color: #3e626ecc;
+  border-color: transparent;
+}
+
+.button-circle-song {
+  height: 9rem;
+  width: 9rem;
+  outline: none;
+  /* text-decoration: none; */
+  padding: 2.3rem 0.3rem;
+  margin-top: 5rem;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: white;
+  border-radius: 50%;
+  background: #d4982a;
+  box-shadow: 7px 7px 15px #d9d9d9, -7px -7px 15px #ffffff,
+    inset 0 0 0 transparent, inset 0 0 0 transparent;
+  font-size: medium;
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+  border-color: transparent;
+}
+
+.button-circle-song:hover {
+  color: white;
+  box-shadow: 7px 7px 15px 6px rgba(55, 55, 55, 0.2), -7px -7px 15px #ddd,
+    inset 9rem 0 4px #be8b2b, inset 0 0 0 transparent;
+  border-color: #3e626ecc;
+  border-color: transparent;
 }
 
 /* .container {
@@ -192,6 +310,12 @@ canvas {
     justify-content: center;
   }
   .music-right-s-1 {
-    margin-top: 1rem;
+    margin-top: 1vh;
+  }
+  .music-container-s-2 {
+    flex-direction: column;
+  }
+  .music-right-s-2 {
+    margin-top: 0vh;
   }
 }
