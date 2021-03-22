@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Music.css'
+import * as songs from './MusicList'
 
 // import '@tensorflow/tfjs-node';
 import * as faceapi from 'face-api.js';
@@ -8,6 +9,7 @@ import * as faceapi from 'face-api.js';
 var constraints = { video: { width: 1280, height: 720 } };
 
 function Music() {
+
     const video = useRef(null)
     const videoNoise = useRef(null)
     const flipCardInnerRef = useRef(null)
@@ -21,15 +23,22 @@ function Music() {
     const playPausedSongButton = useRef(null)
     const SongsRef = useRef(null)
 
-    const [started, setStarted] = useState(false)
+    const [started, setStarted] = useState(true)
+    var ctx
+
+    var [audio, setAudio] = useState(null)
 
     const toggleStarted = () => {
-        if (started)
-            setStarted(false)
+        if (!pauseAudio(audio)) {
+            audio.play()
+            setStarted(!started)
+        }
     }
 
     function startVideo() {
-        console.log()
+        playPausedSongButton.current.disabled = true
+        playPausedSongButton.current.style.cursor = 'not-allowed'
+
         startDetectionsButtonRef.current.disabled = true
         startDetectionsButtonRef.current.style.cursor = 'not-allowed'
 
@@ -46,8 +55,9 @@ function Music() {
             }
         )
     }
-    var ctx
+
     useEffect(() => {
+        playPausedSongButton.current.hidden = true
         video.current.hidden = true
         ctx = videoNoise.current.getContext('2d');
         playNoiseVideo()
@@ -60,15 +70,14 @@ function Music() {
             // faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
             // faceapi.nets.tinyYolov2.loadFromUri('/models'),
         ])
-    }, [started])
-
-    let audio = new Audio("Music/1.mp3")
-
+    }, [])
 
     const startDetections = () => {
+
         var timer = setInterval(async () => {
             const detections = await faceapi.detectAllFaces(video.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender()
             if (detections.length === 1) {          // we got a face
+                playPausedSongButton.current.hidden = false
                 ageRef.current.innerText = "Age:\xa0";
                 genderRef.current.innerText = "Gender:\xa0";
                 neutralRef.current.innerText = "Neutral:\xa0";
@@ -81,23 +90,38 @@ function Music() {
                 var surprised = Math.floor(detections[0].expressions.surprised * 100)
                 var emotionsArr = [neutral, happy, sad, surprised]
                 var maxEmotion
+                console.log("hi")
+                pauseAudio(audio)
+                setStarted(true)
                 switch (emotionsArr.indexOf(Math.max(...emotionsArr))) {
                     case 0:
                         maxEmotion = "neutral"
+                        audio = new Audio(songs.TRACKLIST[0].source)
                         audio.play()
                         break
                     case 1:
                         maxEmotion = "happy"
+                        audio = new Audio(songs.TRACKLIST[1].source)
+                        audio.play()
                         break
                     case 2:
                         maxEmotion = "sad"
+                        audio = new Audio(songs.TRACKLIST[2].source)
+                        audio.play()
                         break
                     case 3:
                         maxEmotion = "surprised"
+                        audio = new Audio(songs.TRACKLIST[3].source)
+                        audio.play()
                         break
                     default:
-                        maxEmotion = "neutral"
+                        console.log()
+                    // audio.songs[1].play()
                 }
+                setAudio(audio)
+                playPausedSongButton.current.disabled = false
+                playPausedSongButton.current.style.cursor = 'pointer'
+
                 flipCardInnerRef.current.classList.add("flip-card-inner-onClick")
                 ageRef.current.innerText += Math.round(detections[0].age)
                 genderRef.current.innerText += detections[0].gender
@@ -111,6 +135,20 @@ function Music() {
 
             }
         }, 3000)
+    }
+
+    const pauseAudio = (audio) => {
+        try {
+            console.log(!audio.paused)
+            if (!audio.paused) {
+                audio.pause()
+                setStarted(!started)
+                return true
+            }
+        } catch (error) {
+            return false
+        }
+        return false
     }
 
 
@@ -139,18 +177,7 @@ function Music() {
 
     }
 
-    var TRACKLIST = [
-        {
-            id: 1,
-            name: "Cet la vie Khaled",
-            source: 'Music/1.mp3'
-        },
-        {
-            id: 2,
-            name: "song 2",
-            // source: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/wwy.mp3"
-        }
-    ]
+
     return (
         <>
             <div className="music-container-s-1" >
@@ -231,7 +258,7 @@ function Music() {
                             <button ref={startDetectionsButtonRef} className="button button-circle-right" onClick={startVideo} >Start detections</button>
                         </div>
                         <div className="button-song">
-                            <button ref={playPausedSongButton} className="button button-circle-song" onClick={startSong}>{started ? "Pause the song" : "Start the Song"}</button>
+                            <button ref={playPausedSongButton} onClick={toggleStarted} className="button button-circle-song">{started ? "Pause" : "Play"}</button>
                         </div>
                     </div>
                 </div>
