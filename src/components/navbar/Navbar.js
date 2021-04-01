@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css'
 
@@ -26,7 +26,7 @@ function Navbar() {
         <>
             <nav className="navbar">
                 <div className="navbar-container">
-                    <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+                    <Link to="/" className="navbar-logo logo-color" onClick={closeMobileMenu}>
                         AHMAD
                         <i className="far fa-smile"></i>
                     </Link>

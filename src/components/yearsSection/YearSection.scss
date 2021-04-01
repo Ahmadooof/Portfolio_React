@@ -97,20 +97,21 @@ a .fab {
   animation-fill-mode: both;
   border-radius: 10px 10px 10px 10px;
 }
-@keyframes menuOnFocus {
-  0% {
-    background-color: #192327cc;
-  }
-  100% {
-    background-color: 3e626ecc;
-  }
-}
+
+// @keyframes menuOnFocus {
+//   0% {
+//     background-color: #192327cc;
+//   }
+//   100% {
+//     background-color: 3e626ecc;
+//   }
+// }
 
 .menu-container {
-  padding: 10rem;
   display: flex;
   flex-direction: column;
   background-color: #dcdcdc5c;
+  flex: 1 1 20%;
 }
 
 .content-container {
@@ -121,6 +122,12 @@ a .fab {
   font-family: "Indie Flower", cursive;
   font-family: "Raleway", sans-serif;
   letter-spacing: 1px;
+  flex: 1 1 60%;
+}
+
+.year-right-section {
+  flex: 1 1 20%;
+  background-color: #dcdcdc5c;
 }
 
 .item {
@@ -170,8 +177,11 @@ a .fab {
   font-family: cursive;
   font-weight: bold;
   border-radius: 10px;
-  padding: 2rem;
   opacity: var(--opacityHeader) !important;
+}
+
+.year-header > p {
+  padding: 2rem;
 }
 
 .onClickChangeColor {
@@ -225,6 +235,12 @@ a .fab {
   border-radius: 10px;
 }
 
+.header-c {
+  background-color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  padding: 1rem;
+}
+
 .glow-on-hover:active {
   color: #000;
 }
@@ -257,9 +273,9 @@ a .fab {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .menu-container {
-    padding: 2rem;
-    background-color: #dcdcdc5c;
-  }
-}
+// @media screen and (max-width: 768px) {
+//   .menu-container {
+//     padding: 2rem;
+//     background-color: #dcdcdc5c;
+//   }
+// }

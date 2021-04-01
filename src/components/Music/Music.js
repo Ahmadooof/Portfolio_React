@@ -7,7 +7,7 @@ import * as faceapi from 'face-api.js';
 
 
 var constraints = { video: { width: 1280, height: 720 } };
-
+export var stream
 function Music() {
 
     const video = useRef(null)
@@ -35,6 +35,8 @@ function Music() {
         }
     }
 
+
+
     function startVideo() {
         playPausedSongButton.current.disabled = true
         playPausedSongButton.current.style.cursor = 'not-allowed'
@@ -48,9 +50,11 @@ function Music() {
         video.current.hidden = false
         navigator.mediaDevices.getUserMedia(constraints).then(
             (MediaStream) => {
+
                 video.current.srcObject = MediaStream
                 video.current.onloadedmetadata = function (e) {
                     video.current.play();
+                    stream = MediaStream
                 };
             }
         )
@@ -70,6 +74,10 @@ function Music() {
             // faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
             // faceapi.nets.tinyYolov2.loadFromUri('/models'),
         ])
+
+        return () => {
+            pauseAudio(audio)
+        }
     }, [])
 
     const startDetections = () => {
@@ -134,6 +142,9 @@ function Music() {
                 startDetectionsButtonRef.current.style.cursor = 'pointer'
 
             }
+            stream.getTracks().forEach(function (track) {
+                track.stop();
+            });
         }, 3000)
     }
 

@@ -1,7 +1,9 @@
 .navbar {
-  background: linear-gradient( 
-    359deg
-     , rgb(13 12 12 / 30%) 25%, rgb(62 98 110 / 60%) 100%);
+  background: linear-gradient(
+    359deg,
+    rgb(13 12 12 / 30%) 25%,
+    rgb(62 98 110 / 60%) 100%
+  );
   height: 65px;
   display: flex;
   justify-content: center;
@@ -11,7 +13,36 @@
   top: 0;
   z-index: 999;
   backdrop-filter: saturate(160%) blur(4px);
+  animation: changeColorNav;
 }
+
+.logo-color {
+  animation: changeColorLogo;
+  -webkit-animation-duration: 25s;
+  animation-duration: 35s;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+
+@keyframes changeColorLogo {
+  0% {
+    color: #5bcee2;
+  }
+  33% {
+    color: #74c38f;
+  }
+  66% {
+    color: #ffed19;
+  }
+  100% {
+    color: #314f86;
+  }
+}
+
 .navbar-container {
   display: flex;
   justify-content: center;
@@ -21,7 +52,7 @@
 }
 
 .navbar-logo {
-  color: #fff;
+  -webkit-text-stroke: 0.5px black;
   justify-self: start;
   margin-left: 9vw;
   cursor: pointer;
