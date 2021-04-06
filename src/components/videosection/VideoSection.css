@@ -23,6 +23,7 @@
 
 .hero-container > h1 {
   color: white;
+  font-family: "Vibur", cursive;
   font-size: 100px;
   margin-top: 300px;
   background: linear-gradient(

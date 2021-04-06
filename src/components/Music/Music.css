@@ -5,6 +5,7 @@
   flex-flow: row wrap;
   background: linear-gradient(179deg, rgb(21 21 21) 25%, rgb(66 113 129) 100%);
   font-family: "Vibur", cursive;
+  margin-top: -65px;
 }
 
 .music-left-s-1 {

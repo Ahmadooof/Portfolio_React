@@ -43,6 +43,10 @@
   }
 }
 
+.commingSoon {
+  cursor: url("../../photos/Custom\ Size\ –\ 1.png"), auto;
+}
+
 .navbar-container {
   display: flex;
   justify-content: center;

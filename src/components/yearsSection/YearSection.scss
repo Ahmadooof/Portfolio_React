@@ -111,7 +111,7 @@ a .fab {
   display: flex;
   flex-direction: column;
   background-color: #dcdcdc5c;
-  flex: 1 1 20%;
+  flex: 1 1 15%;
 }
 
 .content-container {
@@ -273,9 +273,49 @@ a .fab {
   }
 }
 
-// @media screen and (max-width: 768px) {
-//   .menu-container {
-//     padding: 2rem;
-//     background-color: #dcdcdc5c;
-//   }
-// }
+@media screen and (max-width: 1860px) {
+  .menu-container {
+    flex: 1 1 30%;
+  }
+  .year-right-section {
+    flex: 0;
+  }
+  .content-container {
+    flex: 1 1 70%;
+  }
+  .mainMenu {
+    width: 12rem;
+  }
+}
+
+@media screen and (max-width: 1360px) {
+  .menu-container {
+    flex: 1 1 40%;
+  }
+  .year-right-section {
+    flex: 0;
+  }
+  .content-container {
+    flex: 1 1 60%;
+  }
+  .mainMenu {
+    width: 12rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menu-container {
+    flex: 1 1 50%;
+  }
+  .year-right-section {
+    flex: 0;
+  }
+  .content-container {
+    flex: 1 1 50%;
+    margin: 0;
+    padding: 2rem;
+  }
+  .mainMenu {
+    width: 8rem;
+  }
+}

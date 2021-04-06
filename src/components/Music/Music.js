@@ -75,6 +75,7 @@ function Music() {
             // faceapi.nets.tinyYolov2.loadFromUri('/models'),
         ])
 
+        // this run when the component is destroyed.
         return () => {
             pauseAudio(audio)
         }

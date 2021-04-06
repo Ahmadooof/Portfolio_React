@@ -18,7 +18,7 @@ function YearSection() {
 
     const fadeOnScroll = (headerTags) => {
         headerTags.forEach((child) => {
-            if (child.classList.contains("year-header-after") | child.classList.contains("year-header-before") && pageUp + 50 > child.offsetTop)
+            if (child.classList.contains("year-header-after") | child.classList.contains("year-header-before") && pageUp + 200 > child.offsetTop)
                 focusMenuOnScroll(child.id)
             if (child.classList.contains("fadeOnScroll"))
                 return
@@ -109,16 +109,13 @@ function YearSection() {
                     <div className="year-header-before" id='content-2021'></div>
                     <div className="year-header">
                         <h3 className="header-c">2021</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.</p>
+                        <p>I started working as care assistant for old patients people. why not in IT field? Sure becuase I do not found a job in IT. But still this job is interesting.</p>
                     </div>
                     <div className="year-header-after" id='content-2020'></div>
 
                     <div className='year-header' >
                         <h3 className="header-c">2020</h3>
-                        <p>Lorem ipsum 2019 dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, excepturi? Vitae, laboriosam! Voluptas quaerat deleniti ab iure possimus esse, ipsum hic nulla, placeat impedit, velit cupiditate quae laboriosam a vero?
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda a totam tempora hic doloribus recusandae! Officia assumenda nulla dolorum minima nostrum, deserunt, in culpa ad quas nobis, dolore exercitationem quibusdam?
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex delectus excepturi harum totam quaerat modi officiis officia omnis similique impedit animi, tempora sunt minima eius qui corrupti nihil debitis vitae!
+                        <p>Finally I graduate in this year. AND I started Master program with computer science in Linne university. thing that I'm interested about is machine learning field.
                         </p>
                     </div>
 
@@ -126,9 +123,7 @@ function YearSection() {
 
                     <div className='year-header'>
                         <h3 className="header-c">2019</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur enim, mollitia pariatur accusamus magni voluptatem! Harum officiis ipsam voluptatem incidunt quod explicabo vel tenetur distinctio a, sunt consequuntur ab repellat!
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam cupiditate, odio accusamus magni, asperiores, maxime beatae nihil alias deleniti aut nemo! Nulla aut consectetur placeat commodi, vero atque mollitia vel.
+                        <p>A lot of stdies and exams during this year, and for sure a lot of ASSIGNMENTS. the assignments system is something great and useful in Sweden, not like university in Syria.
                         </p>
                     </div>
 
@@ -136,9 +131,7 @@ function YearSection() {
 
                     <div className='year-header'>
                         <h3 className="header-c">2018</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione est suscipit consectetur, hic voluptatum et, natus facilis sint vel, at assumenda voluptate voluptates necessitatibus nemo fuga laudantium maxime. Repellendus, alias.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid amet obcaecati, accusantium libero quaerat facilis debitis soluta tempora praesentium exercitationem alias in provident nobis earum adipisci eveniet velit expedita tempore.
+                        <p>This year I started computer science program in Linne university. It was exiting at the first, especially that I have little background about programming. but sure computer science is not just programming.
                         </p>
                     </div>
 
@@ -146,9 +139,10 @@ function YearSection() {
 
                     <div className='year-header' id='content-2017'>
                         <h3 className="header-c">2017</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione est suscipit consectetur, hic voluptatum et, natus facilis sint vel, at assumenda voluptate voluptates necessitatibus nemo fuga laudantium maxime. Repellendus, alias.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid amet obcaecati, accusantium libero quaerat facilis debitis soluta tempora praesentium exercitationem alias in provident nobis earum adipisci eveniet velit expedita tempore.
+                        <p>This year, I started to learn programming, after being accepted into a course to learn full stack programming in Växjö.
+                        The course was useful a lot. I have learned the basic of java, and we made a many console applications, sure Hello world was the first one -_-.
+                        we also made web games with html, css, js.
+                        but the main aim of the course is learning fundementals of Java and doing an oracle exam in java, It was so tricky but I passed it fortunately.
                         </p>
                     </div>
 
@@ -156,10 +150,8 @@ function YearSection() {
 
                     <div className='year-header' id='content-2016'>
                         <h3 className="header-c">2016</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita harum? Ex unde iusto obcaecati consequatur vitae soluta cum dignissimos accusamus delectus, eaque perferendis, nemo eveniet similique suscipit et ea.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione est suscipit consectetur, hic voluptatum et, natus facilis sint vel, at assumenda voluptate voluptates necessitatibus nemo fuga laudantium maxime. Repellendus, alias.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid amet obcaecati, accusantium libero quaerat facilis debitis soluta tempora praesentium exercitationem alias in provident nobis earum adipisci eveniet velit expedita tempore.
-                        </p>
+                        <p>After a year of living in Sweden, and after learning some Swedish words and phrases that can help in living in this country, I started looking for job, any job could improve my Swedish language, and fortunately I found a woman who works in cleaning houses and apartments and she said to me that she needs help!
+                        I started working with the nice woman for about a year and I have benefited a lot in getting to know the country more, but my Swedish has never improved throughout this year, as long as we were speaking English all the time.</p>
                     </div>
 
                     <div className="year-header-after" id='content-2015'></div>

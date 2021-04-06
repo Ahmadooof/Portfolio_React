@@ -5,6 +5,7 @@ import './Navbar.css'
 function Navbar() {
     const [click, setClick] = useState(false);
     const [, setButton] = useState(true);
+    const button = useRef(null)
 
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
@@ -14,10 +15,12 @@ function Navbar() {
         } else { setButton(true) }
     }
 
+
     // To get rid of showing 'SignUp' button each time refresh page in mobile.
     useEffect(
         () => {
             showButton()
+            button.current.disabled = true
         }, []
     )
     window.addEventListener('resize', showButton)
@@ -46,12 +49,12 @@ function Navbar() {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/projects" className='nav-links' onClick={closeMobileMenu}>
+                            <Link to="#" className='commingSoon nav-links' onClick={closeMobileMenu}>
                                 Projects
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/photos" className='nav-links' onClick={closeMobileMenu}>
+                            <Link to="#" ref={button} className='commingSoon nav-links' onClick={closeMobileMenu}>
                                 Photos
                             </Link>
                         </li>
