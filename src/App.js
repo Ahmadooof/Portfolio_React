@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from './components/navbar/Navbar';
 import './App.css';
 import Home from './components/pages/Home';
@@ -12,6 +12,15 @@ import ScrollIndecatior from './components/Scroll/ScrollIndecatior';
 import Music from './components/Music/Music';
 
 function App() {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }
+    // return () => {
+    //   cleanup
+    // }
+    , [])
+
   return (
     <>
       <ScrollToTop></ScrollToTop>

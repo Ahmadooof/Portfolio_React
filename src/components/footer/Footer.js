@@ -6,7 +6,7 @@ import { Button } from '../buttons/Button';
 function Footer() {
   return (
     <div className='footer-container'>
-      <section className='footer-subscription'>
+      {/* <section className='footer-subscription'>
         <p className='footer-subscription-heading'>
           Join the Adventure newsletter to receive our best vacation deals
         </p>
@@ -23,8 +23,8 @@ function Footer() {
             />
             <Button buttonStyle='btn--outline'>Subscribe</Button>
           </form>
-        </div>
-      </section>
+        </div> */}
+      {/* </section> */}
       {/* <div className='footer-links'>
         <div className='footer-link-wrapper'>
           <div className='footer-link-items'>
@@ -68,7 +68,7 @@ function Footer() {
               <i className='fab fa-typo3' />
             </Link> */}
           </div>
-          <small className='website-rights'>Ahmad Anbarje © 2021</small>
+          {/* <small className='website-rights'>Ahmad Anbarje © 2021</small> */}
           <div className='social-icons'>
             <Link
               className='social-icon-link facebook'
@@ -113,7 +113,7 @@ function Footer() {
           </div>
         </div>
       </section>
-    </div>
+    </div >
   );
 }
 

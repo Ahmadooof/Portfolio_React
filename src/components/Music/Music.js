@@ -5,9 +5,9 @@ import * as songs from './MusicList'
 // import '@tensorflow/tfjs-node';
 import * as faceapi from 'face-api.js';
 
-
 var constraints = { video: { width: 1280, height: 720 } };
 export var stream
+
 function Music() {
 
     const video = useRef(null)
@@ -35,8 +35,6 @@ function Music() {
         }
     }
 
-
-
     function startVideo() {
         playPausedSongButton.current.disabled = true
         playPausedSongButton.current.style.cursor = 'not-allowed'
@@ -50,17 +48,18 @@ function Music() {
         video.current.hidden = false
         navigator.mediaDevices.getUserMedia(constraints).then(
             (MediaStream) => {
-
                 video.current.srcObject = MediaStream
                 video.current.onloadedmetadata = function (e) {
                     video.current.play();
                     stream = MediaStream
+                    console.log(e)
                 };
             }
         )
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         playPausedSongButton.current.hidden = true
         video.current.hidden = true
         ctx = videoNoise.current.getContext('2d');
@@ -82,11 +81,12 @@ function Music() {
     }, [])
 
     const startDetections = () => {
-
+        console.log("hi")
         var timer = setInterval(async () => {
             const detections = await faceapi.detectAllFaces(video.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender()
             if (detections.length === 1) {          // we got a face
                 playPausedSongButton.current.hidden = false
+                ageRef.current.innerText = ""
                 ageRef.current.innerText = "Age:\xa0";
                 genderRef.current.innerText = "Gender:\xa0";
                 neutralRef.current.innerText = "Neutral:\xa0";
@@ -141,12 +141,26 @@ function Music() {
                 clearInterval(timer)
                 startDetectionsButtonRef.current.disabled = false
                 startDetectionsButtonRef.current.style.cursor = 'pointer'
+            } else {
+                flipCardInnerRef.current.classList.add("flip-card-inner-onClick")
+                ageRef.current.innerText = ""
+                ageRef.current.innerText += "No face has been detected, press the button to start detection again"
 
+                genderRef.current.innerText = "";
+                neutralRef.current.innerText = "";
+                happyRef.current.innerText = "";
+                sadRef.current.innerText = "";
+                surprisedRef.current.innerText = "";
+                pauseAudio(audio)
+                playPausedSongButton.current.hidden = true
             }
             stream.getTracks().forEach(function (track) {
                 track.stop();
+                startDetectionsButtonRef.current.disabled = false
+                startDetectionsButtonRef.current.style.cursor = 'pointer'
+                clearInterval(timer)
             });
-        }, 3000)
+        }, 4000)
     }
 
     const pauseAudio = (audio) => {
@@ -181,12 +195,6 @@ function Music() {
             buffer32[i++] = ((255 * Math.random()) | 0) << 24;
 
         ctx.putImageData(idata, 0, 0);
-    }
-
-    const startSong = (url) => {
-        // let audio = new Audio("Music/1.mp3")
-        // audio.play()
-
     }
 
 
@@ -224,7 +232,7 @@ function Music() {
                         <div className="flip-card-inner" ref={flipCardInnerRef}>
                             <div className="flip-card-front">
                                 <canvas className="noiseCanvas" ref={videoNoise}></canvas>
-                                <video onPlaying={startDetections} className="camera" ref={video} autoPlay muted></video>
+                                <video onPlaying={startDetections} className="camera-detections" ref={video} autoPlay muted></video>
                             </div>
                             <div className="flip-card-back">
                                 <div className="result-detections">
