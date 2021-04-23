@@ -4,11 +4,14 @@ import * as songs from './MusicList'
 
 // import '@tensorflow/tfjs-node';
 import * as faceapi from 'face-api.js';
+import { navButtons as navButton } from '../navbar/Navbar.js'
 
 var constraints = { video: { width: 1280, height: 720 } };
 export var stream
 
 function Music() {
+
+    var timer
 
     const video = useRef(null)
     const videoNoise = useRef(null)
@@ -36,6 +39,7 @@ function Music() {
     }
 
     function startVideo() {
+        navButton.current.classList.add('notAllowed')
         playPausedSongButton.current.disabled = true
         playPausedSongButton.current.style.cursor = 'not-allowed'
 
@@ -59,6 +63,9 @@ function Music() {
     }
 
     useEffect(() => {
+
+        window.history.pushState(null, null, window.location.href);
+
         window.scrollTo(0, 0);
         playPausedSongButton.current.hidden = true
         video.current.hidden = true
@@ -66,7 +73,7 @@ function Music() {
         playNoiseVideo()
         Promise.all([
             faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-            faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+            // faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
             faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
             faceapi.nets.faceExpressionNet.loadFromUri('/models'),
             faceapi.nets.ageGenderNet.loadFromUri('/models'),
@@ -77,13 +84,25 @@ function Music() {
         // this run when the component is destroyed.
         return () => {
             pauseAudio(audio)
+            if (stream !== undefined) {
+                stream.getTracks().forEach(function (track) {
+                    track.stop();
+                })
+            }
         }
     }, [])
 
-    const startDetections = () => {
-        console.log("hi")
+
+    const startDetections = async () => {
+
         var timer = setInterval(async () => {
-            const detections = await faceapi.detectAllFaces(video.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender()
+
+            let detections = await faceapi.detectAllFaces(video.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender()
+            window.onpopstate = function (event) {
+                window.history.go(0);
+                alert("please do not go back while detection is running")
+            }
+            navButton.current.classList.add('notAllowed')
             if (detections.length === 1) {          // we got a face
                 playPausedSongButton.current.hidden = false
                 ageRef.current.innerText = ""
@@ -138,7 +157,7 @@ function Music() {
                 happyRef.current.innerText += happy + "\xa0 %"
                 sadRef.current.innerText += sad + "\xa0 %"
                 surprisedRef.current.innerText += surprised + "\xa0 %"
-                clearInterval(timer)
+                // clearInterval(timer)
                 startDetectionsButtonRef.current.disabled = false
                 startDetectionsButtonRef.current.style.cursor = 'pointer'
             } else {
@@ -158,10 +177,15 @@ function Music() {
                 track.stop();
                 startDetectionsButtonRef.current.disabled = false
                 startDetectionsButtonRef.current.style.cursor = 'pointer'
+                if (navButton.current.classList.contains('notAllowed'))
+                    navButton.current.classList.remove('notAllowed')
                 clearInterval(timer)
-            });
-        }, 4000)
+            })
+
+        }, 3000);
+
     }
+
 
     const pauseAudio = (audio) => {
         try {
