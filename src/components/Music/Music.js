@@ -96,12 +96,11 @@ function Music() {
     const startDetections = async () => {
 
         var timer = setInterval(async () => {
-
-            let detections = await faceapi.detectAllFaces(video.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender()
             window.onpopstate = function (event) {
                 window.history.go(0);
-                alert("please do not go back while detection is running")
             }
+            let detections = await faceapi.detectAllFaces(video.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender()
+
             navButton.current.classList.add('notAllowed')
             if (detections.length === 1) {          // we got a face
                 playPausedSongButton.current.hidden = false
