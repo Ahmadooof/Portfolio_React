@@ -8,6 +8,11 @@
   margin-top: -65px;
 }
 
+.notAllowed{
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .music-left-s-1 {
   margin-top: 25vh;
   padding: 2rem;

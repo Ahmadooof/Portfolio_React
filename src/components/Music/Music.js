@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Music.css'
 import * as songs from './MusicList'
-
-// import '@tensorflow/tfjs-node';
 import * as faceapi from 'face-api.js';
 import { navButtons as navButton } from '../navbar/Navbar.js'
 
-var constraints = { video: { width: 1280, height: 720 } };
 export var stream
+
+var constraints = { video: { width: 1280, height: 720 } };
 
 function Music() {
 
@@ -33,23 +32,32 @@ function Music() {
 
     const toggleStarted = () => {
         if (!pauseAudio(audio)) {
+            if (audio === null)
+                return
             audio.play()
             setStarted(!started)
         }
     }
 
-    function startVideo() {
+    function setRestrection() {
         navButton.current.classList.add('notAllowed')
-        playPausedSongButton.current.disabled = true
-        playPausedSongButton.current.style.cursor = 'not-allowed'
-
-        startDetectionsButtonRef.current.disabled = true
-        startDetectionsButtonRef.current.style.cursor = 'not-allowed'
-
-        if (flipCardInnerRef.current.classList.contains("flip-card-inner-onClick"))
-            flipCardInnerRef.current.classList.remove("flip-card-inner-onClick")
+        playPausedSongButton.current.hidden = true;
+        startDetectionsButtonRef.current.hidden = true
         videoNoise.current.hidden = true
         video.current.hidden = false
+    }
+
+    function removeRestrections() {
+        navButton.current.classList.remove('notAllowed')
+        playPausedSongButton.current.hidden = false;
+        startDetectionsButtonRef.current.hidden = false
+    }
+
+    function startVideo() {
+        setRestrection()
+        if (flipCardInnerRef.current.classList.contains("flip-card-inner-onClick"))
+            flipCardInnerRef.current.classList.remove("flip-card-inner-onClick")
+
         navigator.mediaDevices.getUserMedia(constraints).then(
             (MediaStream) => {
                 video.current.srcObject = MediaStream
@@ -63,12 +71,10 @@ function Music() {
     }
 
     useEffect(() => {
-
-        window.history.pushState(null, null, window.location.href);
+        video.current.hidden = true
+        // window.history.pushState(null, null, window.location.href);
 
         window.scrollTo(0, 0);
-        playPausedSongButton.current.hidden = true
-        video.current.hidden = true
         ctx = videoNoise.current.getContext('2d');
         playNoiseVideo()
         Promise.all([
@@ -103,7 +109,6 @@ function Music() {
 
             navButton.current.classList.add('notAllowed')
             if (detections.length === 1) {          // we got a face
-                playPausedSongButton.current.hidden = false
                 ageRef.current.innerText = ""
                 ageRef.current.innerText = "Age:\xa0";
                 genderRef.current.innerText = "Gender:\xa0";
@@ -146,8 +151,6 @@ function Music() {
                     // audio.songs[1].play()
                 }
                 setAudio(audio)
-                playPausedSongButton.current.disabled = false
-                playPausedSongButton.current.style.cursor = 'pointer'
 
                 flipCardInnerRef.current.classList.add("flip-card-inner-onClick")
                 ageRef.current.innerText += Math.round(detections[0].age)
@@ -157,8 +160,6 @@ function Music() {
                 sadRef.current.innerText += sad + "\xa0 %"
                 surprisedRef.current.innerText += surprised + "\xa0 %"
                 // clearInterval(timer)
-                startDetectionsButtonRef.current.disabled = false
-                startDetectionsButtonRef.current.style.cursor = 'pointer'
             } else {
                 flipCardInnerRef.current.classList.add("flip-card-inner-onClick")
                 ageRef.current.innerText = ""
@@ -170,19 +171,15 @@ function Music() {
                 sadRef.current.innerText = "";
                 surprisedRef.current.innerText = "";
                 pauseAudio(audio)
-                playPausedSongButton.current.hidden = true
             }
             stream.getTracks().forEach(function (track) {
                 track.stop();
-                startDetectionsButtonRef.current.disabled = false
-                startDetectionsButtonRef.current.style.cursor = 'pointer'
-                if (navButton.current.classList.contains('notAllowed'))
-                    navButton.current.classList.remove('notAllowed')
+
                 clearInterval(timer)
             })
 
+            removeRestrections()
         }, 3000);
-
     }
 
 
@@ -301,7 +298,7 @@ function Music() {
                             <button ref={startDetectionsButtonRef} className="button button-circle-right" onClick={startVideo} >Start detections</button>
                         </div>
                         <div className="button-song">
-                            <button ref={playPausedSongButton} onClick={toggleStarted} className="button button-circle-song">{started ? "Pause" : "Play"}</button>
+                            <button ref={playPausedSongButton} onClick={toggleStarted} className="button button-circle-song">{started ? "Pause Tune" : "Play Tune"}</button>
                         </div>
                     </div>
                 </div>

@@ -100,10 +100,7 @@
   height: 100%;
 }
 
-.notAllowed {
-  pointer-events: none;
-  cursor: not-allowed;
-}
+
 
 .nav-links:hover {
   border-bottom: 4px solid #fff;
