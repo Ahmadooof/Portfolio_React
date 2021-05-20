@@ -1,73 +1,42 @@
-import React, { useEffect, useRef, useState } from 'react'
-import './Music.css'
-import * as songs from './MusicList'
 import * as faceapi from 'face-api.js';
-import { navButtons as navButton } from '../navbar/Navbar.js'
+import React, { useEffect, useRef, useState } from 'react';
+import { audio, startDetections } from '../Music/faceDetection';
+import { startVideo, stream } from '../Music/startVideo';
+import './Music.css';
 
-export var stream
+export let ageRef, genderRef, neutralRef, happyRef, surprisedRef, sadRef, video, videoNoise, playPausedSongButton, startDetectionsButtonRef, flipCardInnerRef
+export let faceAPI
 
-var constraints = { video: { width: 1280, height: 720 } };
+
 
 function Music() {
 
-    var timer
+    videoNoise = useRef(null)
+    video = useRef(null)
+    playPausedSongButton = useRef(null)
+    startDetectionsButtonRef = useRef(null)
+    flipCardInnerRef = useRef(null)
+    happyRef = useRef(null)
+    ageRef = useRef(null)
+    genderRef = useRef(null)
+    neutralRef = useRef(null)
+    surprisedRef = useRef(null)
+    sadRef = useRef(null)
 
-    const video = useRef(null)
-    const videoNoise = useRef(null)
-    const flipCardInnerRef = useRef(null)
-    const ageRef = useRef(null)
-    const genderRef = useRef(null)
-    const neutralRef = useRef(null)
-    const happyRef = useRef(null)
-    const sadRef = useRef(null)
-    const surprisedRef = useRef(null)
-    const startDetectionsButtonRef = useRef(null)
-    const playPausedSongButton = useRef(null)
-    const SongsRef = useRef(null)
-
-    const [started, setStarted] = useState(true)
+    const [buttonPaused, setbuttonPaused] = useState(true)
     var ctx
 
-    var [audio, setAudio] = useState(null)
-
-    const toggleStarted = () => {
-        if (!pauseAudio(audio)) {
-            if (audio === null)
-                return
+    const playPauseButton = () => {
+        if (audio === null || audio === undefined)  // Audio is not initialized
+            return
+        if (audio.paused) {     // Audio is Off
             audio.play()
-            setStarted(!started)
+            setbuttonPaused(true)
         }
-    }
-
-    function setRestrection() {
-        navButton.current.classList.add('notAllowed')
-        playPausedSongButton.current.hidden = true;
-        startDetectionsButtonRef.current.hidden = true
-        videoNoise.current.hidden = true
-        video.current.hidden = false
-    }
-
-    function removeRestrections() {
-        navButton.current.classList.remove('notAllowed')
-        playPausedSongButton.current.hidden = false;
-        startDetectionsButtonRef.current.hidden = false
-    }
-
-    function startVideo() {
-        setRestrection()
-        if (flipCardInnerRef.current.classList.contains("flip-card-inner-onClick"))
-            flipCardInnerRef.current.classList.remove("flip-card-inner-onClick")
-
-        navigator.mediaDevices.getUserMedia(constraints).then(
-            (MediaStream) => {
-                video.current.srcObject = MediaStream
-                video.current.onloadedmetadata = function (e) {
-                    video.current.play();
-                    stream = MediaStream
-                    console.log(e)
-                };
-            }
-        )
+        else {                  // Audio is On
+            audio.pause()
+            setbuttonPaused(false)
+        }
     }
 
     useEffect(() => {
@@ -83,13 +52,14 @@ function Music() {
             faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
             faceapi.nets.faceExpressionNet.loadFromUri('/models'),
             faceapi.nets.ageGenderNet.loadFromUri('/models'),
+            faceAPI = faceapi
             // faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
             // faceapi.nets.tinyYolov2.loadFromUri('/models'),
         ])
 
         // this run when the component is destroyed.
         return () => {
-            pauseAudio(audio)
+            audio.pause()
             if (stream !== undefined) {
                 stream.getTracks().forEach(function (track) {
                     track.stop();
@@ -97,106 +67,6 @@ function Music() {
             }
         }
     }, [])
-
-
-    const startDetections = async () => {
-
-        var timer = setInterval(async () => {
-            window.onpopstate = function (event) {
-                window.history.go(0);
-            }
-            let detections = await faceapi.detectAllFaces(video.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender()
-
-            navButton.current.classList.add('notAllowed')
-            if (detections.length === 1) {          // we got a face
-                ageRef.current.innerText = ""
-                ageRef.current.innerText = "Age:\xa0";
-                genderRef.current.innerText = "Gender:\xa0";
-                neutralRef.current.innerText = "Neutral:\xa0";
-                happyRef.current.innerText = "Happy:\xa0";
-                sadRef.current.innerText = "Sad:\xa0";
-                surprisedRef.current.innerText = "Surprised:\xa0";
-                var neutral = Math.floor(detections[0].expressions.neutral * 100)
-                var happy = Math.floor(detections[0].expressions.happy * 100)
-                var sad = Math.floor(detections[0].expressions.sad * 100)
-                var surprised = Math.floor(detections[0].expressions.surprised * 100)
-                var emotionsArr = [neutral, happy, sad, surprised]
-                var maxEmotion
-                console.log("hi")
-                pauseAudio(audio)
-                setStarted(true)
-                switch (emotionsArr.indexOf(Math.max(...emotionsArr))) {
-                    case 0:
-                        maxEmotion = "neutral"
-                        audio = new Audio(songs.TRACKLIST[0].source)
-                        audio.play()
-                        break
-                    case 1:
-                        maxEmotion = "happy"
-                        audio = new Audio(songs.TRACKLIST[1].source)
-                        audio.play()
-                        break
-                    case 2:
-                        maxEmotion = "sad"
-                        audio = new Audio(songs.TRACKLIST[2].source)
-                        audio.play()
-                        break
-                    case 3:
-                        maxEmotion = "surprised"
-                        audio = new Audio(songs.TRACKLIST[3].source)
-                        audio.play()
-                        break
-                    default:
-                        console.log()
-                    // audio.songs[1].play()
-                }
-                setAudio(audio)
-
-                flipCardInnerRef.current.classList.add("flip-card-inner-onClick")
-                ageRef.current.innerText += Math.round(detections[0].age)
-                genderRef.current.innerText += detections[0].gender
-                neutralRef.current.innerText += neutral + "\xa0 %"
-                happyRef.current.innerText += happy + "\xa0 %"
-                sadRef.current.innerText += sad + "\xa0 %"
-                surprisedRef.current.innerText += surprised + "\xa0 %"
-                // clearInterval(timer)
-            } else {
-                flipCardInnerRef.current.classList.add("flip-card-inner-onClick")
-                ageRef.current.innerText = ""
-                ageRef.current.innerText += "No face has been detected, press the button to start detection again"
-
-                genderRef.current.innerText = "";
-                neutralRef.current.innerText = "";
-                happyRef.current.innerText = "";
-                sadRef.current.innerText = "";
-                surprisedRef.current.innerText = "";
-                pauseAudio(audio)
-            }
-            stream.getTracks().forEach(function (track) {
-                track.stop();
-
-                clearInterval(timer)
-            })
-
-            removeRestrections()
-        }, 3000);
-    }
-
-
-    const pauseAudio = (audio) => {
-        try {
-            console.log(!audio.paused)
-            if (!audio.paused) {
-                audio.pause()
-                setStarted(!started)
-                return true
-            }
-        } catch (error) {
-            return false
-        }
-        return false
-    }
-
 
     const playNoiseVideo = () => {
         noise();
@@ -298,7 +168,7 @@ function Music() {
                             <button ref={startDetectionsButtonRef} className="button button-circle-right" onClick={startVideo} >Start detections</button>
                         </div>
                         <div className="button-song">
-                            <button ref={playPausedSongButton} onClick={toggleStarted} className="button button-circle-song">{started ? "Pause Tune" : "Play Tune"}</button>
+                            <button ref={playPausedSongButton} onClick={playPauseButton} className="button button-circle-song">{buttonPaused ? "Pause Tune" : "Play Tune"}</button>
                         </div>
                     </div>
                 </div>
