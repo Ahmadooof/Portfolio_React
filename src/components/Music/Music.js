@@ -7,8 +7,6 @@ import './Music.css';
 export let ageRef, genderRef, neutralRef, happyRef, surprisedRef, sadRef, video, videoNoise, playPausedSongButton, startDetectionsButtonRef, flipCardInnerRef
 export let faceAPI
 
-
-
 function Music() {
 
     videoNoise = useRef(null)
@@ -27,6 +25,7 @@ function Music() {
     var ctx
 
     const playPauseButton = () => {
+        console.log(audio)
         if (audio === null || audio === undefined)  // Audio is not initialized
             return
         if (audio.paused) {     // Audio is Off
@@ -59,7 +58,8 @@ function Music() {
 
         // this run when the component is destroyed.
         return () => {
-            audio.pause()
+            if (audio !== undefined)  // Audio is not initialized
+                audio.pause()
             if (stream !== undefined) {
                 stream.getTracks().forEach(function (track) {
                     track.stop();

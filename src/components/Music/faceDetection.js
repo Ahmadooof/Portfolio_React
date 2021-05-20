@@ -85,7 +85,7 @@ export let startDetections = async () => {
     }, 3000);
 }
 
-function pauseAudio(audio) {
+export function pauseAudio(audio) {
     try {
         if (audio !== null || audio !== undefined)
             audio.pause()
