@@ -9,6 +9,7 @@ import './Music.css';
 export let animationAndButtons
 export let faceAPI
 export let detectionResult
+export let pauseNoiseVideo
 
 function Music() {
     detectionResult = {
@@ -42,14 +43,12 @@ function Music() {
             setbuttonPaused(false)
         }
     }
-    var canvasNoise
 
+    let v
     useEffect(() => {
+        window.scrollTo(0, 0)
         animationAndButtons.video.current.hidden = true
-        canvasNoise = animationAndButtons.videoNoise.current.getContext('2d')
-
-        window.scrollTo(0, 0);
-        console.log(1)
+        v = animationAndButtons.videoNoise.current.getContext('2d')
         playNoiseVideo()
         Promise.all([
             faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -64,7 +63,7 @@ function Music() {
 
         // this run when the component is destroyed.
         return () => {
-            console.log(3)
+            pauseNoiseVideo()
             pauseAudio(audio)
             if (stream !== undefined) {
                 stream.getTracks().forEach(function (track) {
@@ -74,15 +73,13 @@ function Music() {
         }
     }, [])
 
+    var times
     const playNoiseVideo = () => {
-        noise(canvasNoise);
-        requestAnimationFrame(playNoiseVideo);
-    }
-
-    function noise(canvasNoise) {
-        var w = canvasNoise.canvas.width,
-            h = canvasNoise.canvas.height,
-            idata = canvasNoise.createImageData(w, h),
+        console.log(times)
+        times = window.requestAnimationFrame(playNoiseVideo)
+        var w = v.canvas.width,
+            h = v.canvas.height,
+            idata = v.createImageData(w, h),
             buffer32 = new Uint32Array(idata.data.buffer),
             len = buffer32.length,
             i = 0;
@@ -90,16 +87,15 @@ function Music() {
         for (; i < len;)
             buffer32[i++] = ((255 * Math.random()) | 0) << 24;
 
-        canvasNoise.putImageData(idata, 0, 0);
-    }
-    function hi() {
-        console.log("gi")
+        v.putImageData(idata, 0, 0);
     }
 
+    pauseNoiseVideo = () => {
+        window.cancelAnimationFrame(times)
+    }
 
     return (
         <>
-            {console.log(4)}
             <div className="music-container-s-1" >
                 <div className="music-left-s-1">
                     <div className="header-container">
@@ -131,7 +127,7 @@ function Music() {
                     <div className="flip-card">
                         <div className="flip-card-inner" ref={animationAndButtons.flipCardInner}>
                             <div className="flip-card-front">
-                                <canvas onPlaying={hi} className="noiseCanvas" ref={animationAndButtons.videoNoise}></canvas>
+                                <canvas className="noiseCanvas" ref={animationAndButtons.videoNoise}></canvas>
                                 <video onPlaying={startDetections} className="camera-detections" ref={animationAndButtons.video} autoPlay muted></video>
                             </div>
                             <div className="flip-card-back">
@@ -175,7 +171,7 @@ function Music() {
                     </div>
                     <div className="buttons-container">
                         <div className="button-start-detection">
-                            <button ref={animationAndButtons.startDetectionButton} className="button button-circle-right" onClick={startVideo} >Start detections</button>
+                            <button ref={animationAndButtons.startDetectionButton} className="button button-circle-right" onClick={() => { startVideo(); pauseNoiseVideo() }} >Start detections</button>
                         </div>
                         <div className="button-song">
                             <button ref={animationAndButtons.playPauseButton} onClick={playPauseAudio} className="button button-circle-song">{buttonPaused ? "Pause Tune" : "Play Tune"}</button>
