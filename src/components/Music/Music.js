@@ -1,15 +1,15 @@
 import * as faceapi from 'face-api.js';
 import React, { useEffect, useRef, useState } from 'react';
-import { audio, startDetections } from '../Music/faceDetection';
+import { startDetections } from '../Music/faceDetection';
 import { startVideo, stream } from '../Music/startVideo';
-import { pauseAudio } from './faceDetection';
+import { pauseAudio, playPauseAudio, TRACKLIST } from './Audio';
 import './Music.css';
 
 
 export let animationAndButtons
 export let faceAPI
 export let detectionResult
-export let pauseNoiseVideo
+
 
 function Music() {
     detectionResult = {
@@ -28,21 +28,18 @@ function Music() {
         startDetectionButton: useRef(null),
         flipCardInner: useRef(null),
     }
+
     const [buttonPaused, setbuttonPaused] = useState(true)
 
-    const playPauseAudio = () => {
-        console.log(audio)
-        if (audio === null || audio === undefined)  // Audio is not initialized
+    const changeButtonText = () => {
+        if (TRACKLIST.audio === null || TRACKLIST.audio === undefined)
             return
-        if (audio.paused) {     // Audio is Off
-            audio.play()
-            setbuttonPaused(true)
-        }
-        else {                  // Audio is On
-            audio.pause()
+        if (buttonPaused)
             setbuttonPaused(false)
-        }
+        else
+            setbuttonPaused(true)
     }
+
 
     let v
     useEffect(() => {
@@ -64,7 +61,7 @@ function Music() {
         // this run when the component is destroyed.
         return () => {
             pauseNoiseVideo()
-            pauseAudio(audio)
+            pauseAudio(TRACKLIST.audio)
             if (stream !== undefined) {
                 stream.getTracks().forEach(function (track) {
                     track.stop();
@@ -75,7 +72,6 @@ function Music() {
 
     var times
     const playNoiseVideo = () => {
-        console.log(times)
         times = window.requestAnimationFrame(playNoiseVideo)
         var w = v.canvas.width,
             h = v.canvas.height,
@@ -90,7 +86,7 @@ function Music() {
         v.putImageData(idata, 0, 0);
     }
 
-    pauseNoiseVideo = () => {
+    let pauseNoiseVideo = () => {
         window.cancelAnimationFrame(times)
     }
 
@@ -174,7 +170,7 @@ function Music() {
                             <button ref={animationAndButtons.startDetectionButton} className="button button-circle-right" onClick={() => { startVideo(); pauseNoiseVideo() }} >Start detections</button>
                         </div>
                         <div className="button-song">
-                            <button ref={animationAndButtons.playPauseButton} onClick={playPauseAudio} className="button button-circle-song">{buttonPaused ? "Pause Tune" : "Play Tune"}</button>
+                            <button ref={animationAndButtons.playPauseButton} onClick={() => { playPauseAudio(TRACKLIST.audio); changeButtonText() }} className="button button-circle-song">{buttonPaused ? "Pause Tune" : "Play Tune"}</button>
                         </div>
                     </div>
                 </div>

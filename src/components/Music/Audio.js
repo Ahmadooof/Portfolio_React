@@ -1,4 +1,4 @@
-const TRACKLIST = [
+export const TRACKLIST = [
     {
         id: 1,
         name: "Piano",
@@ -25,7 +25,24 @@ const TRACKLIST = [
         source: "Music/4-Su.mp3",
         label: "Surprised",
         link: 'bensound',
+    },
+    {
+        audio: ''
     }
 ]
 
-export { TRACKLIST }
+export let playPauseAudio = (audio) => {
+    if (audio === null || audio === undefined)  // Audio is not initialized
+        return
+    if (audio.paused) {     // Audio is off => Turn on
+        audio.play()
+    }
+    else {                  // Audio is on => Turn off
+        audio.pause()
+    }
+}
+
+export let pauseAudio = (audio) => {
+    if (audio !== undefined)
+        audio.pause()
+}
