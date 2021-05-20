@@ -2,29 +2,34 @@ import * as faceapi from 'face-api.js';
 import React, { useEffect, useRef, useState } from 'react';
 import { audio, startDetections } from '../Music/faceDetection';
 import { startVideo, stream } from '../Music/startVideo';
+import { pauseAudio } from './faceDetection';
 import './Music.css';
 
-export let ageRef, genderRef, neutralRef, happyRef, surprisedRef, sadRef, video, videoNoise, playPausedSongButton, startDetectionsButtonRef, flipCardInnerRef
+
+export let animationAndButtons
 export let faceAPI
+export let detectionResult
 
 function Music() {
+    detectionResult = {
+        age: useRef(null),
+        gender: useRef(null),
+        neutral: useRef(null),
+        happy: useRef(null),
+        surprised: useRef(null),
+        sad: useRef(null)
+    }
 
-    videoNoise = useRef(null)
-    video = useRef(null)
-    playPausedSongButton = useRef(null)
-    startDetectionsButtonRef = useRef(null)
-    flipCardInnerRef = useRef(null)
-    happyRef = useRef(null)
-    ageRef = useRef(null)
-    genderRef = useRef(null)
-    neutralRef = useRef(null)
-    surprisedRef = useRef(null)
-    sadRef = useRef(null)
-
+    animationAndButtons = {
+        videoNoise: useRef(null),
+        video: useRef(null),
+        playPauseButton: useRef(null),
+        startDetectionButton: useRef(null),
+        flipCardInner: useRef(null),
+    }
     const [buttonPaused, setbuttonPaused] = useState(true)
-    var ctx
 
-    const playPauseButton = () => {
+    const playPauseAudio = () => {
         console.log(audio)
         if (audio === null || audio === undefined)  // Audio is not initialized
             return
@@ -37,13 +42,14 @@ function Music() {
             setbuttonPaused(false)
         }
     }
+    var canvasNoise
 
     useEffect(() => {
-        video.current.hidden = true
-        // window.history.pushState(null, null, window.location.href);
+        animationAndButtons.video.current.hidden = true
+        canvasNoise = animationAndButtons.videoNoise.current.getContext('2d')
 
         window.scrollTo(0, 0);
-        ctx = videoNoise.current.getContext('2d');
+        console.log(1)
         playNoiseVideo()
         Promise.all([
             faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -58,8 +64,8 @@ function Music() {
 
         // this run when the component is destroyed.
         return () => {
-            if (audio !== undefined)  // Audio is not initialized
-                audio.pause()
+            console.log(3)
+            pauseAudio(audio)
             if (stream !== undefined) {
                 stream.getTracks().forEach(function (track) {
                     track.stop();
@@ -69,14 +75,14 @@ function Music() {
     }, [])
 
     const playNoiseVideo = () => {
-        noise();
+        noise(canvasNoise);
         requestAnimationFrame(playNoiseVideo);
     }
 
-    function noise() {
-        var w = ctx.canvas.width,
-            h = ctx.canvas.height,
-            idata = ctx.createImageData(w, h),
+    function noise(canvasNoise) {
+        var w = canvasNoise.canvas.width,
+            h = canvasNoise.canvas.height,
+            idata = canvasNoise.createImageData(w, h),
             buffer32 = new Uint32Array(idata.data.buffer),
             len = buffer32.length,
             i = 0;
@@ -84,12 +90,16 @@ function Music() {
         for (; i < len;)
             buffer32[i++] = ((255 * Math.random()) | 0) << 24;
 
-        ctx.putImageData(idata, 0, 0);
+        canvasNoise.putImageData(idata, 0, 0);
+    }
+    function hi() {
+        console.log("gi")
     }
 
 
     return (
         <>
+            {console.log(4)}
             <div className="music-container-s-1" >
                 <div className="music-left-s-1">
                     <div className="header-container">
@@ -119,10 +129,10 @@ function Music() {
                 </div>
                 <div className="music-right-s-2">
                     <div className="flip-card">
-                        <div className="flip-card-inner" ref={flipCardInnerRef}>
+                        <div className="flip-card-inner" ref={animationAndButtons.flipCardInner}>
                             <div className="flip-card-front">
-                                <canvas className="noiseCanvas" ref={videoNoise}></canvas>
-                                <video onPlaying={startDetections} className="camera-detections" ref={video} autoPlay muted></video>
+                                <canvas onPlaying={hi} className="noiseCanvas" ref={animationAndButtons.videoNoise}></canvas>
+                                <video onPlaying={startDetections} className="camera-detections" ref={animationAndButtons.video} autoPlay muted></video>
                             </div>
                             <div className="flip-card-back">
                                 <div className="result-detections">
@@ -139,22 +149,22 @@ function Music() {
                                         <table cellpadding="0" cellspacing="0" border="0">
                                             <tbody>
                                                 <tr>
-                                                    <td ref={ageRef}></td>
+                                                    <td ref={detectionResult.age}></td>
                                                 </tr>
                                                 <tr>
-                                                    <td ref={genderRef}></td>
+                                                    <td ref={detectionResult.gender}></td>
                                                 </tr>
                                                 <tr>
-                                                    <td ref={neutralRef}></td>
+                                                    <td ref={detectionResult.neutral}></td>
                                                 </tr>
                                                 <tr>
-                                                    <td ref={happyRef}></td>
+                                                    <td ref={detectionResult.happy}></td>
                                                 </tr>
                                                 <tr>
-                                                    <td ref={sadRef}></td>
+                                                    <td ref={detectionResult.sad}></td>
                                                 </tr>
                                                 <tr>
-                                                    <td ref={surprisedRef}></td>
+                                                    <td ref={detectionResult.surprised}></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -165,10 +175,10 @@ function Music() {
                     </div>
                     <div className="buttons-container">
                         <div className="button-start-detection">
-                            <button ref={startDetectionsButtonRef} className="button button-circle-right" onClick={startVideo} >Start detections</button>
+                            <button ref={animationAndButtons.startDetectionButton} className="button button-circle-right" onClick={startVideo} >Start detections</button>
                         </div>
                         <div className="button-song">
-                            <button ref={playPausedSongButton} onClick={playPauseButton} className="button button-circle-song">{buttonPaused ? "Pause Tune" : "Play Tune"}</button>
+                            <button ref={animationAndButtons.playPauseButton} onClick={playPauseAudio} className="button button-circle-song">{buttonPaused ? "Pause Tune" : "Play Tune"}</button>
                         </div>
                     </div>
                 </div>
