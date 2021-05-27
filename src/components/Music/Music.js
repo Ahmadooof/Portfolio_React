@@ -4,22 +4,25 @@ import { startDetections } from '../Music/faceDetection';
 import { startVideo, stream } from '../Music/startVideo';
 import { pauseAudio, playPauseAudio, TRACKLIST } from './Audio';
 import './Music.css';
+import { ResultDetection } from './ResultDetection';
 
 
 export let animationAndButtons
 export let faceAPI
-export let detectionResult
 
 
 function Music() {
-    detectionResult = {
-        age: useRef(null),
-        gender: useRef(null),
-        neutral: useRef(null),
-        happy: useRef(null),
-        surprised: useRef(null),
-        sad: useRef(null)
-    }
+
+    const [detectionResult, setdetectionResult] = useState({
+        faceDetected: false,
+        gender: '',
+        age: 0,
+        neutral: 0,
+        happy: 0,
+        sad: 0,
+        surprised: 0,
+    })
+    const initState = {}
 
     animationAndButtons = {
         videoNoise: useRef(null),
@@ -32,6 +35,7 @@ function Music() {
     const [buttonPaused, setbuttonPaused] = useState(true)
 
     const changeButtonText = () => {
+        // console.log(resultS);
         if (TRACKLIST.audio === null || TRACKLIST.audio === undefined)
             return
         if (buttonPaused)
@@ -124,7 +128,26 @@ function Music() {
                         <div className="flip-card-inner" ref={animationAndButtons.flipCardInner}>
                             <div className="flip-card-front">
                                 <canvas className="noiseCanvas" ref={animationAndButtons.videoNoise}></canvas>
-                                <video onPlaying={startDetections} className="camera-detections" ref={animationAndButtons.video} autoPlay muted></video>
+                                <video onPlaying={
+                                    () => {
+                                        startDetections().then(value => {
+                                            if (value.faceDetected === true) {   // face detected
+                                                setdetectionResult({
+                                                    faceDetected: true,
+                                                    gender: value.gender,
+                                                    age: value.age,
+                                                    neutral: value.neutral,
+                                                    happy: value.happy,
+                                                    sad: value.sad,
+                                                    surprised: value.surprised,
+                                                })
+                                            }
+                                            else {      //  clear the state
+                                                setdetectionResult(initState)
+                                            }
+                                        })
+                                    }
+                                } className="camera-detections" ref={animationAndButtons.video} autoPlay muted></video>
                             </div>
                             <div className="flip-card-back">
                                 <div className="result-detections">
@@ -141,22 +164,34 @@ function Music() {
                                         <table cellpadding="0" cellspacing="0" border="0">
                                             <tbody>
                                                 <tr>
-                                                    <td ref={detectionResult.age}></td>
+                                                    <ResultDetection
+                                                        text={detectionResult.faceDetected ? 'Gender: ' + detectionResult.gender : ''}
+                                                    />
                                                 </tr>
                                                 <tr>
-                                                    <td ref={detectionResult.gender}></td>
+                                                    <ResultDetection
+                                                        text={detectionResult.faceDetected ? 'Age: ' + detectionResult.age : 'No face has been detected'}
+                                                    />
                                                 </tr>
                                                 <tr>
-                                                    <td ref={detectionResult.neutral}></td>
+                                                    <ResultDetection
+                                                        text={detectionResult.faceDetected ? 'Neutral: ' + detectionResult.neutral + '%' : ''}
+                                                    />
                                                 </tr>
                                                 <tr>
-                                                    <td ref={detectionResult.happy}></td>
+                                                    <ResultDetection
+                                                        text={detectionResult.faceDetected ? 'Happy: ' + detectionResult.happy + '%' : ''}
+                                                    />
                                                 </tr>
                                                 <tr>
-                                                    <td ref={detectionResult.sad}></td>
+                                                    <ResultDetection
+                                                        text={detectionResult.faceDetected ? 'Sad: ' + detectionResult.sad + '%' : ''}
+                                                    />
                                                 </tr>
                                                 <tr>
-                                                    <td ref={detectionResult.surprised}></td>
+                                                    <ResultDetection
+                                                        text={detectionResult.faceDetected ? 'Surprised: ' + detectionResult.surprised + '%' : ''}
+                                                    />
                                                 </tr>
                                             </tbody>
                                         </table>

@@ -1,70 +1,78 @@
-import { animationAndButtons, detectionResult, faceAPI } from '../Music/Music';
+import { animationAndButtons, faceAPI } from '../Music/Music';
 import { stream } from "../Music/startVideo";
 import { navButtons as navButton } from '../navbar/Navbar.js';
 import { pauseAudio, TRACKLIST } from './Audio';
 
-export let startDetections = async () => {
-    var timer = setInterval(async () => {
-        window.onpopstate = function () {
-            window.history.go(0);
+export async function startDetections() {
+
+    window.onpopstate = function () {
+        window.history.go(0);
+    }
+
+    let detectionResult = {
+        faceDetected: false,
+        gender: '',
+        age: 0,
+        neutral: 0,
+        happy: 0,
+        sad: 0,
+        surprised: 0,
+    }
+
+    let detections = await new Promise((res, rej) => {
+        setTimeout(() => {
+            res(faceAPI.detectAllFaces(animationAndButtons.video.current, new faceAPI.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender())
+
+        }, 3000);
+    })
+
+    function animation() {
+        animationAndButtons.flipCardInner.current.classList.add("flip-card-inner-onClick");
+        navButton.current.classList.add('notAllowed');
+    }
+    animation()
+
+    if (detections.length === 1) {          // we got a face
+        detectionResult.faceDetected = true
+        detectionResult.gender = detections[0].gender
+        detectionResult.age = Math.round(detections[0].age)
+        detectionResult.neutral = Math.floor(detections[0].expressions.neutral * 100)
+        detectionResult.happy = Math.floor(detections[0].expressions.happy * 100)
+        detectionResult.sad = Math.floor(detections[0].expressions.sad * 100)
+        detectionResult.surprised = Math.floor(detections[0].expressions.surprised * 100)
+
+        var emotionsArr = [detections.neutral, detections.happy, detections.sad, detections.surprised]
+        pauseAudio(TRACKLIST.audio)
+        switch (emotionsArr.indexOf(Math.max(...emotionsArr))) {
+            case 0:
+                TRACKLIST.audio = new Audio(TRACKLIST[0].source);
+                break;
+            case 1:
+                TRACKLIST.audio = new Audio(TRACKLIST[1].source);
+                break;
+            case 2:
+                TRACKLIST.audio = new Audio(TRACKLIST[2].source);
+                break;
+            case 3:
+                TRACKLIST.audio = new Audio(TRACKLIST[3].source);
+                break;
+            default:
+                TRACKLIST.audio = new Audio(TRACKLIST[0].source);
         }
-        let detections = await faceAPI.detectAllFaces(animationAndButtons.video.current, new faceAPI.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender()
-        animationAndButtons.flipCardInner.current.classList.add("flip-card-inner-onClick")
-        navButton.current.classList.add('notAllowed')
-        if (detections.length === 1) {          // we got a face
-            var neutral = Math.floor(detections[0].expressions.neutral * 100)
-            var happy = Math.floor(detections[0].expressions.happy * 100)
-            var sad = Math.floor(detections[0].expressions.sad * 100)
-            var surprised = Math.floor(detections[0].expressions.surprised * 100)
-            var emotionsArr = [neutral, happy, sad, surprised]
-            pauseAudio(TRACKLIST.audio)
+        TRACKLIST.audio.play();
+        console.log(detectionResult);
+    } else {
+        detectionResult.faceDetected = false
+        pauseAudio(TRACKLIST.audio);
 
-            switch (emotionsArr.indexOf(Math.max(...emotionsArr))) {
-                case 0:
-                    TRACKLIST.audio = new Audio(TRACKLIST[0].source)
-                    console.log(TRACKLIST.audio)
+    }
+    stream.getTracks().forEach(function (track) {
+        track.stop();
+    })
+    removeRestrections()
 
-                    break
-                case 1:
-                    TRACKLIST.audio = new Audio(TRACKLIST[1].source)
-                    break
-                case 2:
-                    TRACKLIST.audio = new Audio(TRACKLIST[2].source)
-                    break
-                case 3:
-                    TRACKLIST.audio = new Audio(TRACKLIST[3].source)
-                    break
-                default:
-                    TRACKLIST.audio = new Audio(TRACKLIST[0].source)
-            }
-            TRACKLIST.audio.play()
-            detectionResult.age.current.innerText = "Age:\xa0" + Math.round(detections[0].age)
-            detectionResult.gender.current.innerText = "Gender:\xa0" + detections[0].gender
-            detectionResult.neutral.current.innerText = "Neutral:\xa0" + neutral + "\xa0 %"
-            detectionResult.happy.current.innerText = "Happy:\xa0" + happy + "\xa0 %"
-            detectionResult.sad.current.innerText = "Sad:\xa0" + sad + "\xa0 %"
-            detectionResult.surprised.current.innerText = "Surprised:\xa0" + surprised + "\xa0 %"
-        } else {
-            detectionResult.age.current.innerText = ""
-            detectionResult.gender.current.innerText = ""
-            detectionResult.neutral.current.innerText = ""
-            detectionResult.sad.current.innerText = ""
-            detectionResult.happy.current.innerText = ""
-            detectionResult.surprised.current.innerText = ""
-            detectionResult.age.current.innerText += "No face has been detected, press the button to start detection again"
-            pauseAudio(TRACKLIST.audio)
-        }
-        stream.getTracks().forEach(function (track) {
-            track.stop();
-
-            clearInterval(timer)
-        })
-
-        removeRestrections()
-    }, 3000);
+    return detectionResult
 }
-
-
 
 function removeRestrections() {
     navButton.current.classList.remove('notAllowed')
