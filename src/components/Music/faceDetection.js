@@ -22,7 +22,6 @@ export async function startDetections() {
     let detections = await new Promise((res, rej) => {
         setTimeout(() => {
             res(faceAPI.detectAllFaces(animationAndButtons.video.current, new faceAPI.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender())
-
         }, 3000);
     })
 

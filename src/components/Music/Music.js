@@ -13,14 +13,7 @@ export let faceAPI
 
 function Music() {
 
-    const [detectionResult, setdetectionResult] = useState({
-        faceDetected: false,
-        gender: '',
-        age: 0,
-        neutral: 0,
-        happy: 0,
-        sad: 0,
-        surprised: 0,
+    let [detectionResult, setdetectionResult] = useState({
     })
     const initState = {}
 
@@ -35,7 +28,6 @@ function Music() {
     const [buttonPaused, setbuttonPaused] = useState(true)
 
     const changeButtonText = () => {
-        // console.log(resultS);
         if (TRACKLIST.audio === null || TRACKLIST.audio === undefined)
             return
         if (buttonPaused)
@@ -132,15 +124,7 @@ function Music() {
                                     () => {
                                         startDetections().then(value => {
                                             if (value.faceDetected === true) {   // face detected
-                                                setdetectionResult({
-                                                    faceDetected: true,
-                                                    gender: value.gender,
-                                                    age: value.age,
-                                                    neutral: value.neutral,
-                                                    happy: value.happy,
-                                                    sad: value.sad,
-                                                    surprised: value.surprised,
-                                                })
+                                                setdetectionResult(value)
                                             }
                                             else {      //  clear the state
                                                 setdetectionResult(initState)
