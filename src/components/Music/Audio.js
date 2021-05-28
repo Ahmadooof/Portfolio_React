@@ -32,7 +32,7 @@ export const TRACKLIST = [
 ]
 
 export let playPauseAudio = (audio) => {
-    if (audio === null || audio === undefined)  // Audio is not initialized
+    if (audio === undefined)  // Audio is not initialized
         return
     if (audio.paused) {     // Audio is off => Turn on
         audio.play()
@@ -43,6 +43,6 @@ export let playPauseAudio = (audio) => {
 }
 
 export let pauseAudio = (audio) => {
-    if (audio !== undefined)
+    if (audio !== undefined)  // Audio is not initialized
         audio.pause()
 }

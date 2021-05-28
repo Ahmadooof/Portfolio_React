@@ -21,8 +21,6 @@ export function startVideo() {
 
 function setRestrection() {
     navButtons.current.classList.add('notAllowed');
-    animationAndButtons.playPauseButton.current.hidden = true;
-    animationAndButtons.startDetectionButton.current.hidden = true;
     animationAndButtons.videoNoise.current.hidden = true;
     animationAndButtons.video.current.hidden = false;
 }

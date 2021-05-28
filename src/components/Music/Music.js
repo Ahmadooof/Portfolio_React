@@ -13,15 +13,15 @@ export let faceAPI
 
 function Music() {
 
-    let [detectionResult, setdetectionResult] = useState({
-    })
-    const initState = {}
+    const [detectionResult, setdetectionResult] = useState({})
+
+    // when this is true, buttons will be hidden
+    const [detectionIsOn, setdetectionIsOn] = useState(false)
+
 
     animationAndButtons = {
         videoNoise: useRef(null),
         video: useRef(null),
-        playPauseButton: useRef(null),
-        startDetectionButton: useRef(null),
         flipCardInner: useRef(null),
     }
 
@@ -39,6 +39,10 @@ function Music() {
 
     let v
     useEffect(() => {
+        window.onpopstate = function () {
+            window.history.go(0);
+        }
+
         window.scrollTo(0, 0)
         animationAndButtons.video.current.hidden = true
         v = animationAndButtons.videoNoise.current.getContext('2d')
@@ -123,12 +127,8 @@ function Music() {
                                 <video onPlaying={
                                     () => {
                                         startDetections().then(value => {
-                                            if (value.faceDetected === true) {   // face detected
-                                                setdetectionResult(value)
-                                            }
-                                            else {      //  clear the state
-                                                setdetectionResult(initState)
-                                            }
+                                            setdetectionResult(value)
+                                            setdetectionIsOn(false)
                                         })
                                     }
                                 } className="camera-detections" ref={animationAndButtons.video} autoPlay muted></video>
@@ -185,11 +185,19 @@ function Music() {
                         </div>
                     </div>
                     <div className="buttons-container">
-                        <div className="button-start-detection">
-                            <button ref={animationAndButtons.startDetectionButton} className="button button-circle-right" onClick={() => { startVideo(); pauseNoiseVideo() }} >Start detections</button>
+                        <div className="button-start-detection ">
+                            <button className={`${detectionIsOn ? 'hidden' : ''} button button-circle-right`} onClick={() => {
+                                setdetectionIsOn(true)
+                                startVideo()
+                                pauseNoiseVideo()
+                            }} >Start detections</button>
                         </div>
-                        <div className="button-song">
-                            <button ref={animationAndButtons.playPauseButton} onClick={() => { playPauseAudio(TRACKLIST.audio); changeButtonText() }} className="button button-circle-song">{buttonPaused ? "Pause Tune" : "Play Tune"}</button>
+                        <div className={`button-song ${detectionIsOn ? 'hidden' : ''}`}>
+                            <button onClick={() => {
+
+                                playPauseAudio(TRACKLIST.audio)
+                                changeButtonText()
+                            }} className="button button-circle-song">{buttonPaused ? "Pause Tune" : "Play Tune"}</button>
                         </div>
                     </div>
                 </div>
