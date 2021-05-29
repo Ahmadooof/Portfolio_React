@@ -1,4 +1,4 @@
-import { navButtons as navButton } from '../navbar/Navbar.js';
+import { navButtons as navButton } from '../../../navbar/Navbar';
 import { pauseAudio, playNewAudio, TRACKLIST } from './Audio';
 import { stopStream } from "./camera";
 import { animationAndButtons, faceAPI } from './Music';

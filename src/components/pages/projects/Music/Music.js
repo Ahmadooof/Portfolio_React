@@ -1,9 +1,9 @@
 import * as faceapi from 'face-api.js';
 import React, { useEffect, useRef, useState } from 'react';
+import './../Music/Music.css';
 import { pauseAudio, playPauseAudio, TRACKLIST } from './Audio';
-import { camera, stream, stopStream } from './camera';
+import { camera, stopStream, stream } from './camera';
 import { startDetections } from './detection';
-import './Music.css';
 import { ResultDetection } from './ResultDetection';
 
 export let animationAndButtons

@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import Navbar from './components/navbar/Navbar';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Home from './components/pages/Home';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import About from './components/pages/About';
-import photos from './components/pages/photos';
-import Projects from './components/pages/Projects';
 import Footer from './components/footer/Footer';
-import ScrollToTop from './components/Scroll/ScrollToTop';
-import ScrollIndecatior from './components/Scroll/ScrollIndecatior';
-import Music from './components/Music/Music';
+import Navbar from './components/navbar/Navbar';
+import About from './components/pages/About';
+import Home from './components/pages/Home/Home';
+import photos from './components/pages/photos';
+import Projects from './components/pages/projects/Projects';
+import Music from './components/pages/projects/Music/Music';
+import ScrollIndecatior from './components/scroll/ScrollIndecatior';
+import ScrollToTop from './components/scroll/ScrollToTop';
 
 function App() {
 

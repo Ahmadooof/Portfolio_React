@@ -92,7 +92,7 @@
 }
 
 .svg-container {
-  background: url("../../photos/wave.svg") no-repeat;
+  background: url("../../../../photos/wave.svg") no-repeat;
   flex: 1 1 100%;
   width: 100%;
 }
