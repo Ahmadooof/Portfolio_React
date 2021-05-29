@@ -3,7 +3,7 @@ import { animationAndButtons } from './Music';
 var constraints = { video: { width: 1280, height: 720 } };
 
 export let stream
-export function startCamera() {
+export function camera() {
 
     navigator.mediaDevices.getUserMedia(constraints).then(
         (MediaStream) => {
@@ -16,6 +16,11 @@ export function startCamera() {
     )
 }
 
+export let stopStream = () => {
+    stream.getTracks().forEach(function (track) {
+        track.stop();
+    })
+}
 
 
 

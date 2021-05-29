@@ -1,7 +1,7 @@
-import { animationAndButtons, faceAPI } from '../Music/Music';
-import { stream } from "../Music/startCamera";
 import { navButtons as navButton } from '../navbar/Navbar.js';
-import { pauseAudio, TRACKLIST } from './Audio';
+import { pauseAudio, playNewAudio, TRACKLIST } from './Audio';
+import { stopStream } from "./camera";
+import { animationAndButtons, faceAPI } from './Music';
 
 export async function startDetections() {
 
@@ -15,10 +15,9 @@ export async function startDetections() {
         sad: 0,
         surprised: 0,
     }
-    function animation() {
-        navButton.current.classList.add('notAllowed')
-    }
-    animation()
+
+    navButton.current.classList.add('notAllowed')
+
 
     let detections = await new Promise((res, rej) => {
         setTimeout(() => {
@@ -26,10 +25,7 @@ export async function startDetections() {
         }, 3000);
     })
 
-
-
     if (detections.length === 1) {          // we got a face
-        console.log("hi");
         detectionResult.faceDetected = true
         detectionResult.gender = detections[0].gender
         detectionResult.age = Math.round(detections[0].age)
@@ -37,38 +33,16 @@ export async function startDetections() {
         detectionResult.happy = Math.floor(detections[0].expressions.happy * 100)
         detectionResult.sad = Math.floor(detections[0].expressions.sad * 100)
         detectionResult.surprised = Math.floor(detections[0].expressions.surprised * 100)
-
         var emotionsArr = [detectionResult.neutral, detectionResult.happy, detectionResult.sad, detectionResult.surprised]
+
         pauseAudio(TRACKLIST.audio)
-        switch (emotionsArr.indexOf(Math.max(...emotionsArr))) {
-            case 0:
-                TRACKLIST.audio = new Audio(TRACKLIST[0].source);
-                break;
-            case 1:
-                TRACKLIST.audio = new Audio(TRACKLIST[1].source);
-                break;
-            case 2:
-                TRACKLIST.audio = new Audio(TRACKLIST[2].source);
-                break;
-            case 3:
-                TRACKLIST.audio = new Audio(TRACKLIST[3].source);
-                break;
-            default:
-        }
-        TRACKLIST.audio.play();
+        playNewAudio(emotionsArr)
+
     } else {
         detectionResult.faceDetected = false
-        pauseAudio(TRACKLIST.audio);
-
+        pauseAudio(TRACKLIST.audio)
     }
-    stream.getTracks().forEach(function (track) {
-        track.stop();
-    })
-    removeRestrections()
-
-    return detectionResult
-}
-
-function removeRestrections() {
+    stopStream()
     navButton.current.classList.remove('notAllowed')
+    return detectionResult
 }

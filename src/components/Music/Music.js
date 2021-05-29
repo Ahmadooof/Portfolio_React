@@ -1,18 +1,15 @@
 import * as faceapi from 'face-api.js';
 import React, { useEffect, useRef, useState } from 'react';
-import { startDetections } from '../Music/faceDetection';
-import { startCamera, stream } from '../Music/startCamera';
 import { pauseAudio, playPauseAudio, TRACKLIST } from './Audio';
+import { camera, stream, stopStream } from './camera';
+import { startDetections } from './detection';
 import './Music.css';
 import { ResultDetection } from './ResultDetection';
-
 
 export let animationAndButtons
 export let faceAPI
 
-
 function Music() {
-
     const [detectionResult, setdetectionResult] = useState({})
 
     // when this is true, buttons will be hidden
@@ -38,16 +35,31 @@ function Music() {
         setbuttonPaused(!buttonPaused)
     }
 
+    var times
+    const playNoiseVideo = () => {
+        times = window.requestAnimationFrame(playNoiseVideo)
+        var w = canvasNoise.canvas.width,
+            h = canvasNoise.canvas.height,
+            idata = canvasNoise.createImageData(w, h),
+            buffer32 = new Uint32Array(idata.data.buffer),
+            len = buffer32.length,
+            i = 0;
 
-    let v
+        for (; i < len;)
+            buffer32[i++] = ((255 * Math.random()) | 0) << 24;
+
+        canvasNoise.putImageData(idata, 0, 0);
+    }
+
+    let pauseNoiseVideo = () => {
+        window.cancelAnimationFrame(times)
+    }
+
+    let canvasNoise
+
     useEffect(() => {
-        window.onpopstate = function () {
-            window.history.go(0);
-        }
-
-        window.scrollTo(0, 0)
-        v = animationAndButtons.videoNoise.current.getContext('2d')
-        playNoiseVideo()
+        // useEffect run just when the component is started first time
+        // thats wht loading "faceapi flies" is good to be here 
         Promise.all([
             faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
             // faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -59,37 +71,26 @@ function Music() {
             // faceapi.nets.tinyYolov2.loadFromUri('/models'),
         ])
 
+        window.onpopstate = function () {
+            window.history.go(0);
+        }
+        window.scrollTo(0, 0)
+
+        canvasNoise = animationAndButtons.videoNoise.current.getContext('2d')
+        playNoiseVideo()
+
+
         // this run when the component is destroyed.
         return () => {
             pauseNoiseVideo()
             pauseAudio(TRACKLIST.audio)
             if (stream !== undefined) {
-                stream.getTracks().forEach(function (track) {
-                    track.stop();
-                })
+                stopStream()
             }
         }
     }, [])
 
-    var times
-    const playNoiseVideo = () => {
-        times = window.requestAnimationFrame(playNoiseVideo)
-        var w = v.canvas.width,
-            h = v.canvas.height,
-            idata = v.createImageData(w, h),
-            buffer32 = new Uint32Array(idata.data.buffer),
-            len = buffer32.length,
-            i = 0;
 
-        for (; i < len;)
-            buffer32[i++] = ((255 * Math.random()) | 0) << 24;
-
-        v.putImageData(idata, 0, 0);
-    }
-
-    let pauseNoiseVideo = () => {
-        window.cancelAnimationFrame(times)
-    }
 
     return (
         <>
@@ -134,7 +135,6 @@ function Music() {
                                         })
                                     }
                                 }
-                                    // className={`${hideButtons ? 'hidden' : ''} camera-detections`} ref={animationAndButtons.video} autoPlay muted></video>
                                     className='camera-detections' ref={animationAndButtons.video} autoPlay muted></video>
                             </div>
                             <div className="flip-card-back">
@@ -194,7 +194,7 @@ function Music() {
                                 sethideButtons(true)
                                 setcanvasIsOff(true)
                                 setflipCard(false)
-                                startCamera()
+                                camera()
                                 pauseNoiseVideo()
                             }} >Start detections</button>
                         </div>

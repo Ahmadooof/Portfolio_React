@@ -46,3 +46,22 @@ export let pauseAudio = (audio) => {
     if (audio !== undefined)  // Audio is not initialized
         audio.pause()
 }
+
+export let playNewAudio = (resultEmotiones) => {
+    switch (resultEmotiones.indexOf(Math.max(...resultEmotiones))) {
+        case 0:
+            TRACKLIST.audio = new Audio(TRACKLIST[0].source);
+            break;
+        case 1:
+            TRACKLIST.audio = new Audio(TRACKLIST[1].source);
+            break;
+        case 2:
+            TRACKLIST.audio = new Audio(TRACKLIST[2].source);
+            break;
+        case 3:
+            TRACKLIST.audio = new Audio(TRACKLIST[3].source);
+            break;
+        default:
+    }
+    TRACKLIST.audio.play();
+}
