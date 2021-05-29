@@ -130,6 +130,8 @@
 
 .hidden {
   visibility: hidden;
+  width: 0;
+  height: 0;
 }
 
 .flip-card {
@@ -147,7 +149,7 @@
   /* transform: rotateY(180deg); */
 }
 
-.flip-card-inner-onClick {
+.flip-card-after-detection {
   transform: rotateY(180deg);
 }
 

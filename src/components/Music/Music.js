@@ -1,7 +1,7 @@
 import * as faceapi from 'face-api.js';
 import React, { useEffect, useRef, useState } from 'react';
 import { startDetections } from '../Music/faceDetection';
-import { startVideo, stream } from '../Music/startVideo';
+import { startCamera, stream } from '../Music/startCamera';
 import { pauseAudio, playPauseAudio, TRACKLIST } from './Audio';
 import './Music.css';
 import { ResultDetection } from './ResultDetection';
@@ -16,13 +16,18 @@ function Music() {
     const [detectionResult, setdetectionResult] = useState({})
 
     // when this is true, buttons will be hidden
-    const [detectionIsOn, setdetectionIsOn] = useState(false)
+    const [hideButtons, sethideButtons] = useState(false)
+
+    // flip card when detection is finish to show result
+    const [flipCard, setflipCard] = useState(false)
+
+    // hide noiseCanvas when clicked start detection
+    const [hideCanvas, setcanvasIsOff] = useState(false)
 
 
     animationAndButtons = {
-        videoNoise: useRef(null),
         video: useRef(null),
-        flipCardInner: useRef(null),
+        videoNoise: useRef(null),
     }
 
     const [buttonPaused, setbuttonPaused] = useState(true)
@@ -30,10 +35,7 @@ function Music() {
     const changeButtonText = () => {
         if (TRACKLIST.audio === null || TRACKLIST.audio === undefined)
             return
-        if (buttonPaused)
-            setbuttonPaused(false)
-        else
-            setbuttonPaused(true)
+        setbuttonPaused(!buttonPaused)
     }
 
 
@@ -44,7 +46,6 @@ function Music() {
         }
 
         window.scrollTo(0, 0)
-        animationAndButtons.video.current.hidden = true
         v = animationAndButtons.videoNoise.current.getContext('2d')
         playNoiseVideo()
         Promise.all([
@@ -121,17 +122,20 @@ function Music() {
                 </div>
                 <div className="music-right-s-2">
                     <div className="flip-card">
-                        <div className="flip-card-inner" ref={animationAndButtons.flipCardInner}>
+                        <div className={`${flipCard ? 'flip-card-after-detection' : ''} flip-card-inner`} >
                             <div className="flip-card-front">
-                                <canvas className="noiseCanvas" ref={animationAndButtons.videoNoise}></canvas>
+                                <canvas className={`${hideCanvas ? 'hidden' : 'noiseCanvas'}`} ref={animationAndButtons.videoNoise}></canvas>
                                 <video onPlaying={
                                     () => {
                                         startDetections().then(value => {
                                             setdetectionResult(value)
-                                            setdetectionIsOn(false)
+                                            setflipCard(true)
+                                            sethideButtons(false)
                                         })
                                     }
-                                } className="camera-detections" ref={animationAndButtons.video} autoPlay muted></video>
+                                }
+                                    // className={`${hideButtons ? 'hidden' : ''} camera-detections`} ref={animationAndButtons.video} autoPlay muted></video>
+                                    className='camera-detections' ref={animationAndButtons.video} autoPlay muted></video>
                             </div>
                             <div className="flip-card-back">
                                 <div className="result-detections">
@@ -186,13 +190,15 @@ function Music() {
                     </div>
                     <div className="buttons-container">
                         <div className="button-start-detection ">
-                            <button className={`${detectionIsOn ? 'hidden' : ''} button button-circle-right`} onClick={() => {
-                                setdetectionIsOn(true)
-                                startVideo()
+                            <button className={`${hideButtons ? 'hidden' : ''} button button-circle-right`} onClick={() => {
+                                sethideButtons(true)
+                                setcanvasIsOff(true)
+                                setflipCard(false)
+                                startCamera()
                                 pauseNoiseVideo()
                             }} >Start detections</button>
                         </div>
-                        <div className={`button-song ${detectionIsOn ? 'hidden' : ''}`}>
+                        <div className={`button-song ${hideButtons ? 'hidden' : ''}`}>
                             <button onClick={() => {
 
                                 playPauseAudio(TRACKLIST.audio)

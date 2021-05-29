@@ -1,5 +1,5 @@
 import { animationAndButtons, faceAPI } from '../Music/Music';
-import { stream } from "../Music/startVideo";
+import { stream } from "../Music/startCamera";
 import { navButtons as navButton } from '../navbar/Navbar.js';
 import { pauseAudio, TRACKLIST } from './Audio';
 
@@ -15,6 +15,10 @@ export async function startDetections() {
         sad: 0,
         surprised: 0,
     }
+    function animation() {
+        navButton.current.classList.add('notAllowed')
+    }
+    animation()
 
     let detections = await new Promise((res, rej) => {
         setTimeout(() => {
@@ -22,11 +26,7 @@ export async function startDetections() {
         }, 3000);
     })
 
-    function animation() {
-        animationAndButtons.flipCardInner.current.classList.add("flip-card-inner-onClick")
-        navButton.current.classList.add('notAllowed')
-    }
-    animation()
+
 
     if (detections.length === 1) {          // we got a face
         console.log("hi");
