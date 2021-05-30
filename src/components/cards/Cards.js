@@ -1,16 +1,23 @@
 import React from 'react'
 import CardItem from './CardItem'
 import './Cards.css'
+import image from '../../photos/af.gif'
 
 function Cards() {
+    let imaacsge = {
+        src: '',
+        text: '',
+        label: '',
+        path: '',
+    }
     return (
         <div className='cards'>
-            <h1>Check out these EPIC lo</h1>
+            <h1>Projects</h1>
             <div className="cards__container">
                 <div className="cards__wraper">
-                    {/* <ul className="cards__items">
+                    <ul className="cards__items">
                         <CardItem
-                            // src="photos/image-1.jpg"
+                            src={image}
                             text="ascasccsa ac s ascsacsac"
                             label="Nature"
                             path="/services"
@@ -28,7 +35,7 @@ function Cards() {
                             label="Nature"
                             path="/services"
                         />
-                    </ul> */}
+                    </ul>
                 </div>
             </div>
         </div>
