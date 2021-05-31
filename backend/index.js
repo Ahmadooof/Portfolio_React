@@ -12,7 +12,7 @@ const port = process.env.PORT || 8000
 mongoose.connect(process.env.RESTREVIEWS_DB_URI, {
   useNewUrlParser: true
 }, () => {
-  console.log("connected to DB");
+  console.log("connected to DB")
   // listen to request after connecting to the DB
   app.listen(port)
 })
