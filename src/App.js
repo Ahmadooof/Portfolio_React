@@ -10,6 +10,7 @@ import Projects from './components/pages/projects/Projects';
 import Music from './components/pages/projects/Music/Music';
 import ScrollIndecatior from './components/scroll/ScrollIndecatior';
 import ScrollToTop from './components/scroll/ScrollToTop';
+import CreateProject from './components/pages/projects/add project/CreateProject';
 
 function App() {
 
