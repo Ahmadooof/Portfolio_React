@@ -70,12 +70,18 @@ h1 {
   box-sizing: border-box;
 } */
 
+.project-icons {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: flex-start;
+}
+
 .line {
   display: inline;
 }
 
 .daw {
-  padding: 25px 0px 25px 0px;
+  padding: 16px 0px 15px 0px;
   color: black;
 }
 
@@ -103,6 +109,10 @@ p.description {
   border: solid;
   border-width: 1px 0px 0px 0px;
   color: darkgrey;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .cards__item__text {
