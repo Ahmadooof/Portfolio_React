@@ -36,8 +36,9 @@
 }
 
 .btn--medium:hover,
+.btn--primary:hover,
 .btn--large:hover {
-  background: #fff;
-  color: #242424;
+  background: rgb(59, 95, 109);
+  color: #ffffff;
   transition: all 0.3s ease-out;
 }

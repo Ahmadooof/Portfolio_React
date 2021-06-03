@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
-import './Cards.css'
-import { Button } from './../buttons/Button';
+import './Cards.css';
+import '../buttons/Button.css'
 
 function CardItem(props) {
+
+
   return (
     <>
       <li className='cards__item'>
@@ -20,9 +21,11 @@ function CardItem(props) {
           <div className='cards__item__info'>
             <h4 className='cards__item__text'>{props.text}</h4>
             <p className="daw">{props.description}</p>
-            <Button className="btn--primary">
-              <a target="_blank" href={props.sourceCode}>View source code</a>
-            </Button>
+            <a href={props.sourceCode} target="_blank">
+              <button className="btn btn--primary">
+                View source code
+            </button>
+            </a>
             {props.svg}
           </div>
         </a>
