@@ -6,11 +6,10 @@ import Navbar from './components/navbar/Navbar';
 import About from './components/pages/About';
 import Home from './components/pages/Home/Home';
 import photos from './components/pages/photos';
-import Projects from './components/pages/projects/Projects';
 import Music from './components/pages/projects/Music/Music';
-import ScrollIndecatior from './components/scroll/ScrollIndecatior';
+import Projects from './components/pages/projects/Projects';
+import ScrollColor from './components/scroll/ScrollColor';
 import ScrollToTop from './components/scroll/ScrollToTop';
-import CreateProject from './components/pages/projects/add project/CreateProject';
 
 function App() {
 
@@ -25,7 +24,7 @@ function App() {
   return (
     <>
       <ScrollToTop></ScrollToTop>
-      <ScrollIndecatior></ScrollIndecatior>
+      <ScrollColor></ScrollColor>
       <Router>
         <Navbar />
         <Switch>

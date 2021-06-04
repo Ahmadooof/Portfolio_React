@@ -1,8 +1,8 @@
 import React from 'react'
-import './scrollIndercator.css'
+import './ScrollIndecatior.css'
 
 
-const ScrollIndecatior = () => {
+const ScrollColor = () => {
     window.addEventListener('scroll', () => {
         document.body.style.setProperty('--scroll', window.pageYOffset / (document.body.offsetHeight - window.innerHeight))
     }, false);
@@ -13,4 +13,4 @@ const ScrollIndecatior = () => {
     )
 }
 
-export default ScrollIndecatior
+export default ScrollColor

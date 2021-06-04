@@ -7,7 +7,7 @@
 FROM node:alpine
 # set working directory
 # this is the working folder in the container 
-# from which the app will be running from
+# from which the app will be running from (it will be created automatically if not exists)
 WORKDIR /app
 # copy package.json and yarn.lock
 # package.json to install the packages from 
