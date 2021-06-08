@@ -1,7 +1,7 @@
 import { navButtons as navButton } from '../../../navbar/Navbar';
 import { pauseAudio, playNewAudio, TRACKLIST } from './Audio';
-import { stopStream } from "./camera";
-import { animationAndButtons, faceAPI } from './Music';
+import { faceAPI, stopStream } from "./camera";
+import { animationAndButtons } from './Music';
 
 export async function startDetections() {
 

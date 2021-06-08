@@ -1,4 +1,3 @@
-import * as faceapi from 'face-api.js';
 import React, { useEffect, useRef, useState } from 'react';
 import './../Music/Music.css';
 import { pauseAudio, playPauseAudio, TRACKLIST } from './Audio';
@@ -7,7 +6,6 @@ import { startDetections } from './detection';
 import { ResultDetection } from './ResultDetection';
 
 export let animationAndButtons
-export let faceAPI
 
 function Music() {
     const [detectionResult, setdetectionResult] = useState({})
@@ -60,16 +58,16 @@ function Music() {
     useEffect(() => {
         // useEffect run just when the component is started first time
         // thats wht loading "faceapi flies" is good to be here 
-        Promise.all([
-            faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-            // faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-            faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-            faceapi.nets.faceExpressionNet.loadFromUri('/models'),
-            faceapi.nets.ageGenderNet.loadFromUri('/models'),
-            faceAPI = faceapi
-            // faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
-            // faceapi.nets.tinyYolov2.loadFromUri('/models'),
-        ])
+        // Promise.all([
+        //     faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+        //     // faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+        //     faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+        //     faceapi.nets.faceExpressionNet.loadFromUri('/models'),
+        //     faceapi.nets.ageGenderNet.loadFromUri('/models'),
+        //     faceAPI = faceapi
+        //     // faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
+        //     // faceapi.nets.tinyYolov2.loadFromUri('/models'),
+        // ])
 
         window.onpopstate = function () {
             window.history.go(0);

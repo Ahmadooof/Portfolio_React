@@ -18,6 +18,7 @@ services:
     # to be used to access the container from the outside
     ports:
       - "3000:3000"
+      
     # the mounted volumes (folders which are outside docker but being used by docker)
     volumes:
       - ".:/app"
