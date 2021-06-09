@@ -17,15 +17,16 @@ function CardItem(props) {
 
             />
           </figure>
-          <br className="line"></br>
           <div className='cards__item__info'>
-            <h4 className='cards__item__text'>{props.text}</h4>
-            <p className="daw">{props.description}</p>
-            <a href={props.sourceCode} target="_blank">
-              <button className="btn btn--primary">
-                View source code
+            <div className="project-info">
+              <h4 className='cards__item__text'>{props.text}</h4>
+              <p className="daw">{props.description}</p>
+              <a href={props.sourceCode} target="_blank">
+                <button className="btn btn--primary">
+                  View source code
             </button>
-            </a>
+              </a>
+            </div>
             {props.svg}
           </div>
         </a>
