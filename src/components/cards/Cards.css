@@ -1,5 +1,5 @@
 .cards {
-  padding: 12rem;
+  padding: 8rem 1rem 8rem 1rem;
 }
 
 h1 {
@@ -7,11 +7,14 @@ h1 {
 }
 
 .cards__container {
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-flow: column;
   flex-flow: column;
+  -webkit-align-items: center;
   align-items: center;
   max-width: 1120px;
-  width: 90%;
+  /* width: 90%; */
   margin: 0 auto;
 }
 
