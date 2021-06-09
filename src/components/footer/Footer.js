@@ -70,46 +70,46 @@ function Footer() {
           </div>
           {/* <small className='website-rights'>Ahmad Anbarje © 2021</small> */}
           <div className='social-icons'>
-            <Link
+            <a
               className='social-icon-link facebook'
-              to='/'
+              href='https://www.facebook.com/ahmad.anbarje/'
               target='_blank'
               aria-label='Facebook'
             >
               <i className='fab fa-facebook-f' />
-            </Link>
-            <Link
+            </a>
+            <a
               className='social-icon-link instagram'
-              to='/'
+              href='https://www.instagram.com/nature.is.glamorous/'
               target='_blank'
               aria-label='Instagram'
             >
               <i className='fab fa-instagram' />
-            </Link>
-            <Link
+            </a>
+            <a
               className='social-icon-link youtube'
-              to='/'
+              href='https://www.youtube.com/channel/UCPiI3lVBGaw18pX6lApJKiQ'
               target='_blank'
               aria-label='Youtube'
             >
               <i className='fab fa-youtube' />
-            </Link>
-            <Link
-              className='social-icon-link twitter'
-              to='/'
+            </a>
+            <a
+              className='social-icon-link github'
+              href='https://github.com/Ahmadooof'
               target='_blank'
               aria-label='Twitter'
             >
-              <i className='fab fa-twitter' />
-            </Link>
-            <Link
+              <i className='fab fa-github' />
+            </a>
+            <a
               className='social-icon-link twitter'
-              to='/'
+              href='https://www.linkedin.com/in/ahmad-anbarje-5103b0153/'
               target='_blank'
               aria-label='LinkedIn'
             >
               <i className='fab fa-linkedin' />
-            </Link>
+            </a>
           </div>
         </div>
       </section>
