@@ -29,7 +29,8 @@ RUN npm install --production
 
 #build the project for production
 
-NPM run build
+# this create a build folder, which nginx or any other web server can use it to serve the project online ^_*
+NPM run build  
 
 # set up production environment
 # the base image for this is an alpine based nginx image
