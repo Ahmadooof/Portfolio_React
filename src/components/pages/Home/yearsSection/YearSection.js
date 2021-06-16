@@ -96,7 +96,7 @@ function YearSection() {
                         <a href="#content-2021" onClick={functionEvents}>
                             <i className="fas fa-notes-medical"></i>
                             2021
-                            </a>
+                        </a>
                         <a href="#content-2020" onClick={functionEvents}><i className="fas fa-graduation-cap"></i>2020</a>
                         <a href="#content-2019" onClick={functionEvents}><i className="fas fa-book-open"></i>2019</a>
                         <a href="#content-2018" onClick={functionEvents}><i className="fas fa-book-open"></i>2018</a>
@@ -109,7 +109,7 @@ function YearSection() {
                     <div className="year-header-before" id='content-2021'></div>
                     <div className="year-header">
                         <h3 className="header-c">2021</h3>
-                        <p>I started working as care assistant for old patients people. why not in IT field? Sure becuase I do not found a job in IT. But still this job is interesting.</p>
+                        <p>I started working as care assistant in Ronneby. This job is not easy at first, BUT when you get used to it, becomes more COOL.</p>
                     </div>
                     <div className="year-header-after" id='content-2020'></div>
 
@@ -123,7 +123,7 @@ function YearSection() {
 
                     <div className='year-header'>
                         <h3 className="header-c">2019</h3>
-                        <p>A lot of stdies and exams during this year, and for sure a lot of ASSIGNMENTS. the assignments system is something great and useful in Sweden, not like university in Syria.
+                        <p>A lot of stdies and exams during this year, and for sure a lot of ASSIGNMENTS. the assignments system is something great and useful in Sweden.
                         </p>
                     </div>
 
@@ -140,9 +140,9 @@ function YearSection() {
                     <div className='year-header' id='content-2017'>
                         <h3 className="header-c">2017</h3>
                         <p>This year, I started to learn programming, after being accepted into a course to learn full stack programming in Växjö.
-                        The course was useful a lot. I have learned the basic of java, and we made a many console applications, sure Hello world was the first one -_-.
-                        we also made web games with html, css, js.
-                        but the main aim of the course is learning fundementals of Java and doing an oracle exam in java, It was so tricky but I passed it fortunately.
+                            The course was useful a lot. I have learned the basic of java, and we made a many console applications, sure Hello world was the first one -_-.
+                            we also made web games with html, css, js.
+                            but the main aim of the course is learning fundementals of Java and doing an oracle exam in java, It was so tricky but I passed it fortunately.
                         </p>
                     </div>
 
@@ -151,7 +151,7 @@ function YearSection() {
                     <div className='year-header' id='content-2016'>
                         <h3 className="header-c">2016</h3>
                         <p>After a year of living in Sweden, and after learning some Swedish words and phrases that can help in living in this country, I started looking for job, any job could improve my Swedish language, and fortunately I found a woman who works in cleaning houses and apartments and she said to me that she needs help!
-                        I started working with the nice woman for about a year and I have benefited a lot in getting to know the country more, but my Swedish has never improved throughout this year, as long as we were speaking English all the time.</p>
+                            I started working with the nice woman for about a year and I have benefited a lot in getting to know the country more, but my Swedish has never improved throughout this year, as long as we were speaking English all the time.</p>
                     </div>
 
                     <div className="year-header-after" id='content-2015'></div>
