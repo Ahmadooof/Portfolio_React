@@ -25,11 +25,11 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache dependencies
 
-RUN yarn
+RUN npm install --production
 
 #build the project for production
 
-RUN yarn build
+NPM run build
 
 # set up production environment
 # the base image for this is an alpine based nginx image
