@@ -62,7 +62,7 @@ COPY data/nginx/app.conf /etc/nginx/conf.d
 # --------- /only for those using react router ----------
 # expose port 80 to the outer world
 
-EXPOSE 80
+EXPOSE 443
 
 # start nginx 
 
