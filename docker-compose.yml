@@ -4,35 +4,28 @@ version: "3.7"
 # define them with their dependencies one after the other
 services:
   # service 1 named react-prod
-  nginx:
+  react-prod:
     # service 1 container name
     container_name: react-prod
     build:
       # the context (working directory) is the current directory
-      # change this to                                                              the directory containing the dockerfile if in a different place
+      # change this to the directory containing the dockerfile if in a different place
       context: .
       # the dockerfile to be run
       dockerfile:
-        Dockerfile
+        Dockerfile-prod
         # map the exposed port from the underlying service to a port exposed to the outside
         # in this case  map port 80 exposed by nginx to port 3000 on the outside
         # to be used to access the container from the outside
     ports:
       - "80:80"
-      - "443:443"
-    volumes:
-      - ./data/nginx:/etc/nginx/conf.d
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
-  certbot:
-    image: certbot/certbot
-    restart: unless-stopped
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      # - "443:443"
 
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
-    # --------------------- build --------------------
-    # docker-compose -f "docker-compose.yml" up -d --build
+
+
+
+
+
+      # --------------------- build --------------------
+      # docker-compose -f "docker-compose.yml" up -d --build
