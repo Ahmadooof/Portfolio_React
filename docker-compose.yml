@@ -13,7 +13,7 @@ services:
       context: .
       # the dockerfile to be run
       dockerfile:
-        Dockerfile-prod
+        Dockerfile
         # map the exposed port from the underlying service to a port exposed to the outside
         # in this case  map port 80 exposed by nginx to port 3000 on the outside
         # to be used to access the container from the outside
@@ -34,4 +34,4 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
     # --------------------- build --------------------
-    # docker-compose -f "docker-compose-prod.yml" up -d --build
+    # docker-compose -f "docker-compose.yml" up -d --build
