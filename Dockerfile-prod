@@ -25,11 +25,19 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache dependencies
 
-RUN npm install --production
+#RUN npm install --production
 
 #build the project for production
 # this create a build folder, which nginx or any other web server can use it to serve the project online ^_*
-Run npm run build  
+#Run npm run build  
+
+# install and cache dependencies
+
+RUN yarn
+
+#build the project for production
+
+RUN yarn build
 
 # set up production environment
 # the base image for this is an alpine based nginx image
