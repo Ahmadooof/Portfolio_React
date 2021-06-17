@@ -57,7 +57,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 
 # replace with custom one
 
-COPY nginx/nginx.conf /etc/nginx/conf.d
+COPY data/nginx/app.conf /etc/nginx/conf.d
 
 # --------- /only for those using react router ----------
 # expose port 80 to the outer world
