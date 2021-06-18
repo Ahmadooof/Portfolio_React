@@ -14,13 +14,13 @@ services:
       # the dockerfile to be run
       dockerfile: Dockerfile
     volumes:
-      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/nginx:/etc/nginx/conf.d/
       - ./test:/letsencrypt
       - ./certs:/etc/letsencrypt
-      - ./:/app
+    # - ./:/app
     ports:
       - "80:80"
-      - "443:443"
+      # - "443:443"
   # cerbot:
   #   build:
   #     context: .
