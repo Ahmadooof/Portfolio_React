@@ -38,7 +38,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 # expose port 80 to the outer world
 
 EXPOSE 80
-# EXPOSE 443
+EXPOSE 443
 
 # start nginx 
 
