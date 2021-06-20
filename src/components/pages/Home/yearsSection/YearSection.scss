@@ -305,17 +305,17 @@ a .fab {
 
 @media screen and (max-width: 768px) {
   .menu-container {
-    flex: 1 1 50%;
+    flex: 1 100%;
   }
   .year-right-section {
-    flex: 0;
+    flex: 1 0%;
   }
   .content-container {
-    flex: 1 1 50%;
+    flex: 1 1;
     margin: 0;
-    padding: 2rem;
+    padding: 1rem;
   }
   .mainMenu {
-    width: 10rem;
+    width: 6rem;
   }
 }
