@@ -9,12 +9,12 @@ import emotionImage from '../../photos/emotions_reader.gif'
 
 
 function Cards() {
-    let card = {
-        Imagesrc: '',
-        description: '',
-        label: '',
-        path: '',
-    }
+    // let card = {
+    //     Imagesrc: '',
+    //     description: '',
+    //     label: '',
+    //     path: '',
+    // }
     return (
         <div className='cards'>
             <h1>Projects</h1>

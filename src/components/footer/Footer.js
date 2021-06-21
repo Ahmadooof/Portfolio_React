@@ -1,7 +1,5 @@
 import React from 'react';
 import './Footer.css';
-import { Link } from 'react-router-dom';
-import { Button } from '../buttons/Button';
 
 function Footer() {
   return (
@@ -70,7 +68,7 @@ function Footer() {
           </div>
           {/* <small className='website-rights'>Ahmad Anbarje © 2021</small> */}
           <div className='social-icons'>
-            <a
+            <a rel="noreferrer"
               className='social-icon-link facebook'
               href='https://www.facebook.com/ahmad.anbarje/'
               target='_blank'
@@ -78,7 +76,7 @@ function Footer() {
             >
               <i className='fab fa-facebook-f' />
             </a>
-            <a
+            <a rel="noreferrer"
               className='social-icon-link instagram'
               href='https://www.instagram.com/nature.is.glamorous/'
               target='_blank'
@@ -86,7 +84,7 @@ function Footer() {
             >
               <i className='fab fa-instagram' />
             </a>
-            <a
+            <a rel="noreferrer"
               className='social-icon-link youtube'
               href='https://www.youtube.com/channel/UCPiI3lVBGaw18pX6lApJKiQ'
               target='_blank'
@@ -94,7 +92,7 @@ function Footer() {
             >
               <i className='fab fa-youtube' />
             </a>
-            <a
+            <a rel="noreferrer"
               className='social-icon-link github'
               href='https://github.com/Ahmadooof'
               target='_blank'
@@ -102,7 +100,7 @@ function Footer() {
             >
               <i className='fab fa-github' />
             </a>
-            <a
+            <a rel="noreferrer"
               className='social-icon-link twitter'
               href='https://www.linkedin.com/in/ahmad-anbarje-5103b0153/'
               target='_blank'

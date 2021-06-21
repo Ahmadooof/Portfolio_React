@@ -93,16 +93,16 @@ function YearSection() {
             <div className="year-container">
                 <div className="menu-container">
                     <ul className={`mainMenu glow-on-hover ${visible}`} ref={onFocusRef}>
-                        <a href="#content-2021" onClick={functionEvents}>
+                        <a rel="noreferrer" href="#content-2021" onClick={functionEvents}>
                             <i className="fas fa-notes-medical"></i>
                             2021
                         </a>
-                        <a href="#content-2020" onClick={functionEvents}><i className="fas fa-graduation-cap"></i>2020</a>
-                        <a href="#content-2019" onClick={functionEvents}><i className="fas fa-book-open"></i>2019</a>
-                        <a href="#content-2018" onClick={functionEvents}><i className="fas fa-book-open"></i>2018</a>
-                        <a href="#content-2017" onClick={functionEvents}><i className="fab fa-js"></i>2017</a>
-                        <a href="#content-2016" onClick={functionEvents}><i className="fas fa-search"></i>2016</a>
-                        <a href="#content-2015" onClick={functionEvents}><i className="fas fa-plane-departure"></i>2015</a>
+                        <a rel="noreferrer" href="#content-2020" onClick={functionEvents}><i className="fas fa-graduation-cap"></i>2020</a>
+                        <a rel="noreferrer" href="#content-2019" onClick={functionEvents}><i className="fas fa-book-open"></i>2019</a>
+                        <a rel="noreferrer" href="#content-2018" onClick={functionEvents}><i className="fas fa-book-open"></i>2018</a>
+                        <a rel="noreferrer" href="#content-2017" onClick={functionEvents}><i className="fab fa-js"></i>2017</a>
+                        <a rel="noreferrer" href="#content-2016" onClick={functionEvents}><i className="fas fa-search"></i>2016</a>
+                        <a rel="noreferrer" href="#content-2015" onClick={functionEvents}><i className="fas fa-plane-departure"></i>2015</a>
                     </ul>
                 </div>
                 <div className="content-container" ref={animationRef}>
