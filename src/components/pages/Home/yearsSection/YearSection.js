@@ -123,7 +123,7 @@ function YearSection() {
 
                     <div className='year-header'>
                         <h3 className="header-c">2019</h3>
-                        <p>A lot of stdies and exams during this year, and for sure a lot of ASSIGNMENTS. the assignments system is something great and useful in Sweden.
+                        <p>A lot of assignments and exams during this year. the assignments system is something great and useful in Sweden.
                         </p>
                     </div>
 

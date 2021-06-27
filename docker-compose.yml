@@ -14,13 +14,16 @@ services:
       # the dockerfile to be run
       dockerfile: Dockerfile
     volumes:
-      - ./nginx/:/etc/nginx/conf.d/
-      - ./letsencryptFile:/letsencrypt
-      - ./certs:/etc/letsencrypt
-    # - ./:/app
-    ports:
-      - "80:80"
-      - "443:443"
+      - ./:/app
+      - react_v:/app/build
+    # ports:
+    #   - 3232:3333
+    # command: tail -F anything
+
+volumes:
+  react_v:
+    name: react_protofolio
+
   # cerbot:
   #   build:
   #     context: .

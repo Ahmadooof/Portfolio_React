@@ -1,3 +1,4 @@
+## this file used when we copy files from machine to docker image, so these will be ignored.
 node_modules
 build
 Dockerfile
