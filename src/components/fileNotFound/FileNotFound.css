@@ -1,0 +1,23 @@
+.filenotfound_flex_container {
+  display: flex;
+  height: 60.05vh;
+  background-color: #efefef;
+  /* position: absolute; */
+  justify-content: center;
+  align-items: center;
+}
+
+.fileNotFound_text {
+  color: black;
+  font-family: "Vibur", cursive;
+  font-size: 3rem;
+  background: linear-gradient(
+    359deg,
+    rgb(190 192 202 / 30%) 25%,
+    rgb(206 212 213 / 48%) 100%
+  );
+  border-radius: 10px;
+  /* animation: saturateWelcomce 5s both ease infinite;
+-webkit-backdrop-filter: saturate(160%) blur(8px);
+backdrop-filter: saturate(160%) blur(8px); */
+}

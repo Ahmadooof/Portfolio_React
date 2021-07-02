@@ -120,7 +120,7 @@ function Cards() {
                                 src={emotionImage}
                                 text="Reading face emotions"
                                 // label="Nature"
-                                path="https://ahmadanbarje.com/music-by-reading-face"
+                                path="/music-by-reading-face"
                                 description="Done by using face-api js which used by tensorflow, also React used as Frontend and deployed on Nginx."
                             />
                         </ul>
