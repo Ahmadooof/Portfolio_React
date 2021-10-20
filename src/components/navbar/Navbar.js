@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css'
 
-
 let navButtons
 function Navbar() {
 
@@ -62,9 +61,15 @@ function Navbar() {
                                 Photos
                             </Link>
                         </li>
-                        {/* <li className="nav-item">
-
-                        </li> */}
+                        <li className="nav-item">
+                            <div class="dropdown">
+                                <a class="dropbtn">Download</a>
+                                <div class="dropdown-content">
+                                    <a href="/pdf/CV_Ahmad_S.pdf" download>Egnlish CV</a>
+                                    <a href="/pdf/CV_Ahmad_SW.pdf" download>Swedish CV</a>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                     <div className="btn--nav">
                         {/* {button && <Button buttonStyle="btn--outline">Click here</Button>} */}
