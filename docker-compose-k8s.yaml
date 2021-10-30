@@ -13,29 +13,8 @@ services:
       context: .
       # the dockerfile to be run
       dockerfile: Dockerfile
-    volumes:
-      - ./:/app
-      - react_v:/app/build
-    # ports:
-    #   - 3232:3333
-    # command: tail -F anything
-
-volumes:
-  react_v:
-    name: react_protofolio
-
-  # cerbot:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile_cerbot
-
-  # certbot:
-  #   image: certbot/certbot
-  #   volumes:
-  #     - ./ssl:/letsencrypt
-  #     - ${PWD}/certs:/etc/letsencrypt
-
-  # - ./data/nginx:/etc/nginx/conf.d
-
+    ports:
+      - "3000:80"
+      
   # --------------------- build --------------------
   # docker-compose -f "docker-compose.yml" up -d --build
