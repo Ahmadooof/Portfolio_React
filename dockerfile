@@ -1,4 +1,4 @@
- FROM node:alpine as node_build
+FROM node:alpine as node_build
 #FROM node:alpine
 
 ENV NODE_ENV=production
