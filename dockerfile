@@ -1,4 +1,4 @@
-# when build use that name: ahmadooof/react:latest
+# when build use that name: ahmadooof/react:0.1.1
 
 ARG NODE_VERSION=16.20.2
 ARG ALPINE_VERSION=3.18.3
