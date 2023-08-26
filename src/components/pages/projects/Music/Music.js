@@ -113,9 +113,7 @@ function Music() {
                     <div className="project-description">
                         <section>
                             <h1>What is music for mood?</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia tenetur, explicabo atque veniam perferendis amet rem hic nostrum porro quae temporibus aut alias, accusantium facilis, sequi pariatur nesciunt omnis non?</p>
-                            <h1>How it works?</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad possimus iusto sunt aperiam! Dicta autem provident soluta molestias corporis modi id accusantium fugiat nobis, quia fuga ullam maxime doloribus eveniet.</p>
+                            <p>To initiate the face emotion detection, kindly click on 'Start Detection'. Subsequently, grant the necessary permissions for your web browser to access the camera. Ensure your face is aligned in the center and then remain still for approximately one minute.</p>
                         </section>
                     </div>
                 </div>

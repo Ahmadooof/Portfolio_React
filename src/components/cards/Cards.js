@@ -66,7 +66,7 @@ function Cards() {
                                 src={PDImage}
                                 text="Personal web desktop"
                                 // label="Nature"
-                                path="https://ahmadanbarje.com/pwd"
+                                path="https://ahmadhome.com/pwd"
                                 description="This project done with Vanilla JS and deployed on Nginx"
                             />
 
@@ -97,7 +97,7 @@ function Cards() {
                                 src={databaseImage}
                                 text="SQL Queries"
                                 // label="Nature"
-                                path="https://ahmadanbarje.com/angular-sql-nodejs"
+                                path="https://ahmadhome.com/angular-sql-nodejs"
                                 description="Trying sql queries by dockerize Express.js api connected with mysql as Backend, and dockerize angular deployed on Nginx web server in Frontend"
                             />
                             <CardItem

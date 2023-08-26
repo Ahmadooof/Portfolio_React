@@ -94,8 +94,8 @@ function YearSection() {
                 <div className="menu-container">
                     <ul className={`mainMenu glow-on-hover ${visible}`} ref={onFocusRef}>
                         <a rel="noreferrer" href="#content-2021" onClick={functionEvents}>
-                            <i className="fas fa-notes-medical"></i>
-                            2021
+                            <i className="fas fa-laptop"></i>
+                            2021-2023
                         </a>
                         <a rel="noreferrer" href="#content-2020" onClick={functionEvents}><i className="fas fa-graduation-cap"></i>2020</a>
                         <a rel="noreferrer" href="#content-2019" onClick={functionEvents}><i className="fas fa-book-open"></i>2019</a>
@@ -108,14 +108,14 @@ function YearSection() {
                 <div className="content-container" ref={animationRef}>
                     <div className="year-header-before" id='content-2021'></div>
                     <div className="year-header">
-                        <h3 className="header-c">2021</h3>
-                        <p>I started working as care assistant in Ronneby. This job is not easy at first, BUT when you get used to it, becomes more COOL.</p>
+                        <h3 className="header-c">2021-2023</h3>
+                        <p>Started on a professional journey with Systematiq Company, building with different technologies: C#, Java, Svelte, JavaScript, Bootstrap, jQuery, Three.js, Blender, and SQL Server to effectively contribute to different of web development projects.</p>
                     </div>
                     <div className="year-header-after" id='content-2020'></div>
 
                     <div className='year-header' >
                         <h3 className="header-c">2020</h3>
-                        <p>Finally I graduate in this year. AND I started Master program with computer science in Linne university. thing that I'm interested about is machine learning field.
+                        <p>I graduate in this year. AND I started Master program with computer science in Linne university. thing that I'm interested about is machine learning field.
                         </p>
                     </div>
 

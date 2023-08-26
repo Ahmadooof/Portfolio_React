@@ -65,7 +65,7 @@ function Navbar() {
                             <div class="dropdown">
                                 <a class="dropbtn">Download</a>
                                 <div class="dropdown-content">
-                                    <a href="/pdf/CV_Ahmad_S.pdf" download>Egnlish CV</a>
+                                    <a href="/pdf/Ahmad Anbarje CV latest.pdf" download>Egnlish CV</a>
                                     <a href="/pdf/CV_Ahmad_SW.pdf" download>Swedish CV</a>
                                 </div>
                             </div>

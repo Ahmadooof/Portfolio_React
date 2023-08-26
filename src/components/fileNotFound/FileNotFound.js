@@ -9,7 +9,7 @@ function FileNotFound() {
 
                 </div>
                 <div className="fileNotFound_text">
-                    File not found &#128549;, make a U turn.
+                    File not found &#128549;
                 </div>
             </div>
         </>
