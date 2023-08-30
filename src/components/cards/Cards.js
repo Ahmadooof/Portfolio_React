@@ -15,6 +15,7 @@ function Cards() {
     //     label: '',
     //     path: '',
     // }
+
     return (
         <>
             <div className='cards'>
@@ -66,7 +67,7 @@ function Cards() {
                                 src={PDImage}
                                 text="Personal web desktop"
                                 // label="Nature"
-                                path="https://ahmadhome.com/pwd"
+                                path={"https://desktop.ahmadhome.com"}
                                 description="This project done with Vanilla JS and deployed on Nginx"
                             />
 
