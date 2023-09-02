@@ -46,21 +46,21 @@ function Navbar() {
                                 Home
                             </Link>
                         </li> */}
-                        <li className="nav-item"  >
+                        {/* <li className="nav-item"  >
                             <Link to="#" className='commingSoon nav-links' onClick={closeMobileMenu}>
                                 About
                             </Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
-                            <Link to="projects" className='nav-links' onClick={closeMobileMenu}>
+                            <Link to="projects" ref={button} className='nav-links' onClick={closeMobileMenu}>
                                 Projects
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link to="#" ref={button} className='commingSoon nav-links' onClick={closeMobileMenu}>
+                        {/* <li className="nav-item">
+                            <Link to="#"  className='commingSoon nav-links' onClick={closeMobileMenu}>
                                 Photos
                             </Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <div class="dropdown">
                                 <a class="dropbtn">Download</a>

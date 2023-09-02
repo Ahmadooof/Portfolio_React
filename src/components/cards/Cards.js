@@ -98,7 +98,7 @@ function Cards() {
                                 src={databaseImage}
                                 text="SQL Queries"
                                 // label="Nature"
-                                path="https://ahmadhome.com/angular-sql-nodejs"
+                                path="https://school.ahmadhome.com"
                                 description="Trying sql queries by dockerize Express.js api connected with mysql as Backend, and dockerize angular deployed on Nginx web server in Frontend"
                             />
                             <CardItem
