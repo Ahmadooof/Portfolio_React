@@ -9,8 +9,9 @@ div.page {
 
 .scroll-to-top {
   position: fixed;
-  bottom: 13%;
+  bottom: 5vh;
   left: 6%;
+  z-index: 1;
   width: 40px;
   height: 40px;
   border-radius: 100%;

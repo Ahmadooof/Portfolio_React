@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useWindowScroll } from 'react-use'
 import './YearSection.scss'
+import ChatWindow from '../../../chatwindow/chat'
 
 function YearSection() {
     const animationRef = useRef(null)
@@ -165,9 +166,12 @@ function YearSection() {
                     </div>
                     <div className="year-header-before"></div>
                 </div>
-                <div className="year-right-section">
-
+                <div>
                 </div>
+                <div className="year-right-section">
+                    <ChatWindow />
+                </div>
+
             </div>
         </>
     )

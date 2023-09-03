@@ -11,6 +11,7 @@ import Projects from './components/pages/projects/Projects';
 import ScrollColor from './components/scroll/ScrollColor';
 import ScrollToTop from './components/scroll/ScrollToTop';
 import FileNotFound from './components/fileNotFound/FileNotFound';
+import ChatWindow from './components/chatwindow/chat';
 
 function App() {
 

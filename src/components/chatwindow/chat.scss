@@ -1,0 +1,118 @@
+/* CSS */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  min-width: 275px;
+  height: 60vh;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 2;
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(0);
+}
+
+.chat-container.closed {
+  transform: translateY(100%);
+}
+
+.chat-body {
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding: 20px;
+  font-family: "Roboto", sans-serif;
+
+  div {
+    background-color: #f2f2f2;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+}
+
+.chat-footer {
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  flex-wrap: wrap;
+}
+
+/* Optional: Style for chat input field */
+.chat-input {
+  flex-grow: 1;
+  /* Expand the input field */
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+/* Optional: Style for chat send button */
+.chat-send-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.toggle-chat-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.toggle-chat-button.active {
+  background-color: #ff6347; /* Change color when chat is open */
+}
+
+
+
+.chat-navbar {
+  background-color: #007bff; /* Set the background color */
+  color: #fff; /* Set the text color */
+  padding: 10px; /* Add some padding for spacing */
+  display: flex; /* Make it a flex container to align items */
+  justify-content: space-between; /* Space between title and close button */
+  align-items: center; /* Vertically center items */
+}
+
+/* Style the chat title */
+.chat-title {
+  font-size: 18px; /* Adjust the font size as needed */
+  font-weight: bold; /* Optionally, make it bold */
+}
+
+/* Style the close button */
+.close-button {
+  background: none;
+  border: none;
+  color: #fff; /* Set the close button color */
+  font-size: 24px; /* Adjust the font size as needed */
+  cursor: pointer;
+  outline: none; /* Remove outline on focus */
+}
+
+.close-button:hover {
+  color: #ff6347; /* Change color on hover as needed */
+}

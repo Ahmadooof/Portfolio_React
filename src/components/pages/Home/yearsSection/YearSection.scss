@@ -54,9 +54,9 @@ a .fab {
   position: fixed;
   top: 27vh;
   cursor: pointer;
-  width: 12rem;
-  left: -12rem;
+  left: -25vw;
   border-radius: 10px;
+  width: 13vw
 }
 
 .goFromLeft {
@@ -111,13 +111,12 @@ a .fab {
   display: flex;
   flex-direction: column;
   background-color: #dcdcdc5c;
-  flex: 1 1 15%;
+  width: 25%;
 }
 
 .content-container {
   color: #000000;
   padding: 3rem 3rem 3rem 3rem;
-  margin: 2rem 3rem;
   font-size: small;
   font-family: "Indie Flower", cursive;
   font-family: "Raleway", sans-serif;
@@ -126,8 +125,8 @@ a .fab {
 }
 
 .year-right-section {
-  flex: 1 1 20%;
   background-color: #dcdcdc5c;
+  width: 25%;
 }
 
 .item {
@@ -273,49 +272,10 @@ a .fab {
   }
 }
 
-@media screen and (max-width: 1860px) {
-  .menu-container {
-    flex: 1 1 30%;
-  }
-  .year-right-section {
-    flex: 0;
-  }
-  .content-container {
-    flex: 1 1 70%;
-  }
-  .mainMenu {
-    width: 12rem;
+
+@media (max-width: 768px) {
+  .mainMenu  {
+    display: none;
   }
 }
 
-@media screen and (max-width: 1360px) {
-  .menu-container {
-    flex: 1 1 40%;
-  }
-  .year-right-section {
-    flex: 0;
-  }
-  .content-container {
-    flex: 1 1 60%;
-  }
-  .mainMenu {
-    width: 12rem;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .menu-container {
-    flex: 1 100%;
-  }
-  .year-right-section {
-    flex: 1 0%;
-  }
-  .content-container {
-    flex: 1 1;
-    margin: 0;
-    padding: 1rem;
-  }
-  .mainMenu {
-    width: 6rem;
-  }
-}
