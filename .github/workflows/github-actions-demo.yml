@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main  
+      - master  
 
 jobs:
   build-and-push:
@@ -24,4 +24,4 @@ jobs:
           docker buildx create --use
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker buildx build -t ahmadooof/react:1.5 . --push
-          
+
