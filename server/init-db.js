@@ -1,5 +1,5 @@
-const mysql = require('mysql2');
-const dotenv = require('dotenv');
+import { mysql } from 'mysql2/promise';
+import dotenv from 'dotenv';
 
 // Load environment variables from a .env file
 dotenv.config();

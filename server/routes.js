@@ -3,6 +3,7 @@ import dbConnection from './db.js';
 
 const router = express.Router();
 
+
 // Helper function to check if an IP address exists
 async function checkIfIpAddressExists(ipAddress) {
   const checkIfExistsSQL = 'SELECT COUNT(*) as count FROM ip_addresses WHERE ip_address = ?';
