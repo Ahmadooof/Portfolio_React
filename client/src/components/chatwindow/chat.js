@@ -1,7 +1,59 @@
 import "./chat.scss";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import OpenAI from 'openai';
 
 function ChatWindow() {
+  const openai= new OpenAI({
+    apiKey: process.env.REACT_APP_OPENAI_API_KEY, // Use the correct environment variable name
+    dangerouslyAllowBrowser: true, // Enable browser-like environment
+  })
+  
+  const info = `You are a joyful assistant, 30 years old.\n` +
+    `your name ahmad anbarje.\n` +
+    `your degree: computer sience graduated in 2020, your marital status: single.\n` +
+    `you are living with my mother currently residing in Jeddah KSA,\n` +
+    `you are from Syria and hold Swedish and Syrian citizenship. You can speak English, Arabic, Swedish\n` +
+    `you are experience in various areas including web programming, DevOps, design, and software programming\n` +
+    `you are not working, and you are available immediately to start the new position, your phone number:+966 055 308 1749.\n` +
+    `if the 'message' is a question and you could not find relavent answer from this info, then say "Sorry I have no info.".\n` +
+    `if the 'message' needs a help with anything, which is not relevente to this info, then say "Sorry I can't help you with that."\n`;
+
+  async function main() {
+    try {
+      const stream = await openai.chat.completions.create({
+        model: 'gpt-3.5-turbo', // gpt-3.5-turbo, gpt-4
+        messages: [
+          { "role": "system", "content": `${info}` },
+          {
+            "role": "user", "content": `Given a 'message' below, try to answer it using the role system content.\n` +
+              `message: ${message}?\n\n`
+          }],
+        stream: true,
+        temperature: 0.7,
+        max_tokens: 256,
+        top_p: 0.7,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      });
+
+      // Create an array to store the response parts
+      const responseParts = [];
+
+      for await (const part of stream) {
+        const content = part.choices[0]?.delta?.content || '';
+        responseParts.push(content);
+      }
+
+      // Join the response parts as a single string
+      const responseText = responseParts.join('');
+
+      return responseText; // Return the response text instead of logging it
+    } catch (error) {
+      console.error('Error:', error);
+      throw error; // Optionally re-throw the error to handle it elsewhere
+    }
+  }
+
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -18,21 +70,27 @@ function ChatWindow() {
     setIsOpen(false);
   };
 
-    // Function to add an initial message when the component mounts
-    useEffect(() => {
-      setChatHistory(["Chat is closed today, please come back another day :)"]); // Add your initial message here
-    }, []);
-
-  const handleSendClick = () => {
+  const handleSendClick = async () => {
     if (message.trim() === "") {
       return; // Don't send empty messages
     }
 
-    // Add the message to the chat history
-    setChatHistory([...chatHistory, message]);
+    // Create a user message and add it to the chat history
+    const userMessage = { role: 'user', content: message };
+    setChatHistory((prevChatHistory) => [...prevChatHistory, userMessage]);
 
     // Clear the input field
     setMessage("");
+    try {
+      const responseText = await main();
+
+      const aiResponse = { role: 'ai', content: responseText };
+      setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
+
+      // scrollToBottom()
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -40,6 +98,36 @@ function ChatWindow() {
       handleSendClick();
     }
   };
+
+  // Function to handle user input message
+  const handleUserMessage = () => {
+    // Create a welcome message when the user opens the chat window
+    // const welcomeMessage = { role: 'ai', content: 'Hello, friend! 😊👋' };
+    const welcomeMessage = { role: 'ai', content: 'Sorry, chat is closed today! 😊👋' };
+
+    // Add the welcome message to the chat history
+    setChatHistory([welcomeMessage]);
+
+    // Toggle the chat window to make it visible
+    setIsOpen(false);
+  };
+
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    handleUserMessage();
+  }, [])
+
+  useEffect(() => {
+    const scrollToBottom = () => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      }
+    };
+
+    scrollToBottom();
+  }, [chatHistory]); // The empty dependency array ensures this effect runs only once
+
 
   return (
     <div>
@@ -49,16 +137,20 @@ function ChatWindow() {
 
       {isOpen && (
 
-        <div className="chat-container">
+        <div className="chat-container" >
           <div className="chat-navbar">
             <span className="chat-title">Chat</span>
             <button className="close-button" onClick={handleCloseChat}>
               <i className="fas fa-times"></i>
             </button>
           </div>
-          <div className="chat-body">
+          <div className="chat-body" ref={chatContainerRef}>
             {chatHistory.map((msg, index) => (
-              <div key={index}>{msg}</div>
+              <div
+                key={index}
+                className={msg.role === 'user' ? 'user-message' : 'ai-message'}
+              >
+                {msg.content}</div>
             ))}
           </div>
           <div className="chat-footer">
@@ -81,3 +173,61 @@ function ChatWindow() {
 }
 
 export default ChatWindow;
+
+
+
+
+
+// async function logResponse() {
+//   try {
+//     const stream = await openaiClient.chat.completions.create({
+//       model: 'gpt-4',
+//       messages: [{ role: 'user', content: 'Say this is a test' }],
+//       stream: true,
+//     });
+
+//     // Create an array to store the response parts
+//     const responseParts = [];
+
+//     for await (const part of stream) {
+//       const content = part.choices[0]?.delta?.content || '';
+//       responseParts.push(content);
+//     }
+
+//     // Join and log the response parts as a single string
+//     const responseText = responseParts.join('');
+//     console.log('OpenAI Response:', responseText);
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// }
+
+
+
+// send full response
+
+// async function main() {
+//   try {
+//     const stream = await openaiClient.chat.completions.create({
+//       model: 'gpt-3.5-turbo', // gpt-3.5-turbo, gpt-4
+//       messages: [{ role: 'user', content: message }],
+//       stream: true,
+//     });
+
+//     // Create an array to store the response parts
+//     const responseParts = [];
+
+//     for await (const part of stream) {
+//       const content = part.choices[0]?.delta?.content || '';
+//       responseParts.push(content);
+//     }
+
+//     // Join the response parts as a single string
+//     const responseText = responseParts.join('');
+
+//     return responseText; // Return the response text instead of logging it
+//   } catch (error) {
+//     console.error('Error:', error);
+//     throw error; // Optionally re-throw the error to handle it elsewhere
+//   }
+// }

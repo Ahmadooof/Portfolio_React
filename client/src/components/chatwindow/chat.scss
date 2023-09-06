@@ -2,8 +2,8 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  width: 20vw;
-  min-width: 275px;
+  width: 25vw;
+  min-width: 250px;
   height: 60vh;
   position: fixed;
   bottom: 20px;
@@ -24,16 +24,44 @@
 .chat-body {
   flex-grow: 1;
   overflow-y: scroll;
-  padding: 20px;
+  padding: 10px;
   font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-color: beige;
+}
 
-  div {
-    background-color: #f2f2f2;
-    padding: 8px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-  }
+.chat-body::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
 
+.chat-body::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Rounded corners for the thumb */
+}
+
+.chat-body::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Color of the scrollbar track */
+}
+
+.user-message {
+  background-color: #205567; /* Light gray */
+  padding: 8px;
+  margin: 8px;
+  border-radius: 16px 0px 16px 16px;
+  color: white;
+  display: flex;
+  align-self: flex-end; /* Align user messages to the end */
+}
+
+/* Style for AI messages */
+.ai-message {
+  background-color: #449d48; /* Green */
+  color: white;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 0px 16px 16px 16px;
+  align-self: flex-start; /* Align AI messages to the start */
 }
 
 .chat-footer {
@@ -56,7 +84,7 @@
 
 /* Optional: Style for chat send button */
 .chat-send-button {
-  background-color: #007bff;
+  background-color: #205567;
   color: #fff;
   border: none;
   padding: 8px 16px;
@@ -68,7 +96,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #007bff;
+  background-color: #205567;
   color: white;
   border: none;
   border-radius: 50%;
@@ -83,36 +111,49 @@
 }
 
 .toggle-chat-button.active {
-  background-color: #ff6347; /* Change color when chat is open */
+  background-color: #ff6347;
+  /* Change color when chat is open */
 }
 
 
 
 .chat-navbar {
-  background-color: #007bff; /* Set the background color */
-  color: #fff; /* Set the text color */
-  padding: 10px; /* Add some padding for spacing */
-  display: flex; /* Make it a flex container to align items */
-  justify-content: space-between; /* Space between title and close button */
-  align-items: center; /* Vertically center items */
+  background-color: #205567;
+  /* Set the background color */
+  color: #fff;
+  /* Set the text color */
+  padding: 10px;
+  /* Add some padding for spacing */
+  display: flex;
+  /* Make it a flex container to align items */
+  justify-content: space-between;
+  /* Space between title and close button */
+  align-items: center;
+  /* Vertically center items */
 }
 
 /* Style the chat title */
 .chat-title {
-  font-size: 18px; /* Adjust the font size as needed */
-  font-weight: bold; /* Optionally, make it bold */
+  font-size: 18px;
+  /* Adjust the font size as needed */
+  font-weight: bold;
+  /* Optionally, make it bold */
 }
 
 /* Style the close button */
 .close-button {
   background: none;
   border: none;
-  color: #fff; /* Set the close button color */
-  font-size: 24px; /* Adjust the font size as needed */
+  color: #fff;
+  /* Set the close button color */
+  font-size: 24px;
+  /* Adjust the font size as needed */
   cursor: pointer;
-  outline: none; /* Remove outline on focus */
+  outline: none;
+  /* Remove outline on focus */
 }
 
 .close-button:hover {
-  color: #ff6347; /* Change color on hover as needed */
+  color: #ff6347;
+  /* Change color on hover as needed */
 }
