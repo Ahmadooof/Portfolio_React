@@ -1,4 +1,4 @@
-import { navButtons as navButton } from '../../../navbar/Navbar';
+// import { navButtons as navButton } from '../../../navbar/Navbar';
 import { pauseAudio, playNewAudio, TRACKLIST } from './Audio';
 import { faceAPI, stopStream } from "./camera";
 import { animationAndButtons } from './Music';
@@ -16,7 +16,7 @@ export async function startDetections() {
         surprised: 0,
     }
 
-    navButton.current.classList.add('notAllowed')
+    // navButton.current.classList.add('notAllowed')
 
 
     let detections = await new Promise((res, rej) => {
@@ -43,6 +43,6 @@ export async function startDetections() {
         pauseAudio(TRACKLIST.audio)
     }
     stopStream()
-    navButton.current.classList.remove('notAllowed')
+    // navButton.current.classList.remove('notAllowed')
     return detectionResult
 }

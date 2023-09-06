@@ -1,0 +1,78 @@
+/* CSS for the dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-toggle {
+    background-color: rgba(255, 255, 255, 0.019);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: none; /* Removed redundant background and border */
+    font-size: 1em;
+    cursor: pointer; /* Added cursor pointer to indicate interactivity */
+  }
+  
+  .dropdown-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 1;
+    width: 100%;
+  }
+  
+  /* Adjusted the class to match JavaScript code */
+  .dropdown-menu.show {
+    display: block;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  /* Add hover effect for list items if needed */
+  .dropdown-menu li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Updated CSS for the dropdown menu */
+  .dropdown-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    position: absolute;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 10px;
+    background: rgba(62, 98, 110, 0.5);  
+    /* Apply the glassy effect */
+    backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+  }
+  
+  /* Adjusted the class to match JavaScript code */
+  .dropdown-menu.show {
+    display: block;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    color: #fff; /* White text color */
+    transition: background-color 0.2s; /* Smooth background color transition */
+    font-size: 20px;
+  }
+  
+  /* Add hover effect for list items */
+  .dropdown-menu li:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Lighter background on hover */
+  }
+  

@@ -2,7 +2,7 @@
   height: 4px;
   width: 0%;
   position: fixed;
-  background-color: rgb(41, 221, 212);
+  background-color: #FFD700;
   top: 4rem;
   left: 0;
   animation: progress linear;
@@ -16,10 +16,10 @@
 
 @keyframes progress {
   50%{
-    background-color: rgb(251, 255, 24);
+    background-color: #FFD700;
   }
   to {
-    background-color: rgb(28, 184, 80);
+    background-color: #FFD700;
     width: 100%;
   }
 }

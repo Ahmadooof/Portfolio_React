@@ -61,6 +61,8 @@ a .fab {
 
 .goFromLeft {
   animation: goFromLeft 0.7s both cubic-bezier(0.39, 0.575, 0.565, 1);
+  border:1px rgba(0, 0, 0, 0.1) solid;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2); /* Box shadow for a subtle effect */
 }
 
 @keyframes goFromLeft {
@@ -110,7 +112,6 @@ a .fab {
 .menu-container {
   display: flex;
   flex-direction: column;
-  background-color: #dcdcdc5c;
   width: 25%;
 }
 
@@ -121,11 +122,10 @@ a .fab {
   font-family: "Indie Flower", cursive;
   font-family: "Raleway", sans-serif;
   letter-spacing: 1px;
-  flex: 1 1 60%;
+  flex: 1 1 50%;
 }
 
 .year-right-section {
-  background-color: #dcdcdc5c;
   width: 25%;
 }
 
@@ -169,19 +169,25 @@ a .fab {
   margin-bottom: 40px;
 }
 
+/* Year Header Styles */
 .year-header {
-  background-color: #3e626ecc;
-  color: rgb(255, 255, 255);
-  font-size: medium;
-  font-family: cursive;
-  font-weight: bold;
-  border-radius: 10px;
-  // opacity: var(--opacityHeader) !important;
+  background-color: #3e626ecc; /* Semi-transparent blue background */
+  color: #fff; /* White text color */
+  font-size: medium; /* Medium-sized font */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Cursive font style */
+  font-weight: bold; /* Bold text */
+  border-radius: 10px; /* Rounded corners */
+  padding: 2rem; /* Spacing around the content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Box shadow for a subtle effect */
 }
 
-.year-header > p {
-  padding: 2rem;
+/* Heading Inside Year Header */
+.year-header > h {
+  background-color: rgba(255, 255, 255, 0.3); /* Slightly transparent white background */
+  text-align: center; /* Center-align the text */
+  padding: 1rem; /* Spacing around the heading */
 }
+
 
 .onClickChangeColor {
   animation-name: changeColor;
@@ -234,12 +240,6 @@ a .fab {
   border-radius: 10px;
 }
 
-.header-c {
-  background-color: rgba(255, 255, 255, 0.3);
-  text-align: center;
-  padding: 1rem;
-}
-
 .glow-on-hover:active {
   color: #000;
 }
@@ -278,4 +278,6 @@ a .fab {
     display: none;
   }
 }
+
+
 

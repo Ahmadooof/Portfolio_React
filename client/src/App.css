@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  /* font-family: 'PT Sans', sans-serif; */
 }
 
 .home,
@@ -19,7 +18,6 @@
 }
 
 .about {
-  /* background-image: url('/images/img-2.jpg'); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -28,7 +26,6 @@
 }
 
 .projects {
-  /* background-image: url('/images/img-1.jpg'); */
   background-position: center;
   background-size: fill;
   background-repeat: no-repeat;
@@ -37,10 +34,23 @@
 }
 
 .photos {
-  /* background-image: url('/images/img-8.jpg'); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   color: rgb(0, 0, 0);
   font-size: 100px;
+}
+
+
+body::-webkit-scrollbar {
+  width: 13px; 
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px; 
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
 }

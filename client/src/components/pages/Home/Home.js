@@ -1,12 +1,12 @@
 import React from 'react';
 import '../../../App.css';
-import VideoSection from './videosection/VideoSection.js';
 import YearSection from './yearsSection/YearSection';
+import MapChart from './videosection/MapChart';
 
 function Home() {
     return (
         <>
-            <VideoSection></VideoSection>
+            <MapChart />
             <YearSection></YearSection>
         </>
     )

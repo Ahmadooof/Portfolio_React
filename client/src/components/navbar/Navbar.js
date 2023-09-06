@@ -1,85 +1,65 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-import './Navbar.css'
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Navbar.css';
+import Dropdown from '../dropdown/dropdown';
 
-let navButtons
 function Navbar() {
+  const [click, setClick] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false); // Add state for dropdown
+  const button = useRef(null);
+  let navButtonsAll = useRef(null);
 
-    const [click, setClick] = useState(false);
-    const [, setButton] = useState(true);
-    const button = useRef(null)
-    let navButtonsAll = useRef(null)
-
-    const handleClick = () => setClick(!click);
-    const closeMobileMenu = () => setClick(false);
-    const showButton = () => {
-        if (window.innerWidth <= 960) {
-            setButton(false)
-        } else { setButton(true) }
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
+  const showButton = () => {
+    if (window.innerWidth <= 960) {
+      setClick(false); // Close the menu on window resize
     }
+  };
 
 
+  const handleDropdownClick = () => {
+    setDropdownVisible(!dropdownVisible); // Toggle dropdown visibility
+  };
 
-    // To get rid of showing 'SignUp' button each time refresh page in mobile.
-    useEffect(
-        () => {
-            showButton()
-            button.current.disabled = true
-            navButtons = navButtonsAll
-        }, [])
-    window.addEventListener('resize', showButton)
-    return (
-        <>
-            <nav className="navbar">
-                <div className="navbar-container" ref={navButtonsAll}>
-                    <Link to="/" className="navbar-logo logo-color" onClick={closeMobileMenu}>
-                        AHMAD
-                        <i className="far fa-smile"></i>
-                    </Link>
-                    <div className="menu-icon" onClick={handleClick}>
-                        <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
-                    </div>
+  useEffect(() => {
+    showButton();
+    button.current.disabled = true;
+    navButtonsAll = navButtonsAll;
+  }, []);
 
-                    <ul className={click ? 'nav-menu active' : 'nav-menu'} >
-                        {/* <li className="nav-item">
-                            <Link to="/" className='nav-links' onClick={closeMobileMenu}>
-                                Home
-                            </Link>
-                        </li> */}
-                        {/* <li className="nav-item"  >
-                            <Link to="#" className='commingSoon nav-links' onClick={closeMobileMenu}>
-                                About
-                            </Link>
-                        </li> */}
-                        <li className="nav-item">
-                            <Link to="projects" ref={button} className='nav-links' onClick={closeMobileMenu}>
-                                Projects
-                            </Link>
-                        </li>
-                        {/* <li className="nav-item">
-                            <Link to="#"  className='commingSoon nav-links' onClick={closeMobileMenu}>
-                                Photos
-                            </Link>
-                        </li> */}
-                        <li className="nav-item">
-                            <div class="dropdown">
-                                <a class="dropbtn">Download</a>
-                                <div class="dropdown-content">
-                                    <a href="/pdf/Ahmad Anbarje CV latest.pdf" download>Egnlish CV</a>
-                                    <a href="/pdf/CV_Ahmad_SW.pdf" download>Swedish CV</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div className="btn--nav">
-                        {/* {button && <Button buttonStyle="btn--outline">Click here</Button>} */}
-                    </div>
-                </div>
-            </nav>
-        </>
-    )
+  window.addEventListener('resize', showButton);
 
+  return (
+    <>
+      <nav className={`navbar ${click ? 'active' : ''}`}>
+        <div className="navbar-container" ref={navButtonsAll}>
+          <Link to="/" className="navbar-logo logo-color" onClick={closeMobileMenu}>
+            Home
+            {/* <i className="far fa-smile"></i> */}
+          </Link>
+          <div className="menu-icon" onClick={handleClick}>
+            <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+          </div>
+
+          <ul className={`nav-menu ${click ? 'active' : ''}`}>
+            <li className="nav-item">
+
+
+              <Dropdown></Dropdown>
+            </li>
+            <li className="nav-item">
+              <Link to="projects" ref={button} className="nav-links" onClick={closeMobileMenu}>
+                Projects
+              </Link>
+            </li>
+
+          </ul>
+          <div className="btn--nav">{/* Add any additional elements here */}</div>
+        </div>
+      </nav>
+    </>
+  );
 }
 
-export default Navbar
-export { navButtons }
+export default Navbar;
