@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-push:
@@ -28,4 +28,19 @@ jobs:
         run: |
           docker buildx create --use
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker buildx build -t ahmadooof/react:$DOCKER_TAG ./client --push
+          docker buildx build -t ahmadooof/react:$DOCKER_TAG . --push
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save k8s-london-sharedcpu-12
+
+      - name: Update Kubernetes deployment
+        env:
+          DOCKER_TAG: ${{ steps.tag.outputs.DOCKER_TAG }}
+        run: |
+          kubectl set image deployment/react react=ahmadooof/react:$DOCKER_TAG
+
