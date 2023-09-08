@@ -11,13 +11,26 @@ import Projects from './components/pages/projects/Projects';
 import ScrollColor from './components/scroll/ScrollColor';
 import ScrollToTop from './components/scroll/ScrollToTop';
 import FileNotFound from './components/fileNotFound/FileNotFound';
-import ChatWindow from './components/chatwindow/chat';
+import { getvisitorInfo } from './utilities/visitionInfo';
 
 function App() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [])
+
+  useEffect(() => {
+    // Capture and send the IP address when the component mounts
+    getvisitorInfo()
+      .then((userIpAddress) => {
+        // Do something with the userIpAddress if needed
+        // console.log('Captured IP Address:', userIpAddress);
+      })
+      .catch((error) => {
+        // Handle errors
+        // console.error('Error capturing IP address:', error);
+      });
+  }, []);
 
   return (
     <>
