@@ -12,12 +12,12 @@ import ScrollColor from './components/scroll/ScrollColor';
 import ScrollToTop from './components/scroll/ScrollToTop';
 import FileNotFound from './components/fileNotFound/FileNotFound';
 import { getvisitorInfo } from './utilities/visitionInfo';
+import { HeaderProvider, useHeaders } from './utilities/headercontext'; // Import HeaderProvider here
 
 function App() {
-
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
 
   useEffect(() => {
     // Capture and send the IP address when the component mounts
@@ -34,20 +34,22 @@ function App() {
 
   return (
     <>
-      <ScrollToTop />
-      <ScrollColor />
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/projects' element={<Projects />} />
-          <Route path='/photos' element={<photos />} />
-          <Route path='/music-by-reading-face' element={<Music />} />
-          <Route path='*' element={<FileNotFound />} />
-        </Routes>
-        <Footer />
-      </Router>
+      <HeaderProvider> {/* Wrap your entire app with HeaderProvider */}
+        <ScrollToTop />
+        <ScrollColor />
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/projects' element={<Projects />} />
+            <Route path='/photos' element={<photos />} />
+            <Route path='/music-by-reading-face' element={<Music />} />
+            <Route path='*' element={<FileNotFound />} />
+          </Routes>
+          <Footer />
+        </Router>
+      </HeaderProvider>
     </>
   );
 }
