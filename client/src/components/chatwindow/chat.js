@@ -1,14 +1,15 @@
 import "./chat.scss";
 import React, { useEffect, useRef, useState } from "react";
 import OpenAI from 'openai';
+import { incrementMessages } from "../../utilities/incrementMessages";
 import { chatUsage } from "../../utilities/chatUsage";
 
 function ChatWindow() {
-  const openai= new OpenAI({
+  const openai = new OpenAI({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY, // Use the correct environment variable name
     dangerouslyAllowBrowser: true, // Enable browser-like environment
   })
-  
+
   const info = `You are a joyful assistant, 30 years old.\n` +
     `your name ahmad anbarje.\n` +
     `your degree: computer sience graduated in 2020, your marital status: single.\n` +
@@ -76,28 +77,36 @@ function ChatWindow() {
       return; // Don't send empty messages
     }
 
-    // Create a user message and add it to the chat history
     const userMessage = { role: 'user', content: message };
     setChatHistory((prevChatHistory) => [...prevChatHistory, userMessage]);
 
-    // Clear the input field
     setMessage("");
     try {
+      let nrMessageSent = await chatUsage();
+      if (nrMessageSent > 10) {
+        const aiResponse = {
+          role: 'ai',
+          content: 'You have exceeded the available free messages, sorry, but I cannot handle more questions.'
+        };
+        setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
+        return;
+      }
+
       const responseText = await main();
 
       const aiResponse = { role: 'ai', content: responseText };
       setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
 
       try {
-        await chatUsage();
+        await incrementMessages();
         console.log('Chat usage incremented successfully');
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error incrementing chat usage:', error);
       }
 
       // scrollToBottom()
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error in handleSendClick:', error);
     }
   };
 
@@ -181,61 +190,3 @@ function ChatWindow() {
 }
 
 export default ChatWindow;
-
-
-
-
-
-// async function logResponse() {
-//   try {
-//     const stream = await openaiClient.chat.completions.create({
-//       model: 'gpt-4',
-//       messages: [{ role: 'user', content: 'Say this is a test' }],
-//       stream: true,
-//     });
-
-//     // Create an array to store the response parts
-//     const responseParts = [];
-
-//     for await (const part of stream) {
-//       const content = part.choices[0]?.delta?.content || '';
-//       responseParts.push(content);
-//     }
-
-//     // Join and log the response parts as a single string
-//     const responseText = responseParts.join('');
-//     console.log('OpenAI Response:', responseText);
-//   } catch (error) {
-//     console.error('Error:', error);
-//   }
-// }
-
-
-
-// send full response
-
-// async function main() {
-//   try {
-//     const stream = await openaiClient.chat.completions.create({
-//       model: 'gpt-3.5-turbo', // gpt-3.5-turbo, gpt-4
-//       messages: [{ role: 'user', content: message }],
-//       stream: true,
-//     });
-
-//     // Create an array to store the response parts
-//     const responseParts = [];
-
-//     for await (const part of stream) {
-//       const content = part.choices[0]?.delta?.content || '';
-//       responseParts.push(content);
-//     }
-
-//     // Join the response parts as a single string
-//     const responseText = responseParts.join('');
-
-//     return responseText; // Return the response text instead of logging it
-//   } catch (error) {
-//     console.error('Error:', error);
-//     throw error; // Optionally re-throw the error to handle it elsewhere
-//   }
-// }
