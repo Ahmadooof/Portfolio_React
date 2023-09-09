@@ -1,6 +1,7 @@
 import "./chat.scss";
 import React, { useEffect, useRef, useState } from "react";
 import OpenAI from 'openai';
+import { chatUsage } from "../../utilities/chatUsage";
 
 function ChatWindow() {
   const openai= new OpenAI({
@@ -86,6 +87,13 @@ function ChatWindow() {
 
       const aiResponse = { role: 'ai', content: responseText };
       setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
+
+      try {
+        await chatUsage();
+        console.log('Chat usage incremented successfully');
+      } catch (error) {
+        console.error('Error:', error);
+      }
 
       // scrollToBottom()
     } catch (error) {

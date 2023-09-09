@@ -11,7 +11,7 @@ import Projects from './components/pages/projects/Projects';
 import ScrollColor from './components/scroll/ScrollColor';
 import ScrollToTop from './components/scroll/ScrollToTop';
 import FileNotFound from './components/fileNotFound/FileNotFound';
-import { getvisitorInfo } from './utilities/visitionInfo';
+import { insertVisitorInfo } from './utilities/visitionInfo';
 import { HeaderProvider, useHeaders } from './utilities/headercontext'; // Import HeaderProvider here
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     // Capture and send the IP address when the component mounts
-    getvisitorInfo()
+    insertVisitorInfo()
       .then((userIpAddress) => {
         // Do something with the userIpAddress if needed
         // console.log('Captured IP Address:', userIpAddress);
