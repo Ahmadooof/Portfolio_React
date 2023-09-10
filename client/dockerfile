@@ -1,5 +1,3 @@
-# when build use that name: ahmadooof/react:0.1.3
-
 ARG NODE_VERSION=18.17.1
 ARG ALPINE_VERSION=3.18.3
 
@@ -9,12 +7,13 @@ WORKDIR /app
 
 COPY ["package-lock.json","package.json", "./"]
 
-# Install python and make (required for node-gyp and node-sass)
 RUN apk add --update --no-cache python3 make g++
 
 RUN npm install --production
 
 COPY . .
+
+ENV REACT_APP_OPENAI_API_KEY=test
 
 RUN npm run build
 
