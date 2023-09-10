@@ -6,7 +6,7 @@ export async function insertVisitorInfo() {
     const ipifyURL = 'https://geo.ipify.org/api/v2';
     const response = await fetch(`${ipifyURL}/country?apiKey=at_M315WjZvcEuvq82Ux8tIKYkhzLtY9`);
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     userIpAddress = data.ip;
     const region = data.location.region;
 

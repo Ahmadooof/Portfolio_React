@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import OpenAI from 'openai';
 import { incrementMessages } from "../../utilities/incrementMessages";
 import { chatUsage } from "../../utilities/chatUsage";
+import { saveMessages } from "../../utilities/saveMessages";
 
 function ChatWindow() {
   const openai = new OpenAI({
@@ -17,13 +18,12 @@ function ChatWindow() {
     `you are from Syria and hold Swedish and Syrian citizenship. You can speak English, Arabic, Swedish\n` +
     `you are experience in various areas including web programming, DevOps, design, and software programming\n` +
     `you are not working, and you are available immediately to start the new position, your phone number:+966 055 308 1749.\n` +
-    `if the 'message' is a question and you could not find relavent answer from this info, then say "Sorry I have no info.".\n` +
-    `if the 'message' needs a help with anything, which is not relevente to this info, then say "Sorry I can't help you with that."\n`;
+    `if the 'message' is a question and you could not find relavent answer from this info, then try to escape from answer and say joyful answer related to the question.".\n`;
 
   async function main() {
     try {
       const stream = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo', // gpt-3.5-turbo, gpt-4
+        model: 'gpt-4', // gpt-3.5-turbo, gpt-4
         messages: [
           { "role": "system", "content": `${info}` },
           {
@@ -59,6 +59,7 @@ function ChatWindow() {
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [availableMessages, setavilableMessages] = useState(false);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -73,17 +74,21 @@ function ChatWindow() {
   };
 
   const handleSendClick = async () => {
+    const nrAvailableMessages = 10
     if (message.trim() === "") {
       return; // Don't send empty messages
     }
 
     const userMessage = { role: 'user', content: message };
     setChatHistory((prevChatHistory) => [...prevChatHistory, userMessage]);
-
     setMessage("");
     try {
       let nrMessageSent = await chatUsage();
-      if (nrMessageSent > 10) {
+      if (nrAvailableMessages - nrMessageSent < 0)
+        setavilableMessages(0)
+      else
+        setavilableMessages(nrAvailableMessages - nrMessageSent)
+      if (nrMessageSent > nrAvailableMessages) {
         const aiResponse = {
           role: 'ai',
           content: 'You have exceeded the available free messages, sorry, but I cannot handle more questions.'
@@ -96,9 +101,9 @@ function ChatWindow() {
 
       const aiResponse = { role: 'ai', content: responseText };
       setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
-
       try {
         await incrementMessages();
+        saveMessages(userMessage.content, aiResponse.content)
         console.log('Chat usage incremented successfully');
       } catch (error) {
         console.error('Error incrementing chat usage:', error);
@@ -120,7 +125,7 @@ function ChatWindow() {
   const handleUserMessage = () => {
     // Create a welcome message when the user opens the chat window
     // const welcomeMessage = { role: 'ai', content: 'Hello, friend! 😊👋' };
-    const welcomeMessage = { role: 'ai', content: 'Sorry, chat is closed today! 😊👋' };
+    const welcomeMessage = { role: 'ai', content: 'Hi, I am AI assistance, which has some info about Ahmad! Try to ask me 😊👋' };
 
     // Add the welcome message to the chat history
     setChatHistory([welcomeMessage]);
@@ -156,7 +161,7 @@ function ChatWindow() {
 
         <div className="chat-container" >
           <div className="chat-navbar">
-            <span className="chat-title">Chat</span>
+            <span className="chat-title">Available Messages: {availableMessages}</span>
             <button className="close-button" onClick={handleCloseChat}>
               <i className="fas fa-times"></i>
             </button>
