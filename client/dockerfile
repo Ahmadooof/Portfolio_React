@@ -1,5 +1,7 @@
 ARG NODE_VERSION=18.17.1
 ARG ALPINE_VERSION=3.18.3
+ARG REACT_APP_OPENAI_API_KEY
+
 
 FROM node:${NODE_VERSION}-alpine AS node_build
 
@@ -13,9 +15,12 @@ RUN npm install --production
 
 COPY . .
 
+ENV REACT_APP_OPENAI_API_KEY=$REACT_APP_OPENAI_API_KEY
+
 RUN npm run build
 
 RUN node -v
+
 
 FROM alpine:${ALPINE_VERSION}
 
