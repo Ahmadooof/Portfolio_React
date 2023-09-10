@@ -126,7 +126,8 @@ function ChatWindow() {
   const handleUserMessage = () => {
     // Create a welcome message when the user opens the chat window
     // const welcomeMessage = { role: 'ai', content: 'Hello, friend! 😊👋' };
-    const welcomeMessage = { role: 'ai', content: 'Hi, I am AI assistance, which has some info about Ahmad! Try to ask me 😊👋' };
+    // Hi, I am AI assistance, which has some info about Ahmad! Try to ask me 😊👋
+    const welcomeMessage = { role: 'ai', content: 'Closed! working on it 😊👋' };
 
     // Add the welcome message to the chat history
     setChatHistory([welcomeMessage]);
