@@ -6,11 +6,15 @@ import { chatUsage } from "../../utilities/chatUsage";
 import { saveMessages } from "../../utilities/saveMessages";
 
 function ChatWindow() {
-  const openai = new OpenAI({
-    apiKey: process.env.REACT_APP_OPENAI_API_KEY, // Use the correct environment variable name
-    dangerouslyAllowBrowser: true, // Enable browser-like environment
-  })
-
+  let openai = null
+  try {
+    openai = new OpenAI({
+      apiKey: process.env.REACT_APP_OPENAI_API_KEY, // Use the correct environment variable name
+      dangerouslyAllowBrowser: true, // Enable browser-like environment
+    })
+  } catch (error) {
+    console.error(error)
+  }
   const info = `You are a joyful assistant, 30 years old.\n` +
     `your name ahmad anbarje.\n` +
     `your degree: computer sience graduated in 2020, your marital status: single.\n` +
