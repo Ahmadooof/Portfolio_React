@@ -2,60 +2,11 @@ import "./chat.scss";
 import React, { useEffect, useRef, useState } from "react";
 import OpenAI from 'openai';
 import { incrementMessages } from "../../utilities/incrementMessages";
-import { chatUsage } from "../../utilities/chatUsage";
+// import { chatUsage } from "../../utilities/chatUsage";
 import { saveMessages } from "../../utilities/saveMessages";
+import { sendMessage } from "../../utilities/sendMessage";
 
 function ChatWindow() {
-  let openai = null
-  try {
-    openai = new OpenAI({
-      apiKey: process.env.REACT_APP_OPENAI_API_KEY, // Use the correct environment variable name
-      dangerouslyAllowBrowser: true, // Enable browser-like environment
-    })
-  } catch (error) {
-    console.error(error)
-  }
-  const info = `You are a joyful assistant, 30 years old.\n` +
-    `your name ahmad anbarje.\n` +
-    `your degree: computer sience graduated in 2020, your marital status: single.\n` +
-    `you are living with my mother currently residing in Jeddah KSA,\n` +
-    `you are from Syria and hold Swedish and Syrian citizenship. You can speak English, Arabic, Swedish\n` +
-    `you are experience in various areas including web programming, DevOps, design, and software programming\n` +
-    `you are not working, and you are available immediately to start the new position, your phone number:+966 055 308 1749.\n` +
-    `if the 'message' is a question and you could not find relavent answer from this info, then try to escape from answer and say joyful answer related to the question.".\n`;
-
-  async function main() {
-    try {
-      const stream = await openai.chat.completions.create({
-        model: 'gpt-4', // gpt-3.5-turbo, gpt-4
-        messages: [
-          { "role": "system", "content": `${info}` },
-          {
-            "role": "user", "content": `Given a 'message' below, try to answer it using the role system content.\n` +
-              `message: ${message}?\n\n`
-          }],
-        stream: true,
-        temperature: 1,
-        max_tokens: 150,
-      });
-
-      // Create an array to store the response parts
-      const responseParts = [];
-
-      for await (const part of stream) {
-        const content = part.choices[0]?.delta?.content || '';
-        responseParts.push(content);
-      }
-
-      // Join the response parts as a single string
-      const responseText = responseParts.join('');
-
-      return responseText; // Return the response text instead of logging it
-    } catch (error) {
-      console.error('Error:', error);
-      throw error; // Optionally re-throw the error to handle it elsewhere
-    }
-  }
 
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
@@ -75,21 +26,25 @@ function ChatWindow() {
   };
 
   const handleSendClick = async () => {
-    const nrAvailableMessages = 10
     if (message.trim() === "") {
-      return; // Don't send empty messages
+      return;
     }
 
     const userMessage = { role: 'user', content: message };
     setChatHistory((prevChatHistory) => [...prevChatHistory, userMessage]);
+
     setMessage("");
+
     try {
-      let nrMessageSent = await chatUsage();
-      if (nrAvailableMessages - nrMessageSent < 0)
-        setavilableMessages(0)
-      else
-        setavilableMessages(nrAvailableMessages - nrMessageSent)
-      if (nrMessageSent > nrAvailableMessages) {
+      // let nrMessageSent = await chatUsage();
+      // if (nrAvailableMessages - nrMessageSent < 0)
+      //   setavilableMessages(0)
+      // else
+      //   setavilableMessages(nrAvailableMessages - nrMessageSent)
+
+      const responseText = await sendMessage(userMessage.content);
+
+      if (responseText.status === 429) {
         const aiResponse = {
           role: 'ai',
           content: 'You have exceeded the available free messages, sorry, but I cannot handle more questions.'
@@ -98,21 +53,20 @@ function ChatWindow() {
         return;
       }
 
-      const responseText = await main();
+      if (responseText.status === 404) {
+        console.log('Visitor not found');
+        return;
+      }
 
       const aiResponse = { role: 'ai', content: responseText };
       setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
-      try {
-        await incrementMessages();
-        saveMessages(userMessage.content, aiResponse.content)
-        console.log('Chat usage incremented successfully');
-      } catch (error) {
-        console.error('Error incrementing chat usage:', error);
-      }
 
-      // scrollToBottom()
+      // saveMessages(userMessage.content, aiResponse.content)
+
     } catch (error) {
-      console.error('Error in handleSendClick:', error);
+      // Handle other errors here
+      console.error('Error:', error.message);
+      // Display an error message to the user or perform other error handling actions
     }
   };
 

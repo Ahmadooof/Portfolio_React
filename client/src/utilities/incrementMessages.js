@@ -1,8 +1,8 @@
-export async function incrementMessages() {
-  const ourBackendURL = 'https://backend.ahmadhome.com';
+import config from "./config";
 
+export async function incrementMessages() {
   try {
-    const response1 = await fetch(`${ourBackendURL}/get-visitor-by-ip`, {
+    const response1 = await fetch(`${config.currentdomain}/get-visitor-by-ip`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ export async function incrementMessages() {
       throw new Error('Visitor data is missing or invalid');
     }
 
-    const response2 = await fetch(`${ourBackendURL}/increment-messages`, {
+    const response2 = await fetch(`${config.currentdomain}/increment-messages`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

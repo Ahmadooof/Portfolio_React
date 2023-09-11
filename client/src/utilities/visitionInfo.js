@@ -1,3 +1,5 @@
+import config from "./config";
+
 export async function insertVisitorInfo() {
   const ourBackendURL = 'https://backend.ahmadhome.com';
   let userIpAddress; // Change `const` to `let` to allow reassignment
@@ -9,8 +11,8 @@ export async function insertVisitorInfo() {
     // console.log(data)
     userIpAddress = data.ip;
     const region = data.location.region;
-
-    const response2 = await fetch(`${ourBackendURL}/insert-visitor`, {
+    
+    const response2 = await fetch(`${config.currentdomain}/insert-visitor`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +31,7 @@ export async function insertVisitorInfo() {
   }
 
   try {
-    const response3 = await fetch(`${ourBackendURL}/get-visitor-by-ip?ip_address=${userIpAddress}`, {
+    const response3 = await fetch(`${config.currentdomain}/get-visitor-by-ip?ip_address=${userIpAddress}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +45,7 @@ export async function insertVisitorInfo() {
 
     const data = await response3.json();
     console.log(data)
-    const response4 = await fetch(`${ourBackendURL}/create-default-chat-usage`, {
+    const response4 = await fetch(`${config.currentdomain}/create-default-chat-usage`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
