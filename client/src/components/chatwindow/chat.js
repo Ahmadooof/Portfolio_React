@@ -2,7 +2,7 @@ import "./chat.scss";
 import React, { useEffect, useRef, useState } from "react";
 import OpenAI from 'openai';
 import { incrementMessages } from "../../utilities/incrementMessages";
-// import { chatUsage } from "../../utilities/chatUsage";
+import { chatUsage } from "../../utilities/chatUsage";
 import { saveMessages } from "../../utilities/saveMessages";
 import { sendMessage } from "../../utilities/sendMessage";
 
@@ -36,15 +36,17 @@ function ChatWindow() {
     setMessage("");
 
     try {
-      // let nrMessageSent = await chatUsage();
-      // if (nrAvailableMessages - nrMessageSent < 0)
-      //   setavilableMessages(0)
-      // else
-      //   setavilableMessages(nrAvailableMessages - nrMessageSent)
+      const nrAvailableMessages = 10
+      let nrMessageSent = await chatUsage();
+      if (nrAvailableMessages - nrMessageSent < 0)
+        setavilableMessages(0)
+      else
+        setavilableMessages(nrAvailableMessages - nrMessageSent)
 
       const responseText = await sendMessage(userMessage.content);
-
-      if (responseText.status === 429) {
+      console.log(responseText)
+      if (responseText.status == 429) {
+        
         const aiResponse = {
           role: 'ai',
           content: 'You have exceeded the available free messages, sorry, but I cannot handle more questions.'

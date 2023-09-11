@@ -18,8 +18,7 @@ export async function sendMessage(userMessage) {
             const errorData = await response.json();
             throw new Error(errorData.message);
         } else if (response.status === 429) {
-            const errorData = await response.json();
-            throw new Error(errorData.message);
+            return response
         } else {
             throw new Error('Network response was not ok');
         }
