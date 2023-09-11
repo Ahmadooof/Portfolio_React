@@ -60,9 +60,6 @@ function ChatWindow() {
 
       const aiResponse = { role: 'ai', content: responseText };
       setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
-
-      // saveMessages(userMessage.content, aiResponse.content)
-
     } catch (error) {
       // Handle other errors here
       console.error('Error:', error.message);
@@ -80,8 +77,8 @@ function ChatWindow() {
   const handleUserMessage = () => {
     // Create a welcome message when the user opens the chat window
     // const welcomeMessage = { role: 'ai', content: 'Hello, friend! 😊👋' };
-    // Hi, I am AI assistance, which has some info about Ahmad! Try to ask me 😊👋
-    const welcomeMessage = { role: 'ai', content: 'Closed! working on it 😊👋' };
+    // Closed! 😊👋
+    const welcomeMessage = { role: 'ai', content: 'Hi, I am AI assistance, which has some info about Ahmad! Try to ask me 😊👋' };
 
     // Add the welcome message to the chat history
     setChatHistory([welcomeMessage]);
