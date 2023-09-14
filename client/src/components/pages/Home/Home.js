@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../../../App.css';
 import YearSection from './yearsSection/YearSection';
-import MapChart from './videosection/MapChart';
+import MapChart from './mapChart/MapChart';
 import { useHeaders } from '../../../utilities/headercontext';
 import axios from 'axios';
 

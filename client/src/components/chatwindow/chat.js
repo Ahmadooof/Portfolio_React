@@ -1,10 +1,8 @@
 import "./chat.scss";
 import React, { useEffect, useRef, useState } from "react";
-import OpenAI from 'openai';
-import { incrementMessages } from "../../utilities/incrementMessages";
-import { chatUsage } from "../../utilities/chatUsage";
-import { saveMessages } from "../../utilities/saveMessages";
-import { sendMessage } from "../../utilities/sendMessage";
+import { isUserExists } from "../../services/user";
+import { getAvailableMessages, insertNewUsageCredits, isUsageCreditsExist } from "../../services/usage";
+import { sendMessage } from "../../services/message";
 
 function ChatWindow() {
 
@@ -12,6 +10,8 @@ function ChatWindow() {
   const [chatHistory, setChatHistory] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [availableMessages, setavilableMessages] = useState(false);
+  const [usageCreditsExist, setUsageCreditsExist] = useState(false);
+  const [userExists, setUserExists] = useState(false);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -36,36 +36,49 @@ function ChatWindow() {
     setMessage("");
 
     try {
-      const nrAvailableMessages = 10
-      let nrMessageSent = await chatUsage();
-      if (nrAvailableMessages - nrMessageSent < 0)
-        setavilableMessages(0)
-      else
-        setavilableMessages(nrAvailableMessages - nrMessageSent)
-
-      const responseText = await sendMessage(userMessage.content);
-      console.log(responseText)
-      if (responseText.status == 429) {
-        
-        const aiResponse = {
-          role: 'ai',
-          content: 'You have exceeded the available free messages, sorry, but I cannot handle more questions.'
-        };
-        setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
-        return;
+      if (!userExists) {
+        console.log(1)
+        let isUserExistsRes = await isUserExists()
+        if (isUserExistsRes.status === 200) {
+          setUserExists(true)
+        } else if (isUserExistsRes.status === 404) {
+          throw new Error('user should be exists')
+        }
       }
 
-      if (responseText.status === 404) {
-        console.log('Visitor not found');
-        return;
+      if (!usageCreditsExist) {
+        console.log(2)
+        let UsageCreditsExistRes = await isUsageCreditsExist()
+        if (UsageCreditsExistRes.status === 200) {
+          setUsageCreditsExist(true)
+        } else if (UsageCreditsExistRes.status === 404) {
+          insertNewUsageCredits()
+          setUsageCreditsExist(true)
+        }
       }
 
-      const aiResponse = { role: 'ai', content: responseText };
-      setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
+      const avaliableMessagesRes = await getAvailableMessages()
+      if (avaliableMessagesRes.success) {
+        setavilableMessages(avaliableMessagesRes.availableMessages)
+      }
+
+      if (avaliableMessagesRes.availableMessages >= 0) {
+        const resSendMessage = await sendMessage(userMessage.content)
+        if (resSendMessage.status === 429) {
+          const aiResponse = {
+            role: 'ai',
+            content: 'You have exceeded the available free messages, sorry, but I cannot handle more questions.'
+          };
+          setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
+          return;
+        } else if (resSendMessage.status === 200) {
+          const aiResponse = { role: 'ai', content: resSendMessage.responseText };
+          setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
+        }
+      }
     } catch (error) {
-      // Handle other errors here
+      console.log('test')
       console.error('Error:', error.message);
-      // Display an error message to the user or perform other error handling actions
     }
   };
 

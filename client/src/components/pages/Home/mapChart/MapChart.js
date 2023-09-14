@@ -13,7 +13,7 @@ const MapChart = () => {
       .then((response) => response.json())
       .then((data) => {
         // Log the data to the console
-        console.log(data);
+        // console.log(data);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
