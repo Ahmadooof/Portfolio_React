@@ -1,6 +1,6 @@
 import "./chat.scss";
 import React, { useEffect, useRef, useState } from "react";
-import { isUserExists } from "../../services/user";
+import { isUserExists, userWithDefaultMessages } from "../../services/user";
 import { getAvailableMessages, insertNewUsageCredits, isUsageCreditsExist } from "../../services/usage";
 import { sendMessage } from "../../services/message";
 
@@ -9,7 +9,7 @@ function ChatWindow() {
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [availableMessages, setavilableMessages] = useState(false);
+  const [availableMessages, setAvailableMessages] = useState(null);
   const [usageCreditsExist, setUsageCreditsExist] = useState(false);
   const [userExists, setUserExists] = useState(false);
 
@@ -25,6 +25,15 @@ function ChatWindow() {
     setIsOpen(false);
   };
 
+  const handleMessagesExceeded = () => {
+    const aiResponse = {
+      role: 'ai',
+      content: 'You have exceeded the available free messages, sorry, but I cannot handle more questions.'
+    };
+    setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
+    setAvailableMessages(0)
+  }
+
   const handleSendClick = async () => {
     if (message.trim() === "") {
       return;
@@ -36,48 +45,16 @@ function ChatWindow() {
     setMessage("");
 
     try {
-      if (!userExists) {
-        console.log(1)
-        let isUserExistsRes = await isUserExists()
-        if (isUserExistsRes.status === 200) {
-          setUserExists(true)
-        } else if (isUserExistsRes.status === 404) {
-          throw new Error('user should be exists')
-        }
-      }
+      if (availableMessages > 0) {
+        const resData = await sendMessage(userMessage.content)
+        const aiResponse = { role: 'ai', content: resData.response };
+        setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
+        setAvailableMessages(resData.availableMessages);
+      } else
+        handleMessagesExceeded()
 
-      if (!usageCreditsExist) {
-        console.log(2)
-        let UsageCreditsExistRes = await isUsageCreditsExist()
-        if (UsageCreditsExistRes.status === 200) {
-          setUsageCreditsExist(true)
-        } else if (UsageCreditsExistRes.status === 404) {
-          insertNewUsageCredits()
-          setUsageCreditsExist(true)
-        }
-      }
-
-      const avaliableMessagesRes = await getAvailableMessages()
-      if (avaliableMessagesRes.success) {
-        setavilableMessages(avaliableMessagesRes.availableMessages)
-      }
-
-      if (avaliableMessagesRes.availableMessages >= 0) {
-        const resSendMessage = await sendMessage(userMessage.content)
-        if (resSendMessage.status === 429) {
-          const aiResponse = {
-            role: 'ai',
-            content: 'You have exceeded the available free messages, sorry, but I cannot handle more questions.'
-          };
-          setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
-          return;
-        } else if (resSendMessage.status === 200) {
-          const aiResponse = { role: 'ai', content: resSendMessage.responseText };
-          setChatHistory((prevChatHistory) => [...prevChatHistory, aiResponse]);
-        }
-      }
     } catch (error) {
-      console.log('test')
+      // console.log('test')
       console.error('Error:', error.message);
     }
   };
@@ -90,15 +67,8 @@ function ChatWindow() {
 
   // Function to handle user input message
   const handleUserMessage = () => {
-    // Create a welcome message when the user opens the chat window
-    // const welcomeMessage = { role: 'ai', content: 'Hello, friend! 😊👋' };
-    // Closed! 😊👋
     const welcomeMessage = { role: 'ai', content: 'Hi, I am AI assistance, which has some info about Ahmad! Try to ask me 😊👋' };
-
-    // Add the welcome message to the chat history
     setChatHistory([welcomeMessage]);
-
-    // Toggle the chat window to make it visible
     setIsOpen(false);
   };
 
@@ -107,6 +77,26 @@ function ChatWindow() {
   useEffect(() => {
     handleUserMessage();
   }, [])
+
+  useEffect(() => {
+    // console.log('hi');
+    try {
+      if (availableMessages === null) {
+
+        const getMessages = async () => {
+          return await userWithDefaultMessages()
+        };
+
+        getMessages()
+          .then(res => {
+            setAvailableMessages(res.availableMessages);
+          })
+          .catch(error => console.error('Error:', error));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }, []);
 
   useEffect(() => {
     const scrollToBottom = () => {

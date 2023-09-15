@@ -16,28 +16,30 @@ export async function insertNewUsageCredits() {
 }
 
 export async function isUsageCreditsExist() {
-    try {
-      const response = await fetch(`${config.currentdomain}/is_usage_credits_exists`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (response.status === 200) {
-        // return { success: true, message: 'Usage credits already exist' };
-        return response
-      } else if (response.status === 404) {
-        // return { success: false, message: 'Usage not found for this user' };
-        return response
-      } else {
-        throw new Error('Unexpected response status: ' + response.status);
+  try {
+    const response = await fetch(`${config.currentdomain}/is_usage_credits_exists`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       }
-    } catch (error) {
-      console.error('Error:', error);
-      throw error;
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const data = await response.json();
+    if (data.isUserExists && data.isUsageExists) {
+      console.log("Usage for the user already exists.");
+    } else if (data.isUserExists) {
+      console.log("User exists but usage doesn't.");
+    } else {
+      console.log("User doesn't exist.");
+    }
+  } catch (error) {
+    console.error("A problem occurred when checking for usage credits:", error);
   }
+}
 
 
 export async function getAvailableMessages() {

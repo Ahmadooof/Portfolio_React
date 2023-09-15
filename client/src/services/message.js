@@ -10,18 +10,10 @@ export async function sendMessage(userMessage) {
       body: JSON.stringify({ userMessage }),
     });
 
-    if (response.status === 200) {
-      const data = await response.json();
-      return { status: response.status, success: true, responseText: data.response };
-    } else if (response.status === 400) {
-      return { status: response.status, success: false, message: 'Bad request, please check body.' };
-    } else if (response.status === 404) {
-      return { status: response.status, success: false, message: 'User or usage not found' };
+    if (response.status === 200 || response.status === 429) {
+      return await response.json();
     }
-    else if (response.status === 429) {
-      return { status: response.status, success: false, message: 'No more available messages' };
-    } else {
-      // Handle other response status codes as needed
+    else {
       throw new Error('Unexpected response status: ' + response.status);
     }
   } catch (error) {

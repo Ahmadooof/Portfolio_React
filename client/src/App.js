@@ -19,16 +19,6 @@ function App() {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    insertUser()
-      .then((userIpAddress) => {
-      })
-      .catch((error) => {
-        // Handle errors
-        // console.error('Error capturing IP address:', error);
-      });
-  }, []);
-
   return (
     <>
       <HeaderProvider> {/* Wrap your entire app with HeaderProvider */}
