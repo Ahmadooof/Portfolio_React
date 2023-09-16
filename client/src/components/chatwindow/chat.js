@@ -3,18 +3,24 @@ import React, { useEffect, useRef, useState } from "react";
 import { isUserExists, userWithDefaultMessages } from "../../services/user";
 import { getAvailableMessages, insertNewUsageCredits, isUsageCreditsExist } from "../../services/usage";
 import { sendMessage } from "../../services/message";
+import { ReactComponent as RobotLogo } from "../../robot_logo.svg"
 
 function ChatWindow() {
 
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isSVGClicked, setIsSVGClicked] = useState(false);
   const [availableMessages, setAvailableMessages] = useState(null);
   const [usageCreditsExist, setUsageCreditsExist] = useState(false);
   const [userExists, setUserExists] = useState(false);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleSVG = () => {
+    setIsSVGClicked(!isSVGClicked);
   };
 
   const handleMessageChange = (e) => {
@@ -111,16 +117,16 @@ function ChatWindow() {
 
   return (
     <div>
-      <button className={`toggle-chat-button ${isOpen ? "active" : ""}`} onClick={toggleChat}>
-        {isOpen ? <i className="fas fa-times"></i> : <i className="fas fa-comments"></i>}
-      </button>
+    <div className="svgContainer" onClick={toggleChat}>
+      <RobotLogo onClick={toggleSVG} className={isSVGClicked ? 'toggleSVGAnimation' : ''}/>
+    </div>
 
       {isOpen && (
 
         <div className="chat-container" >
           <div className="chat-navbar">
             <span className="chat-title">Available Messages: {availableMessages}</span>
-            <button className="close-button" onClick={handleCloseChat}>
+            <button className="close-button" onClick={() => {handleCloseChat(); toggleSVG();}}>
               <i className="fas fa-times"></i>
             </button>
           </div>

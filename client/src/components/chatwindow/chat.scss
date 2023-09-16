@@ -2,12 +2,12 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  width: 25vw;
+  width: 27vw;
   min-width: 250px;
-  height: 60vh;
+  height: 65vh;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 3rem;
+  right: 3rem;
   border-radius: 10px;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -15,6 +15,36 @@
   z-index: 2;
   transition: transform 0.3s ease-in-out;
   transform: translateY(0);
+}
+
+.svgContainer{
+  background-color: white;
+  margin: 1vh;
+  position: fixed;
+  bottom: 1vh;
+  border: none;
+  outline: none;
+  right: 0vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: transparent;
+  svg {
+    cursor: pointer;
+    width: 50%;
+    transition: fill 0.3s ease, transform 0.3s ease;
+  }
+
+  svg:hover {
+    fill: #00f; /* Changes color to blue on hover */
+    transform: scale(1.1); /* Slightly enlarges the SVG on hover */
+  }
+
+  svg.toggleSVGAnimation {
+    transform: rotate(315deg);
+    margin-right: -4rem;
+  }
 }
 
 .chat-container.closed {
