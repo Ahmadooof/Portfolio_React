@@ -17,6 +17,35 @@
   transform: translateY(0);
 }
 
+.askMe {
+  position: fixed;
+  bottom: 10em;
+  right: 4em;
+}
+
+.speechBubble {
+  background-color: #3f7283;
+  color: white;
+  width: 10em;
+  padding: 1em;
+  border-radius: 10px;
+  position: relative;
+}
+
+.speechBubble::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 10px solid transparent;
+  border-bottom-color: #3f7283;
+  margin-left: -10px;
+  -webkit-transform: rotate(50deg);
+  transform: rotate(50deg);
+  border-right: 50px solid transparent;
+}
+
+
 .svgContainer{
   background-color: white;
   margin: 1vh;

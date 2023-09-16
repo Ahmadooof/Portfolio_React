@@ -11,8 +11,6 @@ function ChatWindow() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSVGClicked, setIsSVGClicked] = useState(false);
   const [availableMessages, setAvailableMessages] = useState(null);
-  const [usageCreditsExist, setUsageCreditsExist] = useState(false);
-  const [userExists, setUserExists] = useState(false);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -116,9 +114,14 @@ function ChatWindow() {
 
   return (
     <div>
-    <div className="svgContainer" onClick={toggleChat}>
-      <RobotLogo onClick={toggleSVG} className={isSVGClicked ? 'toggleSVGAnimation' : ''}/>
-    </div>
+      <div className="svgContainer">
+        <div class="askMe" onClick={(e) => e.stopPropagation()}>
+          <div class="speechBubble">
+            Ask me about Ahmad
+          </div>
+        </div>
+        <RobotLogo onClick={()=>{toggleSVG(); toggleChat();}} className={isSVGClicked ? 'toggleSVGAnimation' : ''} />
+      </div>
 
       {isOpen && (
 
