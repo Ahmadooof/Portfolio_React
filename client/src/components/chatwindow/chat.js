@@ -1,9 +1,8 @@
 import "./chat.scss";
 import React, { useEffect, useRef, useState } from "react";
-import { isUserExists, userWithDefaultMessages } from "../../services/user";
-import { getAvailableMessages, insertNewUsageCredits, isUsageCreditsExist } from "../../services/usage";
+import { userWithDefaultMessages } from "../../services/user";
 import { sendMessage } from "../../services/message";
-import { ReactComponent as RobotLogo } from "../../robot_logo.svg"
+import { ReactComponent as RobotLogo } from "../../components/svg/robot_logo.svg"
 
 function ChatWindow() {
 
