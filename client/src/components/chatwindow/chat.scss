@@ -17,19 +17,15 @@
   transform: translateY(0);
 }
 
-.askMe {
-  position: fixed;
-  bottom: 10em;
-  right: 4em;
-}
+
 
 .speechBubble {
   background-color: #3f7283;
   color: white;
-  width: 10em;
-  padding: 1em;
+  padding: 0.7em;
   border-radius: 10px;
   position: relative;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .speechBubble::before {
@@ -56,9 +52,11 @@
   right: 0vh;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-end;
   background-color: transparent;
+  height: 18rem;
+
   svg {
     cursor: pointer;
     width: 50%;
@@ -75,6 +73,16 @@
     margin-right: -4rem;
   }
 }
+
+.askMe {
+  position: fixed;
+  bottom: 10em;
+  right: 4em;
+  opacity: 1;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+
 
 .chat-container.closed {
   transform: translateY(100%);
@@ -127,9 +135,11 @@
   padding: 10px;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   display: flex;
-  align-items: center;
   background-color: #fff;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
 }
 
 /* Optional: Style for chat input field */
